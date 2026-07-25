@@ -60,22 +60,67 @@ section{ position:relative; }
 }
 
 /* ---------- Preloader ---------- */
-#preloader{
-  position:fixed; inset:0; background:var(--color-royal);
-  z-index:5000; display:flex; align-items:center; justify-content:center;
-  transition:opacity .6s ease, visibility .6s ease;
+/* ---------- Preloader (Shatter-to-Assemble) ---------- */
+#preloader {
+  position: fixed; 
+  inset: 0; 
+  background: var(--color-dark, #111); /* Fallback color added if var isn't defined */
+  z-index: 5000; 
+  display: flex; 
+  align-items: center; 
+  justify-content: center;
+  transition: opacity 0.8s ease, visibility 0.8s ease;
 }
-#preloader.hide{ opacity:0; visibility:hidden; }
-.preloader-mark{
-  font-family:var(--font-display); color:var(--color-gold); font-size:2rem;
-  letter-spacing:4px; position:relative; padding-bottom:14px;
+
+#preloader.hide { 
+  opacity: 0; 
+  visibility: hidden; 
 }
-.preloader-mark::after{
-  content:''; position:absolute; bottom:0; left:50%; translate:-50% 0;
-  width:60px; height:2px; background:var(--color-gold);
-  animation:loadbar 1.1s ease-in-out infinite;
+
+.logo-reveal {
+  position: relative;
+  width: 240px; 
+  height: 240px;
+  perspective: 1400px;
 }
-@keyframes loadbar{ 0%{width:0;} 50%{width:60px;} 100%{width:0;} }
+
+.logo-piece {
+  position: absolute;
+  background-repeat: no-repeat;
+  opacity: 0;
+  will-change: transform, opacity;
+  transition: transform 1.1s cubic-bezier(0.16, 1, 0.3, 1), opacity 0.7s ease;
+  backface-visibility: hidden;
+}
+
+.logo-piece.in {
+  opacity: 1;
+  transform: translate3d(0,0,0) rotateX(0) rotateY(0) rotateZ(0) scale(1) !important;
+}
+
+@media (max-width: 480px) {
+  .logo-reveal { 
+    width: 180px; 
+    height: 180px; 
+  }
+}
+
+/* ---------- Header Logo ---------- */
+.logo { 
+  display: flex; 
+  align-items: center; 
+}
+
+.logo-img { 
+  height: 100px; 
+  width: auto; 
+  display: block; 
+  transition: height 0.35s ease; 
+}
+
+header.scrolled .logo-img { 
+  height: 44px; 
+}
 
 /* ---------- Buttons ---------- */
 .btn{

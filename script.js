@@ -4,28 +4,110 @@
 
 document.addEventListener('DOMContentLoaded', () => {
 
-  /* ---------- Preloader ---------- */
+  /* ---------- Shatter-to-Assemble Logo (Preloader) ---------- */
+  function buildLogoReveal(container, src, grid = 7) {
+    if (!container) return 0;
+    container.innerHTML = '';
+
+    // Use real pixel geometry (not percentages) so rounding never leaves
+    // hairline / "+" shaped seams between adjacent tiles.
+    const rect = container.getBoundingClientRect();
+    const W = Math.round(rect.width);
+    const H = Math.round(rect.height);
+    const pieceW = W / grid;
+    const pieceH = H / grid;
+    const overlap = 1.5; // px of overlap on shared edges to guarantee no gap
+
+    const pieces = [];
+
+    for (let row = 0; row < grid; row++) {
+      for (let col = 0; col < grid; col++) {
+        const piece = document.createElement('div');
+        piece.className = 'logo-piece';
+
+        const baseLeft = col * pieceW;
+        const baseTop = row * pieceH;
+        const left = baseLeft - (col > 0 ? overlap : 0);
+        const top = baseTop - (row > 0 ? overlap : 0);
+        const width = pieceW + (col > 0 ? overlap : 0) + (col < grid - 1 ? overlap : 0);
+        const height = pieceH + (row > 0 ? overlap : 0) + (row < grid - 1 ? overlap : 0);
+
+        piece.style.left = left + 'px';
+        piece.style.top = top + 'px';
+        piece.style.width = width + 'px';
+        piece.style.height = height + 'px';
+        // background is sized to the FULL container in px, and every piece
+        // shares the same absolute coordinate space, so overlap never distorts the image.
+        piece.style.backgroundImage = `url("${encodeURI(src)}")`;
+        piece.style.backgroundSize = `${W}px ${H}px`;
+        piece.style.backgroundPosition = `-${left}px -${top}px`;
+
+        // scattered random starting position (the "broken pieces")
+        const randX = (Math.random() * 2 - 1) * 280;
+        const randY = (Math.random() * 2 - 1) * 280;
+        const randZ = (Math.random() * 2 - 1) * 320;
+        const randRotX = (Math.random() * 2 - 1) * 200;
+        const randRotY = (Math.random() * 2 - 1) * 200;
+        const randRotZ = (Math.random() * 2 - 1) * 200;
+
+        piece.style.transform = `translate3d(${randX}px, ${randY}px, ${randZ}px) rotateX(${randRotX}deg) rotateY(${randRotY}deg) rotateZ(${randRotZ}deg) scale(0.3)`;
+
+        container.appendChild(piece);
+        pieces.push({ el: piece, row, col });
+      }
+    }
+
+    // stagger the assembly outward-in so it "converges" toward the center
+    const center = (grid - 1) / 2;
+    let maxDelay = 0;
+    pieces.forEach(({ el, row, col }) => {
+      const dist = Math.hypot(row - center, col - center);
+      const delay = dist * 90 + Math.random() * 150;
+      maxDelay = Math.max(maxDelay, delay);
+      setTimeout(() => el.classList.add('in'), 250 + delay);
+    });
+
+    return 250 + maxDelay + 1100; // total ms until fully assembled
+  }
+
+  /* ---------- Preloader Initialization ---------- */
   const preloader = document.getElementById('preloader');
+  const logoRevealEl = document.getElementById('logoReveal');
+  let assembleTime = 1800;
+
+  if (logoRevealEl) {
+    assembleTime = buildLogoReveal(logoRevealEl, 'assets/images/tripura-logo.png', 7);
+  }
+
+  // Hide preloader once fully loaded AND assembly is finished
   window.addEventListener('load', () => {
-    setTimeout(() => preloader && preloader.classList.add('hide'), 400);
+    setTimeout(() => {
+      if (preloader) preloader.classList.add('hide');
+    }, assembleTime + 400);
   });
-  // fallback in case load already fired
-  setTimeout(() => preloader && preloader.classList.add('hide'), 1800);
+
+  // Fallback failsafe in case 'load' event fires too quickly or fails
+  setTimeout(() => {
+    if (preloader && !preloader.classList.contains('hide')) {
+      preloader.classList.add('hide');
+    }
+  }, Math.max(assembleTime + 1200, 5000));
+
 
   /* ---------- Scroll progress bar ---------- */
   const progressBar = document.getElementById('scroll-progress');
-  function updateProgress(){
+  function updateProgress() {
     const h = document.documentElement;
     const scrolled = (h.scrollTop) / (h.scrollHeight - h.clientHeight) * 100;
-    if(progressBar) progressBar.style.width = scrolled + '%';
+    if (progressBar) progressBar.style.width = scrolled + '%';
   }
   document.addEventListener('scroll', updateProgress);
 
   /* ---------- Sticky header ---------- */
   const header = document.getElementById('siteHeader');
-  function handleHeaderScroll(){
-    if(!header) return;
-    if(window.scrollY > 60) header.classList.add('scrolled');
+  function handleHeaderScroll() {
+    if (!header) return;
+    if (window.scrollY > 60) header.classList.add('scrolled');
     else header.classList.remove('scrolled');
   }
   document.addEventListener('scroll', handleHeaderScroll);
@@ -34,7 +116,7 @@ document.addEventListener('DOMContentLoaded', () => {
   /* ---------- Mobile menu ---------- */
   const hamburger = document.getElementById('hamburger');
   const navLinks = document.getElementById('navLinks');
-  if(hamburger){
+  if (hamburger) {
     hamburger.addEventListener('click', () => {
       navLinks.classList.toggle('open');
       hamburger.classList.toggle('active');
@@ -44,17 +126,17 @@ document.addEventListener('DOMContentLoaded', () => {
 
   /* ---------- Back to top ---------- */
   const backToTop = document.getElementById('backToTop');
-  if(backToTop){
+  if (backToTop) {
     document.addEventListener('scroll', () => {
-      if(window.scrollY > 500) backToTop.classList.add('show');
+      if (window.scrollY > 500) backToTop.classList.add('show');
       else backToTop.classList.remove('show');
     });
-    backToTop.addEventListener('click', () => window.scrollTo({top:0, behavior:'smooth'}));
+    backToTop.addEventListener('click', () => window.scrollTo({ top: 0, behavior: 'smooth' }));
   }
 
   /* ---------- Button ripple ---------- */
   document.querySelectorAll('[data-ripple], .btn').forEach(btn => {
-    btn.addEventListener('click', function(e){
+    btn.addEventListener('click', function(e) {
       const rect = this.getBoundingClientRect();
       const circle = document.createElement('span');
       circle.className = 'ripple';
@@ -69,7 +151,7 @@ document.addEventListener('DOMContentLoaded', () => {
   const revealEls = document.querySelectorAll('[data-reveal]');
   const revealObserver = new IntersectionObserver((entries) => {
     entries.forEach(entry => {
-      if(entry.isIntersecting){
+      if (entry.isIntersecting) {
         entry.target.classList.add('in-view');
         revealObserver.unobserve(entry.target);
       }
@@ -83,16 +165,16 @@ document.addEventListener('DOMContentLoaded', () => {
   let currentSlide = 0;
   let slideTimer;
 
-  if(slides.length && dotsWrap){
+  if (slides.length && dotsWrap) {
     slides.forEach((_, i) => {
       const dot = document.createElement('button');
       dot.className = 'hero-dot' + (i === 0 ? ' active' : '');
-      dot.setAttribute('aria-label', 'Go to slide ' + (i+1));
+      dot.setAttribute('aria-label', 'Go to slide ' + (i + 1));
       dot.addEventListener('click', () => goToSlide(i));
       dotsWrap.appendChild(dot);
     });
 
-    function goToSlide(index){
+    function goToSlide(index) {
       slides[currentSlide].classList.remove('active');
       dotsWrap.children[currentSlide].classList.remove('active');
       currentSlide = index;
@@ -101,12 +183,12 @@ document.addEventListener('DOMContentLoaded', () => {
       resetTimer();
     }
 
-    function nextSlide(){
+    function nextSlide() {
       const next = (currentSlide + 1) % slides.length;
       goToSlide(next);
     }
 
-    function resetTimer(){
+    function resetTimer() {
       clearInterval(slideTimer);
       slideTimer = setInterval(nextSlide, 4000);
     }
@@ -117,7 +199,7 @@ document.addEventListener('DOMContentLoaded', () => {
   const counters = document.querySelectorAll('.stat-num');
   const counterObserver = new IntersectionObserver((entries) => {
     entries.forEach(entry => {
-      if(entry.isIntersecting){
+      if (entry.isIntersecting) {
         animateCounter(entry.target);
         counterObserver.unobserve(entry.target);
       }
@@ -125,15 +207,15 @@ document.addEventListener('DOMContentLoaded', () => {
   }, { threshold: 0.5 });
   counters.forEach(c => counterObserver.observe(c));
 
-  function animateCounter(el){
+  function animateCounter(el) {
     const target = parseInt(el.getAttribute('data-count'), 10);
     const duration = 1600;
     const startTime = performance.now();
-    function tick(now){
+    function tick(now) {
       const progress = Math.min((now - startTime) / duration, 1);
       const eased = 1 - Math.pow(1 - progress, 3);
       el.textContent = Math.floor(eased * target) + (target >= 100 && progress < 1 ? '' : (progress === 1 ? (el.parentElement.querySelector('.stat-label').textContent.includes('%') ? '%+' : '+') : ''));
-      if(progress < 1) requestAnimationFrame(tick);
+      if (progress < 1) requestAnimationFrame(tick);
       else el.textContent = target + (target === 99 ? '%' : '+');
     }
     requestAnimationFrame(tick);
@@ -141,25 +223,21 @@ document.addEventListener('DOMContentLoaded', () => {
 
   /* ---------- Plan Your Event data + cards ---------- */
   const eventTypes = [
-    { name:'Wedding', img:'https://images.unsplash.com/photo-1519741497674-611481863552?q=80&w=800' },
-    { name:'Reception', img:'https://www.caratlane.com/blog/wp-content/uploads/2023/08/2281A.jpg' },
-    { name:'Birthday', img:'https://images.unsplash.com/photo-1464349095431-e9a21285b5f3?q=80&w=800' },
-    { name:'Corporate Event', img:'https://images.unsplash.com/photo-1560523160-754a9e25c68f?q=80&w=800' },
-    { name:'Haldi', img:'https://images.unsplash.com/photo-1600096194534-95cf5ece04cf?q=80&w=800' },
-    { name:'Mehendi', img:'https://images.unsplash.com/photo-1600091166971-7f9faad6c1e2?q=80&w=800' },
-    { name:'Engagement', img:'https://images.unsplash.com/photo-1519225421980-715cb0215aed?q=80&w=800' },
-    { name:'Baby Shower', img:'https://images.unsplash.com/photo-1519741497674-611481863552?q=80&w=800' },
-    { name:'Anniversary', img:'https://images.unsplash.com/photo-1519167758481-83f550bb49b3?q=80&w=800' },
-    { name:'Farewell', img:'https://images.unsplash.com/photo-1523580494863-6f3031224c94?q=80&w=800' },
-    { name:'Cultural Event', img:'https://images.unsplash.com/photo-1533174072545-7a4b6ad7a6c3?q=80&w=800' },
-    { name:'Seminar', img:'https://images.unsplash.com/photo-1560523160-754a9e25c68f?q=80&w=800' },
-    { name:'Workshop', img:'https://images.unsplash.com/photo-1517486808906-6ca8b3f04846?q=80&w=800' },
-    { name:'College Fest', img:'https://images.unsplash.com/photo-1523580494863-6f3031224c94?q=80&w=800' },
-    { name:'Private Party', img:'https://images.unsplash.com/photo-1464349095431-e9a21285b5f3?q=80&w=800' }
-  ];
+    { name: 'Wedding', img: 'https://images.unsplash.com/photo-1519741497674-611481863552?q=80&w=800' },
+    { name: 'Reception', img: 'assets/images/Reception.jpeg' },
+    { name: 'Birthday', img: 'https://images.unsplash.com/photo-1464349095431-e9a21285b5f3?q=80&w=800' },
+    { name: 'Corporate Event', img: 'https://images.unsplash.com/photo-1560523160-754a9e25c68f?q=80&w=800' },
+    { name: 'Haldi', img: 'assets/images/haldi.webp' },
+    { name: 'Mehendi', img: 'https://images.unsplash.com/photo-1600091166971-7f9faad6c1e2?q=80&w=800' },
+    { name: 'Engagement', img: 'assets/images/engagement.jpg' },
+    { name: 'Baby Shower', img: 'assets/images/baby-shower.jpg' },
+    { name: 'Anniversary', img: 'https://images.unsplash.com/photo-1519167758481-83f550bb49b3?q=80&w=800' },
+    { name: 'Farewell', img: 'https://images.unsplash.com/photo-1523580494863-6f3031224c94?q=80&w=800' },
+    { name: 'Cultural Event', img: 'https://images.unsplash.com/photo-1533174072545-7a4b6ad7a6c3?q=80&w=800' }
+   ];
 
   const eventsGrid = document.getElementById('eventsGrid');
-  if(eventsGrid){
+  if (eventsGrid) {
     eventTypes.forEach(evt => {
       const card = document.createElement('div');
       card.className = 'event-card';
@@ -186,10 +264,10 @@ document.addEventListener('DOMContentLoaded', () => {
   let selectedVenue = null;
   let selectedEvent = null;
 
-  if(eventsGrid){
+  if (eventsGrid) {
     eventsGrid.addEventListener('click', (e) => {
       const btn = e.target.closest('.event-book-btn');
-      if(!btn) return;
+      if (!btn) return;
       selectedEvent = btn.getAttribute('data-event');
       modalEventName.textContent = selectedEvent;
       selectedVenue = null;
@@ -202,7 +280,7 @@ document.addEventListener('DOMContentLoaded', () => {
     });
   }
 
-  function selectVenue(option, value){
+  function selectVenue(option, value) {
     lawnOption.classList.remove('selected');
     hallOption.classList.remove('selected');
     option.classList.add('selected');
@@ -211,18 +289,18 @@ document.addEventListener('DOMContentLoaded', () => {
     continueBtn.disabled = false;
   }
 
-  if(lawnOption) lawnOption.addEventListener('click', () => selectVenue(lawnOption, 'lawn'));
-  if(hallOption) hallOption.addEventListener('click', () => selectVenue(hallOption, 'hall'));
+  if (lawnOption) lawnOption.addEventListener('click', () => selectVenue(lawnOption, 'lawn'));
+  if (hallOption) hallOption.addEventListener('click', () => selectVenue(hallOption, 'hall'));
 
-  if(modalClose) modalClose.addEventListener('click', () => modal.classList.remove('show'));
-  if(modal) modal.addEventListener('click', (e) => { if(e.target === modal) modal.classList.remove('show'); });
+  if (modalClose) modalClose.addEventListener('click', () => modal.classList.remove('show'));
+  if (modal) modal.addEventListener('click', (e) => { if (e.target === modal) modal.classList.remove('show'); });
 
   const lawnSection = document.getElementById('lawnSection');
   const hallSection = document.getElementById('hallSection');
 
-  function showVenueSection(target){
+  function showVenueSection(target) {
     [lawnSection, hallSection].forEach(sec => sec && sec.classList.remove('active'));
-    if(target){
+    if (target) {
       target.classList.add('active');
       document.body.classList.add('venue-view');
       target.querySelectorAll('[data-reveal]').forEach(el => { el.classList.add('in-view'); });
@@ -232,18 +310,18 @@ document.addEventListener('DOMContentLoaded', () => {
     }
   }
 
-  if(continueBtn){
+  if (continueBtn) {
     continueBtn.addEventListener('click', () => {
-      if(!selectedVenue) return;
+      if (!selectedVenue) return;
       modal.classList.remove('show');
 
-      if(selectedVenue === 'lawn'){
+      if (selectedVenue === 'lawn') {
         const field = document.getElementById('lawnEventType');
-        if(field && selectedEvent) field.value = selectedEvent;
+        if (field && selectedEvent) field.value = selectedEvent;
         showVenueSection(lawnSection);
       } else {
         const field = document.getElementById('hallEventType');
-        if(field && selectedEvent) field.value = selectedEvent;
+        if (field && selectedEvent) field.value = selectedEvent;
         showVenueSection(hallSection);
       }
     });
@@ -257,43 +335,18 @@ document.addEventListener('DOMContentLoaded', () => {
     });
   });
 
-  // Header / footer nav links pointing to in-page anchors (#about, #gallery, etc.)
-  // should first exit venue view (which hides #mainSections) before scrolling.
-  document.querySelectorAll('a[href^="#"], a[href*="index.html#"]').forEach(link => {
-    link.addEventListener('click', (e) => {
-      const href = link.getAttribute('href');
-      const hashIndex = href.indexOf('#');
-      if(hashIndex === -1) return;
-      const targetId = href.slice(hashIndex + 1);
-      if(!targetId) return;
-      const targetEl = document.getElementById(targetId);
-      if(!targetEl) return; // let the browser handle it normally (e.g. links to other pages)
-
-      e.preventDefault();
-      const wasVenueView = document.body.classList.contains('venue-view');
-      if(wasVenueView) showVenueSection(null);
-
-      // wait a tick for #mainSections to become visible again before measuring/scrolling
-      requestAnimationFrame(() => {
-        requestAnimationFrame(() => {
-          targetEl.scrollIntoView({ behavior: 'smooth', block: 'start' });
-        });
-      });
-    });
-  });
-
   /* ---------- Testimonials (auto scroll, infinite loop) ---------- */
   const testimonialsData = [
-    { name:'Ravi & Sneha', city:'Agartala', text:'Tripura Convention made our wedding effortless. The hall looked breathtaking and the team handled everything with real care.' },
-    { name:'Priya Debbarma', city:'Udaipur, Tripura', text:'We hosted our company\u2019s annual meet here. Professional staff, great sound setup, and the food was outstanding.' },
-    { name:'Ankit Roy', city:'Agartala', text:'The open lawn was perfect for our haldi ceremony. Bright, spacious, and beautifully decorated.' },
-    { name:'Moushumi Das', city:'Dharmanagar', text:'From booking to the final event day, communication was smooth. Highly recommend for any celebration.' },
-    { name:'Suman Chakraborty', city:'Agartala', text:'Our son\u2019s birthday party felt like a five-star affair. The decoration team truly understood our vision.' },
-    { name:'Ritu & Arjun', city:'Kailashahar', text:'Best banquet in the region. The staff went above and beyond for our reception night.' }
+    { name: 'Ravi & Sneha', city: 'Agartala', text: 'Tripura Convention made our wedding effortless. The hall looked breathtaking and the team handled everything with real care.' },
+    { name: 'Priya Debbarma', city: 'Udaipur, Tripura', text: 'We hosted our company’s annual meet here. Professional staff, great sound setup, and the food was outstanding.' },
+    { name: 'Ankit Roy', city: 'Agartala', text: 'The open lawn was perfect for our haldi ceremony. Bright, spacious, and beautifully decorated.' },
+    { name: 'Moushumi Das', city: 'Dharmanagar', text: 'From booking to the final event day, communication was smooth. Highly recommend for any celebration.' },
+    { name: 'Suman Chakraborty', city: 'Agartala', text: 'Our son’s birthday party felt like a five-star affair. The decoration team truly understood our vision.' },
+    { name: 'Ritu & Arjun', city: 'Kailashahar', text: 'Best banquet in the region. The staff went above and beyond for our reception night.' }
   ];
 
   const testiTrack = document.getElementById('testiTrack');
-  if(testiTrack){
+  if (testiTrack) {
     const buildCard = (t) => `
       <div class="testi-card">
         <div class="testi-stars">★★★★★</div>
@@ -318,13 +371,13 @@ document.addEventListener('DOMContentLoaded', () => {
     const params = new URLSearchParams(window.location.search);
     const eventField = form.querySelector('[name="eventType"]');
     const eventFromUrl = params.get('event');
-    if(eventField && eventFromUrl && !eventField.value) eventField.value = eventFromUrl;
+    if (eventField && eventFromUrl && !eventField.value) eventField.value = eventFromUrl;
 
     form.addEventListener('submit', (e) => {
       e.preventDefault();
       const data = new FormData(form);
       const query = new URLSearchParams();
-      for(const [key, value] of data.entries()) query.append(key, value);
+      for (const [key, value] of data.entries()) query.append(key, value);
       query.append('venue', form.getAttribute('data-venue') || '');
       window.location.href = `payment.html?${query.toString()}`;
     });
