@@ -112,7 +112,7 @@ section{ position:relative; }
 }
 
 .logo-img { 
-  height: 100px; 
+  height: 54px; 
   width: auto; 
   display: block; 
   transition: height 0.35s ease; 
@@ -140,6 +140,8 @@ header.scrolled .logo-img {
 .ripple{ position:absolute; border-radius:50%; background:rgba(255,255,255,.55); transform:scale(0); animation:ripple .6s ease-out; pointer-events:none; }
 @keyframes ripple{ to{ transform:scale(4); opacity:0; } }
 
+body.mobile-menu-open{ overflow:hidden; }
+
 /* ---------- Header ---------- */
 header{
   position:fixed; top:0; left:0; width:100%; z-index:1000;
@@ -160,6 +162,8 @@ header.scrolled{
 .logo-text{ font-family:var(--font-display); font-size:1.35rem; font-weight:700; color:var(--color-royal); }
 header:not(.scrolled) .logo-text{ color:#fff; }
 .logo-text span{ color:var(--color-gold); }
+.logo-img{ height:56px; width:auto; display:block; transition:height .35s ease; }
+header.scrolled .logo-img{ height:46px; }
 
 .nav-links{ display:flex; gap:38px; }
 .nav-links a{
@@ -175,9 +179,20 @@ header:not(.scrolled) .nav-links a{ color:#fff; }
 .nav-links a:hover{ color:var(--color-gold); }
 
 .nav-cta{ display:flex; align-items:center; gap:20px; }
-.hamburger{ display:none; flex-direction:column; gap:5px; z-index:1100; }
-.hamburger span{ width:26px; height:2px; background:var(--color-royal); transition:.3s; }
+.hamburger{ display:none; flex-direction:column; gap:5px; z-index:1100; position:relative; }
+.hamburger span{ width:26px; height:2px; background:var(--color-royal); transition:.3s; transform-origin:center; }
 header:not(.scrolled) .hamburger span{ background:#fff; }
+.hamburger.active span{ background:var(--color-royal) !important; }
+.hamburger.active span:nth-child(1){ transform:translateY(7px) rotate(45deg); }
+.hamburger.active span:nth-child(2){ opacity:0; }
+.hamburger.active span:nth-child(3){ transform:translateY(-7px) rotate(-45deg); }
+
+.nav-close{
+  display:none; position:absolute; top:22px; right:22px; width:36px; height:36px;
+  border-radius:50%; align-items:center; justify-content:center; font-size:1.6rem; line-height:1;
+  color:var(--color-royal); background:rgba(0,0,0,.05); transition:.3s;
+}
+.nav-close:hover{ background:var(--color-gold); color:#fff; transform:rotate(90deg); }
 
 /* ---------- Hero (vertical slider) ---------- */
 .hero{
@@ -397,10 +412,13 @@ footer{ background:var(--color-dark); color:#ddd; padding:80px 0 30px; }
 .footer-social{ display:flex; gap:12px; margin-top:20px; }
 .footer-social a{
   width:40px; height:40px; border-radius:50%; border:1px solid rgba(255,255,255,.25);
-  display:flex; align-items:center; justify-content:center; transition:.3s; font-size:.9rem;
+  display:flex; align-items:center; justify-content:center; transition:.3s;
+  font-size:1rem; color:#fff;
 }
-.footer-social a:hover{ background:var(--gradient-gold-blue); border-color:transparent; transform:translateY(-4px); }
-.newsletter-form{ display:flex; margin-top:16px; border-radius:50px; overflow:hidden; background:rgba(255,255,255,.08); }
+.footer-social a:hover{
+  background:var(--gradient-gold-blue); border-color:transparent; transform:translateY(-4px);
+  color:#fff;
+}.newsletter-form{ display:flex; margin-top:16px; border-radius:50px; overflow:hidden; background:rgba(255,255,255,.08); }
 .newsletter-form input{ flex:1; background:none; border:none; padding:14px 18px; color:#fff; font-size:.85rem; }
 .newsletter-form input::placeholder{ color:#999; }
 .newsletter-form button{ padding:0 20px; background:var(--gradient-gold-blue); color:#fff; }
@@ -499,10 +517,26 @@ body.venue-view #mainSections{ display:none; }
   }
   .nav-links.open{ right:0; }
   .nav-links a{ color:var(--color-royal) !important; }
+  .nav-close{ display:flex; }
   .hamburger{ display:flex; }
+
+  /* keep the header from overflowing / shifting right on narrow screens */
+  .nav-wrap{ gap:12px; }
+  .logo-img{ height:40px; }
+  .nav-cta{ gap:10px; }
+  .nav-cta .btn-primary{ padding:10px 18px; font-size:.82rem; }
+
   .stats-grid{ grid-template-columns:1fr 1fr; }
   .about-list{ grid-template-columns:1fr; }
   .footer-grid{ grid-template-columns:1fr; text-align:left; }
   .venue-options{ flex-direction:column; }
   .booking-wrap{ padding:30px 20px; }
+
+  /* show more of the actual photo instead of an aggressive center-crop */
+  .hero-slide, .page-hero{ background-position:center top; }
+  .hero{ height:100svh; }
+}
+
+@media (max-width: 420px){
+  .nav-cta .btn-primary{ display:none; } /* logo + hamburger only: prevents overflow on very small phones */
 }

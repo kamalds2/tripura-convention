@@ -116,12 +116,35 @@ document.addEventListener('DOMContentLoaded', () => {
   /* ---------- Mobile menu ---------- */
   const hamburger = document.getElementById('hamburger');
   const navLinks = document.getElementById('navLinks');
-  if (hamburger) {
+  const navClose = document.getElementById('navClose');
+
+  function openMobileMenu() {
+    navLinks.classList.add('open');
+    hamburger.classList.add('active');
+    document.body.classList.add('mobile-menu-open');
+  }
+  function closeMobileMenu() {
+    navLinks.classList.remove('open');
+    hamburger.classList.remove('active');
+    document.body.classList.remove('mobile-menu-open');
+  }
+
+  if (hamburger && navLinks) {
     hamburger.addEventListener('click', () => {
-      navLinks.classList.toggle('open');
-      hamburger.classList.toggle('active');
+      const isOpen = navLinks.classList.contains('open');
+      isOpen ? closeMobileMenu() : openMobileMenu();
     });
-    navLinks.querySelectorAll('a').forEach(a => a.addEventListener('click', () => navLinks.classList.remove('open')));
+    if (navClose) navClose.addEventListener('click', closeMobileMenu);
+    navLinks.querySelectorAll('a').forEach(a => a.addEventListener('click', closeMobileMenu));
+    // tapping the dimmed backdrop outside the panel also closes it
+    document.addEventListener('click', (e) => {
+      if (!navLinks.classList.contains('open')) return;
+      if (navLinks.contains(e.target) || e.target === hamburger || hamburger.contains(e.target)) return;
+      closeMobileMenu();
+    });
+    document.addEventListener('keydown', (e) => {
+      if (e.key === 'Escape') closeMobileMenu();
+    });
   }
 
   /* ---------- Back to top ---------- */
@@ -335,6 +358,41 @@ document.addEventListener('DOMContentLoaded', () => {
     });
   });
 
+  // Header / footer nav links pointing to in-page anchors (#home, #about, #gallery, etc.)
+  // must first exit venue view (which hides #mainSections) before scrolling,
+  // otherwise the browser tries to scroll to a hidden element and nothing happens.
+  document.querySelectorAll('a[href^="#"]').forEach(link => {
+    const href = link.getAttribute('href');
+    if (!href || href === '#') return;
+    const targetId = href.slice(1);
+    const targetEl = document.getElementById(targetId);
+    if (!targetEl) return; // not an in-page anchor we control, let default behavior happen
+
+    link.addEventListener('click', (e) => {
+      e.preventDefault();
+
+      const wasVenueView = document.body.classList.contains('venue-view');
+      if (wasVenueView) showVenueSection(null);
+
+      // close mobile menu if open
+      if (navLinks) closeMobileMenu();
+
+      // wait a tick for #mainSections to become visible again before measuring/scrolling
+      requestAnimationFrame(() => {
+        requestAnimationFrame(() => {
+          targetEl.scrollIntoView({ behavior: 'smooth', block: 'start' });
+        });
+      });
+    });
+  });
+  // Footer/other links that should open a venue section directly
+document.querySelectorAll('[data-show-venue]').forEach(link => {
+  link.addEventListener('click', (e) => {
+    e.preventDefault();
+    const venue = link.getAttribute('data-show-venue');
+    showVenueSection(venue === 'lawn' ? lawnSection : hallSection);
+  });
+});
   /* ---------- Testimonials (auto scroll, infinite loop) ---------- */
   const testimonialsData = [
     { name: 'Ravi & Sneha', city: 'Agartala', text: 'Tripura Convention made our wedding effortless. The hall looked breathtaking and the team handled everything with real care.' },
