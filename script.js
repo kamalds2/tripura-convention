@@ -287,7 +287,7 @@ document.addEventListener('DOMContentLoaded', () => {
         li.classList.add('active');
         setShowcase(evt);
       });
-      li.addEventListener('click', () => openVenueModal(evt.name));
+      
       planEventList.appendChild(li);
     });
     // set initial showcase content
@@ -609,6 +609,26 @@ document.querySelectorAll('[data-show-venue]').forEach(link => {
       const item = q.parentElement;
       item.classList.toggle('open');
     });
+  });
+
+  /* ---------- Gallery: touch-tap hover simulation (mobile) ---------- */
+  // On touch devices, a single tap toggles the hover overlay.
+  // A second tap (or tapping outside) removes it.
+  const isTouchDevice = () => window.matchMedia('(hover: none)').matches;
+  document.querySelectorAll('.gallery-grid-item').forEach(item => {
+    item.addEventListener('click', (e) => {
+      if (!isTouchDevice()) return; // desktop handles via CSS :hover
+      const isActive = item.classList.contains('touch-active');
+      // clear all active items first
+      document.querySelectorAll('.gallery-grid-item.touch-active').forEach(el => el.classList.remove('touch-active'));
+      if (!isActive) {
+        item.classList.add('touch-active');
+        e.stopPropagation();
+      }
+    });
+  });
+  document.addEventListener('click', () => {
+    document.querySelectorAll('.gallery-grid-item.touch-active').forEach(el => el.classList.remove('touch-active'));
   });
 
 });
