@@ -244,37 +244,54 @@ document.addEventListener('DOMContentLoaded', () => {
     requestAnimationFrame(tick);
   }
 
-  /* ---------- Plan Your Event data + cards ---------- */
+  /* ---------- Plan Your Event data ---------- */
   const eventTypes = [
-    { name: 'Wedding', img: 'https://images.unsplash.com/photo-1519741497674-611481863552?q=80&w=800' },
-    { name: 'Reception', img: 'assets/images/Reception.jpeg' },
-    { name: 'Birthday', img: 'https://images.unsplash.com/photo-1464349095431-e9a21285b5f3?q=80&w=800' },
-    { name: 'Corporate Event', img: 'https://images.unsplash.com/photo-1560523160-754a9e25c68f?q=80&w=800' },
-    { name: 'Haldi', img: 'assets/images/haldi.webp' },
-    { name: 'Mehendi', img: 'https://images.unsplash.com/photo-1600091166971-7f9faad6c1e2?q=80&w=800' },
-    { name: 'Engagement', img: 'assets/images/engagement.jpg' },
-    { name: 'Baby Shower', img: 'assets/images/baby-shower.jpg' },
-    { name: 'Anniversary', img: 'https://images.unsplash.com/photo-1519167758481-83f550bb49b3?q=80&w=800' },
-    { name: 'Farewell', img: 'https://images.unsplash.com/photo-1523580494863-6f3031224c94?q=80&w=800' },
-    { name: 'Cultural Event', img: 'https://images.unsplash.com/photo-1533174072545-7a4b6ad7a6c3?q=80&w=800' }
-   ];
+    { name: 'Weddings', img: 'https://images.unsplash.com/photo-1519741497674-611481863552?q=80&w=1600', quote: 'Sacred unions composed in resplendent grandeur — every ritual elevated to royal ceremony.' },
+    { name: 'Reception', img: 'assets/images/Reception.jpeg', quote: 'An evening of elegance, laughter and gold-lit toasts to new beginnings.' },
+    { name: 'Birthday', img: 'https://images.unsplash.com/photo-1464349095431-e9a21285b5f3?q=80&w=1600', quote: 'Playful, personal and beautifully staged — birthdays made unforgettable.' },
+    { name: 'Corporate Event', img: 'https://images.unsplash.com/photo-1560523160-754a9e25c68f?q=80&w=1600', quote: 'Where business meets brilliance, in a setting built for impact.' },
+    { name: 'Haldi', img: 'assets/images/haldi.webp', quote: 'Turmeric, tradition and golden joy — rituals wrapped in warmth.' },
+    { name: 'Engagement', img: 'assets/images/Engagement.jpg', quote: 'The promise of forever, framed in candlelight and quiet elegance.' },
+    { name: 'Baby Shower', img: 'assets/images/baby-shower.jpg', quote: 'A tender celebration of new life, styled with soft grace.' },
+    { name: 'Cultural Events', img: 'https://images.unsplash.com/photo-1533174072545-7a4b6ad7a6c3?q=80&w=1600', quote: 'Heritage and artistry, staged with pride and colour.' }
+  ];
 
-  const eventsGrid = document.getElementById('eventsGrid');
-  if (eventsGrid) {
-    eventTypes.forEach(evt => {
-      const card = document.createElement('div');
-      card.className = 'event-card';
-      card.setAttribute('data-reveal', '');
-      card.innerHTML = `
-        <img src="${evt.img}" alt="${evt.name} celebration at Tripura Convention" loading="lazy">
-        <div class="event-overlay">
-          <h3>${evt.name}</h3>
-          <button class="event-book-btn" data-event="${evt.name}">Book Now</button>
-        </div>`;
-      eventsGrid.appendChild(card);
+  const planEventList = document.getElementById('planEventList');
+  const planShowcaseImg = document.getElementById('planShowcaseImg');
+  const planShowcaseTitle = document.getElementById('planShowcaseTitle');
+  const planShowcaseQuote = document.getElementById('planShowcaseQuote');
+  const planShowcaseBookBtn = document.getElementById('planShowcaseBookBtn');
+  const planShowcaseImageWrap = document.getElementById('planShowcaseImage');
+
+  function setShowcase(evt) {
+    if (!planShowcaseImg) return;
+    planShowcaseImageWrap.classList.add('fading');
+    setTimeout(() => {
+      planShowcaseImg.src = evt.img;
+      planShowcaseImg.alt = evt.name + ' celebration at Tripura Convention';
+      planShowcaseTitle.textContent = evt.name;
+      planShowcaseQuote.textContent = evt.quote;
+      planShowcaseBookBtn.setAttribute('data-event', evt.name);
+      planShowcaseImageWrap.classList.remove('fading');
+    }, 220);
+  }
+
+  if (planEventList) {
+    eventTypes.forEach((evt, i) => {
+      const li = document.createElement('li');
+      li.textContent = evt.name;
+      li.setAttribute('data-event', evt.name);
+      if (i === 0) li.classList.add('active');
+      li.addEventListener('mouseenter', () => {
+        planEventList.querySelectorAll('li').forEach(el => el.classList.remove('active'));
+        li.classList.add('active');
+        setShowcase(evt);
+      });
+      li.addEventListener('click', () => openVenueModal(evt.name));
+      planEventList.appendChild(li);
     });
-    // re-observe newly injected reveal elements
-    eventsGrid.querySelectorAll('[data-reveal]').forEach(el => revealObserver.observe(el));
+    // set initial showcase content
+    setShowcase(eventTypes[0]);
   }
 
   /* ---------- Venue Selection Modal ---------- */
@@ -287,20 +304,16 @@ document.addEventListener('DOMContentLoaded', () => {
   let selectedVenue = null;
   let selectedEvent = null;
 
-  if (eventsGrid) {
-    eventsGrid.addEventListener('click', (e) => {
-      const btn = e.target.closest('.event-book-btn');
-      if (!btn) return;
-      selectedEvent = btn.getAttribute('data-event');
-      modalEventName.textContent = selectedEvent;
-      selectedVenue = null;
-      continueBtn.disabled = true;
-      lawnOption.classList.remove('selected');
-      hallOption.classList.remove('selected');
-      lawnOption.querySelector('input').checked = false;
-      hallOption.querySelector('input').checked = false;
-      modal.classList.add('show');
-    });
+  function openVenueModal(eventName) {
+    selectedEvent = eventName;
+    modalEventName.textContent = eventName;
+    selectedVenue = null;
+    continueBtn.disabled = true;
+    lawnOption.classList.remove('selected');
+    hallOption.classList.remove('selected');
+    lawnOption.querySelector('input').checked = false;
+    hallOption.querySelector('input').checked = false;
+    modal.classList.add('show');
   }
 
   function selectVenue(option, value) {
@@ -315,14 +328,20 @@ document.addEventListener('DOMContentLoaded', () => {
   if (lawnOption) lawnOption.addEventListener('click', () => selectVenue(lawnOption, 'lawn'));
   if (hallOption) hallOption.addEventListener('click', () => selectVenue(hallOption, 'hall'));
 
+  if (planShowcaseBookBtn) {
+    planShowcaseBookBtn.addEventListener('click', () => openVenueModal(planShowcaseBookBtn.getAttribute('data-event')));
+  }
+
   if (modalClose) modalClose.addEventListener('click', () => modal.classList.remove('show'));
   if (modal) modal.addEventListener('click', (e) => { if (e.target === modal) modal.classList.remove('show'); });
 
   const lawnSection = document.getElementById('lawnSection');
   const hallSection = document.getElementById('hallSection');
+  const gallerySection = document.getElementById('gallerySection');
+  const allVenueSections = [lawnSection, hallSection, gallerySection];
 
   function showVenueSection(target) {
-    [lawnSection, hallSection].forEach(sec => sec && sec.classList.remove('active'));
+    allVenueSections.forEach(sec => sec && sec.classList.remove('active'));
     if (target) {
       target.classList.add('active');
       document.body.classList.add('venue-view');
@@ -332,6 +351,118 @@ document.addEventListener('DOMContentLoaded', () => {
       document.body.classList.remove('venue-view');
     }
   }
+
+  const viewFullGalleryBtn = document.getElementById('viewFullGalleryBtn');
+  if (viewFullGalleryBtn) {
+    viewFullGalleryBtn.addEventListener('click', () => showVenueSection(gallerySection));
+  }
+
+  /* ---------- Gallery: Hall / Office tabs (preview + full gallery, independent) ---------- */
+  const galleryData = {
+    hall: [
+      { name: 'Aerial View', img: 'assets/images/slider-1.jpeg' },
+      { name: 'Main Hall', img: 'assets/images/about-2.jpeg' },
+      { name: 'Guest Lounge', img: 'assets/images/about-3.jpeg' },
+      { name: 'Banquet Floor', img: 'https://images.unsplash.com/photo-1519167758481-83f550bb49b3?q=80&w=1200' }
+    ],
+    office: [
+      { name: 'Reception Desk', img: 'https://images.unsplash.com/photo-1560523160-754a9e25c68f?q=80&w=1200' },
+      { name: 'Meeting Room', img: 'https://images.unsplash.com/photo-1600091166971-7f9faad6c1e2?q=80&w=1200' },
+      { name: 'Workspace', img: 'https://images.unsplash.com/photo-1519225421980-715cb0215aed?q=80&w=1200' },
+      { name: 'Conference Hall', img: 'https://images.unsplash.com/photo-1523580494863-6f3031224c94?q=80&w=1200' }
+    ]
+  };
+
+  // the full gallery shows a larger set per category
+  const galleryDataFull = {
+    hall: [
+      { name: 'Aerial View', img: 'assets/images/slider-1.jpeg' },
+      { name: 'Main Hall', img: 'assets/images/about-2.jpeg' },
+      { name: 'Guest Lounge', img: 'assets/images/about-3.jpeg' },
+      { name: 'Banquet Floor', img: 'https://images.unsplash.com/photo-1519167758481-83f550bb49b3?q=80&w=1200' },
+      { name: 'Wedding Stage', img: 'https://images.unsplash.com/photo-1519741497674-611481863552?q=80&w=1200' },
+      { name: 'Reception Setup', img: 'https://images.unsplash.com/photo-1519671482749-fd09be6ccd85?q=80&w=1200' },
+      { name: 'Haldi Corner', img: 'https://images.unsplash.com/photo-1600096194534-95cf5ece04cf?q=80&w=1200' },
+      { name: 'Birthday Setup', img: 'https://images.unsplash.com/photo-1464349095431-e9a21285b5f3?q=80&w=1200' }
+    ],
+    office: [
+      { name: 'Reception Desk', img: 'https://images.unsplash.com/photo-1560523160-754a9e25c68f?q=80&w=1200' },
+      { name: 'Meeting Room', img: 'https://images.unsplash.com/photo-1600091166971-7f9faad6c1e2?q=80&w=1200' },
+      { name: 'Workspace', img: 'https://images.unsplash.com/photo-1519225421980-715cb0215aed?q=80&w=1200' },
+      { name: 'Conference Hall', img: 'https://images.unsplash.com/photo-1523580494863-6f3031224c94?q=80&w=1200' },
+      { name: 'Lounge Area', img: 'assets/images/about-3.jpeg' },
+      { name: 'Management Office', img: 'assets/images/about-2.jpeg' },
+      { name: 'Front Desk', img: 'https://images.unsplash.com/photo-1533174072545-7a4b6ad7a6c3?q=80&w=1200' },
+      { name: 'Records Room', img: 'assets/images/slider-1.jpeg' }
+    ]
+  };
+
+  function setupGalleryToggle(tabsContainerId, gridId, dataset) {
+    const tabsContainer = document.getElementById(tabsContainerId);
+    const grid = document.getElementById(gridId);
+    if (!tabsContainer || !grid) return;
+    const tabs = tabsContainer.querySelectorAll('.gallery-tab');
+
+    function render(tab) {
+      grid.innerHTML = dataset[tab].map(item => `
+        <div class="gallery-grid-item" data-lightbox-img="${item.img}">
+          <img src="${item.img}" alt="${item.name} at Tripura Convention" loading="lazy">
+          <div class="gallery-grid-item-overlay">
+            <h4>${item.name}</h4>
+            <span>View</span>
+          </div>
+        </div>
+      `).join('');
+    }
+
+    tabs.forEach(tab => {
+      tab.addEventListener('click', () => {
+        tabs.forEach(t => t.classList.remove('active'));
+        tab.classList.add('active');
+        render(tab.getAttribute('data-tab'));
+      });
+    });
+
+    render('hall');
+  }
+
+  setupGalleryToggle('galleryTabsPreview', 'galleryGrid', galleryData);
+  setupGalleryToggle('galleryTabsFull', 'galleryGridFull', galleryDataFull);
+
+  /* ---------- Range slider track fill (guest count sliders) ---------- */
+  document.querySelectorAll('input[type="range"]').forEach(range => {
+    const updateFill = () => {
+      const min = +range.min || 0, max = +range.max || 100, val = +range.value;
+      const pct = ((val - min) / (max - min)) * 100;
+      range.style.background = `linear-gradient(90deg, var(--color-gold) 0%, var(--color-gold) ${pct}%, #e2e2e2 ${pct}%, #e2e2e2 100%)`;
+    };
+    range.addEventListener('input', updateFill);
+    updateFill();
+  });
+  const lightboxOverlay = document.getElementById('lightboxOverlay');
+  const lightboxImg = document.getElementById('lightboxImg');
+  const lightboxClose = document.getElementById('lightboxClose');
+
+  function openLightbox(src) {
+    if (!lightboxOverlay || !lightboxImg || !src) return;
+    lightboxImg.src = src;
+    lightboxOverlay.classList.add('show');
+    document.body.classList.add('mobile-menu-open'); // reuse the "lock scroll" utility class
+  }
+  function closeLightbox() {
+    if (!lightboxOverlay) return;
+    lightboxOverlay.classList.remove('show');
+    document.body.classList.remove('mobile-menu-open');
+  }
+  document.addEventListener('click', (e) => {
+    const trigger = e.target.closest('[data-lightbox-img]');
+    if (trigger) openLightbox(trigger.getAttribute('data-lightbox-img'));
+  });
+  if (lightboxClose) lightboxClose.addEventListener('click', closeLightbox);
+  if (lightboxOverlay) {
+    lightboxOverlay.addEventListener('click', (e) => { if (e.target === lightboxOverlay) closeLightbox(); });
+  }
+  document.addEventListener('keydown', (e) => { if (e.key === 'Escape') closeLightbox(); });
 
   if (continueBtn) {
     continueBtn.addEventListener('click', () => {
@@ -422,8 +553,35 @@ document.querySelectorAll('[data-show-venue]').forEach(link => {
     testiTrack.innerHTML = doubled.map(buildCard).join('');
   }
 
-  /* ---------- Booking forms (standalone pages + inline index sections) ---------- */
-  const bookingForms = document.querySelectorAll('#bookingForm, #lawnBookingForm, #hallBookingForm');
+  /* ---------- Auto-popup booking modal (opens ~2.5s after page load) ---------- */
+  const popupBookingModal = document.getElementById('popupBookingModal');
+  const popupBookingClose = document.getElementById('popupBookingClose');
+
+  if (popupBookingModal) {
+    const POPUP_SESSION_KEY = 'tc_popup_shown';
+    const alreadyShown = sessionStorage.getItem(POPUP_SESSION_KEY);
+
+    if (!alreadyShown) {
+      setTimeout(() => {
+        // don't interrupt someone already filling out a venue booking form
+        if (document.body.classList.contains('venue-view')) return;
+        popupBookingModal.classList.add('show');
+        sessionStorage.setItem(POPUP_SESSION_KEY, '1');
+      }, 2500);
+    }
+
+    const closePopupBooking = () => popupBookingModal.classList.remove('show');
+    if (popupBookingClose) popupBookingClose.addEventListener('click', closePopupBooking);
+    popupBookingModal.addEventListener('click', (e) => {
+      if (e.target === popupBookingModal) closePopupBooking();
+    });
+    document.addEventListener('keydown', (e) => {
+      if (e.key === 'Escape') closePopupBooking();
+    });
+  }
+
+  /* ---------- Booking forms (standalone pages + inline index sections + popup) ---------- */
+  const bookingForms = document.querySelectorAll('#bookingForm, #lawnBookingForm, #hallBookingForm, #popupBookingForm');
   bookingForms.forEach(form => {
     // pre-fill event name from query string (used on standalone lawn.html / hall.html)
     const params = new URLSearchParams(window.location.search);
@@ -436,7 +594,11 @@ document.querySelectorAll('[data-show-venue]').forEach(link => {
       const data = new FormData(form);
       const query = new URLSearchParams();
       for (const [key, value] of data.entries()) query.append(key, value);
-      query.append('venue', form.getAttribute('data-venue') || '');
+      // only force a venue param from the element's data-venue attribute if the
+      // form doesn't already collect its own "venue" field (the popup form does)
+      if (form.hasAttribute('data-venue') && !data.has('venue')) {
+        query.append('venue', form.getAttribute('data-venue') || '');
+      }
       window.location.href = `payment.html?${query.toString()}`;
     });
   });

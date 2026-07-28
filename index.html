@@ -101,8 +101,14 @@
 <section class="about section-pad" id="about">
   <div class="container about-grid">
     <div class="about-img-wrap" data-reveal="left">
-      <img src="assets/images/slider-1.jpeg" alt="Tripura Convention banquet hall interior">
-     </div>
+      <div class="about-img-main">
+        <img src="assets/images/slider-1.jpeg" alt="Tripura Convention banquet hall interior">
+      </div>
+      <div class="about-img-stack">
+        <img src="assets/images/about-2.jpeg" alt="Decorated mandap at Tripura Convention">
+        <img src="assets/images/about-3.jpeg" alt="Guests celebrating at Tripura Convention">
+      </div>
+       </div>
     <div data-reveal="right">
       <span class="eyebrow">About Us</span>
       <h2 class="section-title">About Tripura Convention</h2>
@@ -123,7 +129,7 @@
         <div class="founder-avatar">NG</div>
         <div>
           <div class="founder-name">Nandikanti Group</div>
-          <div class="founder-role">Founders &amp; Managing Directors</div>
+          <div class="founder-role">Managing Directors</div>
         </div>
       </div>
     </div>
@@ -136,11 +142,25 @@
     <div class="center" data-reveal>
       <span class="eyebrow">Occasions We Host</span>
       <h2 class="section-title">Plan Your Event</h2>
-      <p class="section-desc center">Choose your occasion below, then pick between our open lawn or indoor hall to begin booking.</p>
+      <p class="section-desc center">Hover an occasion to preview it, then book your lawn or hall in a click.</p>
     </div>
 
-    <div class="events-grid" id="eventsGrid">
-      <!-- Cards injected by script.js -->
+    <div class="plan-showcase" data-reveal>
+      <div class="plan-showcase-image" id="planShowcaseImage">
+        <img id="planShowcaseImg" src="" alt="">
+        <div class="plan-showcase-frame"></div>
+        <div class="plan-showcase-overlay">
+          <h3 id="planShowcaseTitle">Weddings</h3>
+          <div class="plan-showcase-quote-row">
+            <p class="plan-showcase-quote" id="planShowcaseQuote"></p>
+            <button class="btn btn-primary plan-showcase-book" id="planShowcaseBookBtn" data-event="Weddings" data-ripple>Book Now</button>
+          </div>
+        </div>
+      </div>
+
+      <ul class="plan-event-list" id="planEventList">
+        <!-- list items injected by script.js -->
+      </ul>
     </div>
   </div>
 </section>
@@ -169,19 +189,26 @@
   </div>
 </div>
 
-<!-- ============ GALLERY (brief section, full gallery on request) ============ -->
-<section class="section-pad" id="gallery" style="background:var(--color-white)">
+<!-- ============ GALLERY (Hall / Office toggle, hover-to-reveal names) ============ -->
+<section class="section-pad gallery-section" id="gallery">
   <div class="container">
     <div class="center" data-reveal>
-      <span class="eyebrow">Moments We've Framed</span>
-      <h2 class="section-title">Gallery</h2>
-      <p class="section-desc center">A glimpse of the celebrations hosted at Tripura Convention.</p>
+      <span class="eyebrow">Royal Visual Diary</span>
+      <h2 class="section-title">Moments Captured in Royal Light</h2>
+      <p class="section-desc center">A curated glimpse — frames borrowed from real celebrations that have graced our halls.</p>
     </div>
-    <div class="events-grid" style="margin-top:40px;">
-      <div class="event-card"><img src="https://images.unsplash.com/photo-1519741497674-611481863552?q=80&w=800" alt="Wedding ceremony decor"></div>
-      <div class="event-card"><img src="https://images.unsplash.com/photo-1519167758481-83f550bb49b3?q=80&w=800" alt="Banquet hall lighting"></div>
-      <div class="event-card"><img src="https://images.unsplash.com/photo-1600096194534-95cf5ece04cf?q=80&w=800" alt="Haldi ceremony flowers"></div>
-      <div class="event-card"><img src="https://images.unsplash.com/photo-1464349095431-e9a21285b5f3?q=80&w=800" alt="Birthday celebration setup"></div>
+
+    <div class="gallery-tabs" id="galleryTabsPreview" data-reveal>
+      <button class="gallery-tab active" data-tab="hall">Hall</button>
+      <button class="gallery-tab" data-tab="office">Office</button>
+    </div>
+
+    <div class="gallery-grid" id="galleryGrid" data-reveal>
+      <!-- images injected by script.js -->
+    </div>
+
+    <div class="center" style="margin-top:40px;">
+      <button class="btn btn-outline" id="viewFullGalleryBtn">View Full Gallery ↗</button>
     </div>
   </div>
 </section>
@@ -202,19 +229,60 @@
   </div>
 </section>
 
-<!-- ============ CONTACT (brief) ============ -->
-<section class="section-pad" id="contact">
+<!-- ============ CONTACT ============ -->
+<section class="section-pad contact-section" id="contact">
+  <div class="contact-bg" style="background-image:url('https://www.partycruisersindia.com/assets/images/home/Start-Planning-Your-Luxury-Wedding-Party-Cruisers-Limited.webp')"></div>
   <div class="container">
-    <div class="center" data-reveal>
-      <span class="eyebrow">Get In Touch</span>
+    <div class="center" data-reveal >
+      <span class="eyebrow" >Get In Touch</span>
       <h2 class="section-title">Visit or Reach Us</h2>
     </div>
-    <div class="info-grid">
-      <div class="info-card"><div class="info-icon">📍</div><h3>Address</h3><p>Tripura Convention, Chittempally X Roads,Chevella, Telangana - 501503</p></div>
-      <div class="info-card"><div class="info-icon">📞</div><h3>Phone</h3><p>+91 9696396666</p></div>
-      <div class="info-card"><div class="info-icon">✉️</div><h3>Email</h3><p>Tripuraconvention9696@gmail.com</p></div>
-      <div class="info-card"><div class="info-icon">🕐</div><h3>Working Hours</h3><p>Everyday, 9:00 AM – 9:00 PM</p></div>
+
+    <div class="contact-layout" data-reveal>
+      <div class="contact-cards">
+        <a class="contact-card" href="tel:+919696396666">
+          <span class="contact-card-icon">📞</span>
+          <span class="contact-card-text"><span class="contact-card-label">Call Us</span><span class="contact-card-value">+91 9696396666</span></span>
+        </a>
+        <a class="contact-card" href="https://wa.me/919696396666" target="_blank" rel="noopener">
+          <span class="contact-card-icon">💬</span>
+          <span class="contact-card-text"><span class="contact-card-label">WhatsApp</span><span class="contact-card-value">Start a Conversation</span></span>
+        </a>
+        <a class="contact-card" href="mailto:Tripuraconvention9696@gmail.com">
+          <span class="contact-card-icon">✉️</span>
+          <span class="contact-card-text"><span class="contact-card-label">Email Us</span><span class="contact-card-value">Tripuraconvention9696@gmail.com</span></span>
+        </a>
+        <a class="contact-card" href="https://www.google.com/maps?q=17.308945553952828,78.0362665134927" target="_blank" rel="noopener">
+          <span class="contact-card-icon">📍</span>
+          <span class="contact-card-text"><span class="contact-card-label">Visit Us</span><span class="contact-card-value">Chittempally X Roads, Chevella</span></span>
+        </a>
+        <div class="contact-map-full" data-reveal>
+      <iframe
+        src="https://www.google.com/maps/embed?pb=!1m14!1m8!1m3!1d3809.143524646162!2d78.0362987!3d17.3086229!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x3bcbe70061d3229d%3A0xa1e7da577cb1b941!2sTripura%20convention!5e0!3m2!1sen!2sin!4v1785065926776!5m2!1sen!2sin"
+        width="100%" height="100%" style="border:0;"
+        allowfullscreen loading="lazy" referrerpolicy="no-referrer-when-downgrade"
+        title="Tripura Convention location on Google Maps"></iframe>
     </div>
+      </div>
+
+      <form class="contact-form" id="contactForm" onsubmit="event.preventDefault(); this.reset(); alert('Thanks! Your message has been sent — we will get back to you within 24 hours.');">
+        <div class="form-group">
+          <label for="contactName">Full Name</label>
+          <input type="text" id="contactName" name="name" placeholder="Your full name" required>
+        </div>
+        <div class="form-group">
+          <label for="contactPhone">Phone Number</label>
+          <input type="tel" id="contactPhone" name="phone" placeholder="+91 00000 00000" required>
+        </div>
+        <div class="form-group">
+          <label for="contactMessage">Message</label>
+          <textarea id="contactMessage" name="message" rows="4" placeholder="Tell us about your event..." required></textarea>
+        </div>
+        <button type="submit" class="btn btn-primary" data-ripple style="width:100%;">Send Message</button>
+      </form>
+    </div>
+
+    
   </div>
 </section>
 </div><!-- /#mainSections -->
@@ -286,26 +354,13 @@
           <div class="form-group"><label for="lawnEventType">Event Type</label><input type="text" id="lawnEventType" name="eventType" placeholder="e.g. Haldi, Wedding" required></div>
           <div class="form-group"><label for="lawnEventDate">Event Date</label><input type="date" id="lawnEventDate" name="eventDate" required></div>
           <div class="form-group"><label for="lawnEventTime">Event Time</label><input type="time" id="lawnEventTime" name="eventTime" required></div>
-          <div class="form-group"><label for="lawnGuests">Number of Guests</label><input type="number" id="lawnGuests" name="guests" min="50" placeholder="e.g. 300" required></div>
           <div class="form-group">
-            <label for="lawnDecoration">Select Decoration</label>
-            <select id="lawnDecoration" name="decoration" required>
-              <option value="">Choose a package</option><option value="Basic">Basic</option><option value="Premium">Premium</option><option value="Royal">Royal</option>
-            </select>
+            <label for="lawnGuests">Number of Guests <span class="range-value" id="lawnGuestsValue">500</span></label>
+            <input type="range" id="lawnGuests" name="guests" min="500" max="2000" step="10" value="500"
+                   oninput="document.getElementById('lawnGuestsValue').textContent=this.value">
           </div>
-          <div class="form-group">
-            <label for="lawnCatering">Select Catering</label>
-            <select id="lawnCatering" name="catering" required>
-              <option value="">Choose an option</option><option value="Inside Catering">Inside Catering</option><option value="Outside Catering">Outside Catering</option><option value="Live Counters">Live Counters</option>
-            </select>
-          </div>
-          <div class="form-group">
-            <label for="lawnPhotography">Photography</label>
-            <select id="lawnPhotography" name="photography" required>
-              <option value="">Choose an option</option><option value="Drone">Drone</option><option value="Candid">Candid</option><option value="Traditional">Traditional</option><option value="Full Package">Full Package</option>
-            </select>
-          </div>
-          <div class="form-group"><label for="lawnBudget">Estimated Budget (₹)</label><input type="number" id="lawnBudget" name="budget" placeholder="e.g. 200000"></div>
+         
+          <div class="form-group"><label for="lawnBudget">Estimated Budget (₹) — min ₹2,60,000</label><input type="number" id="lawnBudget" name="budget" min="200000" step="10000" placeholder="e.g. 500000"></div>
           <div class="form-group full"><label for="lawnRequirements">Special Requirements</label><textarea id="lawnRequirements" name="requirements" rows="4" placeholder="Any special arrangements, allergies, or requests"></textarea></div>
           <div class="form-group full"><label class="checkbox-row"><input type="checkbox" required> I agree to the Terms and Conditions</label></div>
         </div>
@@ -385,26 +440,13 @@
           <div class="form-group"><label for="hallEventType">Event Type</label><input type="text" id="hallEventType" name="eventType" placeholder="e.g. Wedding, Reception" required></div>
           <div class="form-group"><label for="hallEventDate">Event Date</label><input type="date" id="hallEventDate" name="eventDate" required></div>
           <div class="form-group"><label for="hallEventTime">Event Time</label><input type="time" id="hallEventTime" name="eventTime" required></div>
-          <div class="form-group"><label for="hallGuests">Number of Guests</label><input type="number" id="hallGuests" name="guests" min="50" placeholder="e.g. 300" required></div>
           <div class="form-group">
-            <label for="hallDecoration">Select Decoration</label>
-            <select id="hallDecoration" name="decoration" required>
-              <option value="">Choose a package</option><option value="Basic">Basic</option><option value="Premium">Premium</option><option value="Royal">Royal</option>
-            </select>
+            <label for="hallGuests">Number of Guests <span class="range-value" id="hallGuestsValue">500</span></label>
+            <input type="range" id="hallGuests" name="guests" min="500" max="2000" step="10" value="500"
+                   oninput="document.getElementById('hallGuestsValue').textContent=this.value">
           </div>
-          <div class="form-group">
-            <label for="hallCatering">Select Catering</label>
-            <select id="hallCatering" name="catering" required>
-              <option value="">Choose an option</option><option value="Inside Catering">Inside Catering</option><option value="Outside Catering">Outside Catering</option><option value="Live Counters">Live Counters</option>
-            </select>
-          </div>
-          <div class="form-group">
-            <label for="hallPhotography">Photography</label>
-            <select id="hallPhotography" name="photography" required>
-              <option value="">Choose an option</option><option value="Drone">Drone</option><option value="Candid">Candid</option><option value="Traditional">Traditional</option><option value="Full Package">Full Package</option>
-            </select>
-          </div>
-          <div class="form-group"><label for="hallBudget">Estimated Budget (₹)</label><input type="number" id="hallBudget" name="budget" placeholder="e.g. 200000"></div>
+         
+          <div class="form-group"><label for="hallBudget">Estimated Budget (₹) — min ₹2,60,000</label><input type="number" id="hallBudget" name="budget" min="200000" step="10000" placeholder="e.g. 500000"></div>
           <div class="form-group full"><label for="hallRequirements">Special Requirements</label><textarea id="hallRequirements" name="requirements" rows="4" placeholder="Any special arrangements, allergies, or requests"></textarea></div>
           <div class="form-group full"><label class="checkbox-row"><input type="checkbox" required> I agree to the Terms and Conditions</label></div>
         </div>
@@ -417,9 +459,44 @@
   </section>
 </section>
 
+<!-- ============ GALLERY SECTION (shown only when "View Full Gallery" is clicked) ============ -->
+<section class="venue-section" id="gallerySection">
+  <section class="page-hero" style="background-image:url('https://images.unsplash.com/photo-1519167758481-83f550bb49b3?q=80&w=1600')">
+    <div class="page-hero-content">
+      <span class="eyebrow">Every Celebration, Framed</span>
+      <h1>Full Gallery</h1>
+    </div>
+  </section>
+
+  <div class="container section-pad">
+    <span class="back-home-btn" data-back-home>← Back to Home</span>
+    <div class="center" data-reveal>
+      <span class="eyebrow">Browse by Moment</span>
+      <h2 class="section-title">Our Gallery</h2>
+      <p class="section-desc center">Click any photo to view it full size.</p>
+    </div>
+
+    <div class="gallery-tabs" id="galleryTabsFull" data-reveal style="margin-top:50px;">
+      <button class="gallery-tab active" data-tab="hall">Hall</button>
+      <button class="gallery-tab" data-tab="office">Office</button>
+    </div>
+
+    <div class="gallery-grid" id="galleryGridFull" data-reveal>
+      <!-- images injected by script.js -->
+    </div>
+  </div>
+</section>
+
+<!-- Lightbox overlay for gallery images -->
+<div class="lightbox-overlay" id="lightboxOverlay">
+  <button class="lightbox-close" id="lightboxClose" aria-label="Close">&times;</button>
+  <img id="lightboxImg" src="" alt="Enlarged gallery photo">
+</div>
+
 <!-- ============ FOOTER ============ -->
 <footer>
   <div class="container">
+
     <div class="footer-grid">
       <div>
         <div class="footer-logo">
@@ -471,8 +548,51 @@
 
 <button class="back-to-top" id="backToTop" aria-label="Back to top">↑</button>
 <div class="floating-actions">
-  <a href="https://wa.me/919696396666" class="float-btn whatsapp" aria-label="WhatsApp">💬</a>
+  <a href="https://wa.me/919696396666" class="float-btn whatsapp" aria-label="WhatsApp"><img src="assets/images/whatsapp-logo.webp" style="width:50px;height:50px;border-radius:50%;" alt="Chat on WhatsApp with NandiKanti Group" title="WhatsApp Tripura Convention By Nandikanti Group" loading="lazy" width="50" height="50"></a>
   <a href="tel:+919696396666" class="float-btn call" aria-label="Call">📞</a>
+</div>
+
+<!-- ============ AUTO-POPUP BOOKING FORM (opens a few seconds after page load) ============ -->
+<div class="modal-overlay" id="popupBookingModal">
+  <div class="modal-box popup-booking-box">
+    <button class="modal-close" id="popupBookingClose">&times;</button>
+    <h3>Plan Your Celebration</h3>
+    <p class="section-desc center" style="margin:6px auto 20px;">Share your details and our team will get back to you within 24 hours.</p>
+
+    <form class="booking-wrap popup-booking-form" id="popupBookingForm">
+      <div class="form-grid">
+        <div class="form-group"><label for="popupFullName">Full Name</label><input type="text" id="popupFullName" name="fullName" placeholder="Your full name" required></div>
+        <div class="form-group"><label for="popupPhone">Phone Number</label><input type="tel" id="popupPhone" name="phone" placeholder="+91 00000 00000" required></div>
+        <div class="form-group"><label for="popupEmail">Email Address</label><input type="email" id="popupEmail" name="email" placeholder="you@example.com" required></div>
+        <div class="form-group"><label for="popupEventType">Event Type</label><input type="text" id="popupEventType" name="eventType" placeholder="e.g. Wedding, Haldi" required></div>
+
+        <div class="form-group">
+          <label for="popupVenue">Venue</label>
+          <select id="popupVenue" name="venue" required>
+            <option value="">Choose a venue</option>
+            <option value="Lawn">Open Lawn</option>
+            <option value="Hall">Indoor Hall</option>
+          </select>
+        </div>
+        <div class="form-group"><label for="popupEventDate">Event Date</label><input type="date" id="popupEventDate" name="eventDate" required></div>
+        <div class="form-group"><label for="popupEventTime">Event Time</label><input type="time" id="popupEventTime" name="eventTime" required></div>
+
+        <div class="form-group">
+          <label for="popupGuests">Number of Guests <span class="range-value" id="popupGuestsValue">500</span></label>
+          <input type="range" id="popupGuests" name="guests" min="500" max="2000" step="10" value="500"
+                 oninput="document.getElementById('popupGuestsValue').textContent=this.value">
+        </div>
+
+        <div class="form-group"><label for="popupBudget">Estimated Budget (₹) — min ₹2,60,000</label><input type="number" id="popupBudget" name="budget" min="260000" step="10000" placeholder="e.g. 500000"></div>
+
+        <div class="form-group full"><label class="checkbox-row"><input type="checkbox" required> I agree to the Terms and Conditions</label></div>
+      </div>
+
+      <div class="form-footer">
+        <button type="submit" class="btn btn-primary" data-ripple style="width:100%;">Start Planning</button>
+      </div>
+    </form>
+  </div>
 </div>
 
 <script src="script.js"></script>
