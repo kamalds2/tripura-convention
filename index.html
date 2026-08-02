@@ -12,12 +12,9 @@
 </head>
 <body>
 
-<!-- Preloader 
-<div id="preloader"><div class="preloader-mark">TRIPURA CONVENTION</div></div>
-<div id="scroll-progress"></div>-->
-<!-- PRELOADER -->
+<!-- PRELOADER (Shatter-to-Assemble Logo) -->
 <div id="preloader">
-  <div class="logo-reveal" id="logoReveal"></div>
+  <div id="logoReveal" class="logo-reveal-stage" aria-label="Tripura Convention Logo Animation"></div>
 </div>
 <div id="scroll-progress"></div>
 
@@ -39,76 +36,135 @@
     </nav>
 
     <div class="nav-cta">
-      <a href="#plan-event" class="btn btn-primary" data-ripple>Book Now</a>
+      <button class="btn btn-primary" id="headerBookNowBtn" data-ripple>Book Now</button>
       <button class="hamburger" id="hamburger" aria-label="Menu"><span></span><span></span><span></span></button>
     </div>
   </div>
 </header>
 
 <div id="mainSections">
-<!-- ============ HERO (Vertical Slider) ============ -->
-<section class="hero" id="home">
-  <div class="hero-slide active" style="background-image:url('')">
-    <div class="hero-content">
-      <span class="hero-tag">Luxury Wedding</span>
-      <h1 class="hero-title" style="color:#fff">Capture Every Precious Moment</h1>
-      <p class="hero-sub">Where memories become timeless celebrations, crafted with elegance at every step.</p>
-      <div class="hero-btn-wrap"><a href="#plan-event" class="btn btn-primary" data-ripple>Plan Your Event</a></div>
+<!-- ============ HERO SHOWCASE SLIDER ============ -->
+<section class="hero hero-slider-section" id="home">
+  <!-- Stacked Full-bleed Background Slides -->
+  <div class="hero-slides-wrapper" id="heroSlidesWrapper">
+    
+    <!-- Slide 1: Main Entrance -->
+    <div class="hero-slide active" data-index="0">
+      <div class="hero-slide-bg" style="background-image:url('assets/images/3d/IMG_2321.JPG.jpeg')"></div>
+      <div class="hero-slide-overlay"></div>
+      <div class="container hero-slide-content">
+        <span class="hero-eyebrow"><i class="fa-solid fa-crown"></i> Welcome to Tripura Convention</span>
+        <h1 class="hero-title">Grand Architectural <br><span class="gold-text">Elegance & Majesty</span></h1>
+        <p class="hero-quote">"Step into a world of architectural grandeur designed for unforgettable occasions."</p>
+        <p class="hero-subtext">Tripura Convention — By Nandikanti Group</p>
+        <div class="hero-btn-wrap">
+          <a href="#plan-event" class="btn btn-primary" data-ripple>Plan Your Event</a>
+          <button class="btn btn-outline" data-show-venue="hall">Explore Venue ↗</button>
+        </div>
+      </div>
     </div>
+
+    <!-- Slide 2: Executive Office (office.PNG) -->
+    <div class="hero-slide" data-index="1">
+      <div class="hero-slide-bg" style="background-image:url('assets/images/3d/night-view.jpeg')"></div>
+      <div class="hero-slide-overlay"></div>
+      <div class="container hero-slide-content">
+        <span class="hero-eyebrow"><i class="fa-solid fa-handshake"></i> Executive Office & Planning Suite</span>
+        <h1 class="hero-title">Crafting Your Vision <br><span class="gold-text">With Royal Care</span></h1>
+        <p class="hero-quote">"Where your dream event vision is crafted with precision, care, and warm hospitality."</p>
+        <p class="hero-subtext">Tripura Convention — By Nandikanti Group</p>
+        <div class="hero-btn-wrap">
+          <a href="#contact" class="btn btn-primary" data-ripple>Schedule a Visit</a>
+          <a href="#about" class="btn btn-outline">Meet Our Management</a>
+        </div>
+      </div>
+    </div>
+
+    <!-- Slide 3: Luxury Hall -->
+    <div class="hero-slide" data-index="2">
+      <div class="hero-slide-bg" style="background-image:url('assets/images/3d/main-hall.jpeg')"></div>
+      <div class="hero-slide-overlay"></div>
+      <div class="container hero-slide-content">
+        <span class="hero-eyebrow"><i class="fa-solid fa-gem"></i> Indoor Celebrations</span>
+        <h1 class="hero-title">The Luxury <br><span class="gold-text">Air-Conditioned Hall</span></h1>
+        <p class="hero-quote">"A magnificent setting where family traditions transform into unforgettable celebrations."</p>
+        <p class="hero-subtext">Tripura Convention — By Nandikanti Group</p>
+        <div class="hero-btn-wrap">
+          <button class="btn btn-primary" data-show-venue="hall" data-ripple>Book Indoor Hall</button>
+          <a href="#gallery" class="btn btn-outline">View Hall Gallery</a>
+        </div>
+      </div>
+    </div>
+
+    <!-- Slide 4: Open Lawn -->
+    <div class="hero-slide" data-index="3">
+      <div class="hero-slide-bg" style="background-image:url('assets/images/lawn.jpeg')"></div>
+      <div class="hero-slide-overlay"></div>
+      <div class="container hero-slide-content">
+        <span class="hero-eyebrow"><i class="fa-solid fa-tree"></i> Outdoor Celebrations</span>
+        <h1 class="hero-title">Sprawling Landscaped <br><span class="gold-text">Celebration Lawn</span></h1>
+        <p class="hero-quote">"Under the open sky and ambient lights, every moment feels straight out of a starlit dream."</p>
+        <p class="hero-subtext">Tripura Convention — By Nandikanti Group</p>
+        <div class="hero-btn-wrap">
+          <button class="btn btn-primary" data-show-venue="lawn" data-ripple>Book Open Lawn</button>
+          <a href="#contact" class="btn btn-outline">Check Availability</a>
+        </div>
+      </div>
+    </div>
+
+    <!-- Slide 5: Royal Stage -->
+    <div class="hero-slide" data-index="4">
+      <div class="hero-slide-bg" style="background-image:url('assets/images/wedding-stage.png')"></div>
+      <div class="hero-slide-overlay"></div>
+      <div class="container hero-slide-content">
+        <span class="hero-eyebrow"><i class="fa-solid fa-star"></i> Stage & Ambience</span>
+        <h1 class="hero-title">Royal Stage <br><span class="gold-text">& Custom Lighting</span></h1>
+        <p class="hero-quote">"The royal spotlight where every couple shines with timeless grace and joy."</p>
+        <p class="hero-subtext">Tripura Convention — By Nandikanti Group</p>
+        <div class="hero-btn-wrap">
+          <a href="#plan-event" class="btn btn-primary" data-ripple>Plan Your Event</a>
+          <a href="#gallery" class="btn btn-outline">Explore Gallery</a>
+        </div>
+      </div>
+    </div>
+
   </div>
 
-  <div class="hero-slide" style="background-image:url('https://images.unsplash.com/photo-1560523160-754a9e25c68f?q=80&w=1600')">
-    <div class="hero-content">
-      <span class="hero-tag">Corporate Conference</span>
-      <h1 class="hero-title" style="color:#fff">Where Business Meets Brilliance</h1>
-      <p class="hero-sub">Modern indoor spaces designed for seminars, launches and conferences of every scale.</p>
-      <div class="hero-btn-wrap"><a href="#plan-event" class="btn btn-primary" data-ripple>Plan Your Event</a></div>
-    </div>
+  <!-- Vertical Dots Navigation (Right side, matching reference image) -->
+  <div class="hero-vertical-nav">
+    <div class="hero-dots" id="heroDots"></div>
   </div>
 
-  <div class="hero-slide" style="background-image:url('')">
-    <div class="hero-content">
-      <span class="hero-tag">Reception</span>
-      <h1 class="hero-title" style="color:#fff">An Evening Worth Remembering</h1>
-      <p class="hero-sub">Grand receptions styled with gold accents, gentle lighting and effortless hospitality.</p>
-      <div class="hero-btn-wrap"><a href="#plan-event" class="btn btn-primary" data-ripple>Plan Your Event</a></div>
-    </div>
+  <!-- Bottom Scroll Indicator -->
+  <div class="hero-scroll-indicator">
+    <span>SCROLL</span>
+    <div class="scroll-line"></div>
   </div>
-
-  <div class="hero-slide" style="background-image:url('https://images.unsplash.com/photo-1464349095431-e9a21285b5f3?q=80&w=1600')">
-    <div class="hero-content">
-      <span class="hero-tag">Birthday</span>
-      <h1 class="hero-title" style="color:#fff">Celebrate Every Milestone</h1>
-      <p class="hero-sub">From intimate gatherings to grand parties, we bring your birthday vision to life.</p>
-      <div class="hero-btn-wrap"><a href="#plan-event" class="btn btn-primary" data-ripple>Plan Your Event</a></div>
-    </div>
-  </div>
-
-  <div class="hero-slide" style="background-image:url('https://pin.it/1OZ4Ea9hu')">
-    <div class="hero-content">
-      <span class="hero-tag">Haldi Ceremony</span>
-      <h1 class="hero-title" style="color:#fff">Traditions Wrapped in Gold</h1>
-      <p class="hero-sub">Vibrant outdoor spaces designed for haldi, mehendi and every joyful ritual.</p>
-      <div class="hero-btn-wrap"><a href="#plan-event" class="btn btn-primary" data-ripple>Plan Your Event</a></div>
-    </div>
-  </div>
-
-  <div class="hero-dots" id="heroDots"></div>
-  <div class="hero-scroll-indicator"><span>SCROLL</span><div class="scroll-line"></div></div>
 </section>
 
 <!-- ============ ABOUT ============ -->
 <section class="about section-pad" id="about">
   <div class="container about-grid">
-    <div class="about-img-wrap" data-reveal="left">
-      <div class="about-img-main">
-        <img src="assets/images/slider-1.jpeg" alt="Tripura Convention banquet hall interior">
+
+    <!-- About Visual Container with 3D animation + 2 overlapping feature image frames -->
+    <div class="about-visual-wrap" data-reveal="left">
+      <!-- Main 3D Model Viewer (Interactive Turntable Canvas) -->
+      <div class="about-3d-wrap" id="about3dWrap">
+        <canvas id="aboutAnimCanvas" class="about-anim-canvas"
+                aria-label="Tripura Convention – interactive 3D model view"></canvas>
       </div>
-      <div class="about-img-stack">
-        <img src="assets/images/about-2.jpeg" alt="Decorated mandap at Tripura Convention">
-        <img src="assets/images/about-3.jpeg" alt="Guests celebrating at Tripura Convention">
+
+      <!-- Additional Overlapping Frame 1 (tripura-wall.jpeg) -->
+      <div class="about-extra-frame frame-1">
+        <img src="assets/images/3d/tripura-wall.jpeg" alt="Tripura Architectural Detail" loading="lazy">
       </div>
-       </div>
+
+      <!-- Additional Overlapping Frame 2 (slider-1.jpeg) -->
+      <div class="about-extra-frame frame-2">
+        <img src="assets/images/tripura-collage.png" alt="Tripura Ambience & Decor" loading="lazy">
+      </div>
+    </div>
+
     <div data-reveal="right">
       <span class="eyebrow">About Us</span>
       <h2 class="section-title">About Tripura Convention</h2>
@@ -120,13 +176,14 @@
         <li>Modern Facilities</li>
         <li>Custom Decoration</li>
         <li>Professional Management</li>
-   
         <li>Ample Parking</li>
         <li>24x7 Support</li>
       </ul>
 
       <div class="founder-card">
-        <div class="founder-avatar">NG</div>
+        <div class="founder-avatar-wrap">
+          <img src="assets/images/ng-logo.png" alt="Nandikanti Group Logo" class="founder-avatar-img">
+        </div>
         <div>
           <div class="founder-name">Nandikanti Group</div>
           <div class="founder-role">Managing Directors</div>
@@ -213,7 +270,7 @@
   </div>
 </section>
 
-<!-- ============ TESTIMONIALS ============ -->
+<!-- ============ TESTIMONIALS ============ 
 <section class="testimonials">
   <div class="container">
     <div class="center" data-reveal>
@@ -224,10 +281,10 @@
   </div>
   <div class="testi-track-wrap">
     <div class="testi-track" id="testiTrack">
-      <!-- duplicated set injected via script.js for seamless loop -->
+     
     </div>
   </div>
-</section>
+</section>-->
 
 <!-- ============ CONTACT ============ -->
 <section class="section-pad contact-section" id="contact">
@@ -256,16 +313,27 @@
           <span class="contact-card-icon">📍</span>
           <span class="contact-card-text"><span class="contact-card-label">Visit Us</span><span class="contact-card-value">Tripura convention, Angadichittampalle, Chevella</span></span>
         </a>
-        <div class="contact-map-full" data-reveal>
-      <iframe
-        src="https://www.google.com/maps/embed?pb=!1m14!1m8!1m3!1d3809.143524646162!2d78.0362987!3d17.3086229!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x3bcbe70061d3229d%3A0xa1e7da577cb1b941!2sTripura%20convention!5e0!3m2!1sen!2sin!4v1785065926776!5m2!1sen!2sin"
-        width="100%" height="100%" style="border:0;"
-        allowfullscreen loading="lazy" referrerpolicy="no-referrer-when-downgrade"
-        title="Tripura Convention location on Google Maps"></iframe>
-    </div>
+        <!-- Aerial image map with gold location pin -->
+        <div class="contact-map-full contact-map-img" data-reveal>
+          <a class="map-img-link" href="https://maps.app.goo.gl/L6zbihmFh8M9b9298" target="_blank" rel="noopener" aria-label="Navigate to Tripura Convention on Google Maps">
+            <img src="assets/images/contact1.png" alt="Tripura Convention — Aerial Night View" class="map-aerial-img" />
+            <!-- Gold location pin -->
+            <div class="map-pin-wrap">
+              <div class="map-pin-pulse"></div>
+              <div class="map-pin-icon">
+                <i class="fa-solid fa-location-dot"></i>
+              </div>
+              <!-- Tooltip on hover -->
+              <div class="map-pin-tooltip">
+                <i class="fa-solid fa-diamond-turn-right"></i>
+                Click here to navigate
+              </div>
+            </div>
+          </a>
+        </div>
       </div>
 
-      <form class="contact-form" id="contactForm" onsubmit="event.preventDefault(); this.reset(); alert('Thanks! Your message has been sent — we will get back to you within 24 hours.');">
+      <form class="contact-form" id="contactForm">
         <div class="form-group">
           <label for="contactName">Full Name</label>
           <input type="text" id="contactName" name="name" placeholder="Your full name" required>
@@ -289,65 +357,131 @@
 
 <!-- ============ LAWN SECTION (shown only when Lawn is selected) ============ -->
 <section class="venue-section" id="lawnSection">
-  <section class="page-hero" style="background-image:url('https://images.unsplash.com/photo-1519741497674-611481863552?q=80&w=1600')">
+  <section class="page-hero" style="background-image:url('assets/images/lawn-hero.jpeg')">
     <div class="page-hero-content">
       <span class="eyebrow">Outdoor Celebrations</span>
       <h1>The Open Lawn</h1>
     </div>
   </section>
 
-  <div class="container section-pad">
+  <div class="container section-pad" style="padding-bottom:0">
     <span class="back-home-btn" data-back-home>← Back to Home</span>
     <div class="center" data-reveal>
-      <span class="eyebrow">Venue Overview</span>
-      <h2 class="section-title">A Garden Built for Celebration</h2>
-      <p class="section-desc center">Our open lawn spans a landscaped, tree-lined garden fitted with a permanent stage, ambient lighting and full outdoor infrastructure — ideal for daytime rituals and starlit evenings alike.</p>
-    </div>
-
-    <div class="info-grid" style="margin-top:50px;">
-      <div class="info-card" data-reveal>
-        <div class="info-icon">🎉</div>
-        <h3>Suitable Events</h3>
-        <ul><li>Haldi</li><li>Mehendi</li><li>Reception</li><li>Birthday</li><li>Outdoor Wedding</li><li>Musical Night</li></ul>
-      </div>
-      <div class="info-card" data-reveal>
-        <div class="info-icon">👥</div>
-        <h3>Guest Capacity</h3>
-        <div class="capacity-tags"><span>100</span><span>250</span><span>500</span><span>1000+</span></div>
-      </div>
-      <div class="info-card" data-reveal>
-        <div class="info-icon">⚙️</div>
-        <h3>Facilities</h3>
-        <ul><li>Outdoor Stage</li><li>LED Wall</li><li>DJ Setup</li><li>Parking</li><li>Power Backup &amp; Generator</li><li>Garden Lighting</li><li>Children's Area</li></ul>
-      </div>
-      <div class="info-card" data-reveal>
-        <div class="info-icon">🎨</div>
-        <h3>Decoration Packages</h3>
-        <ul><li>Basic</li><li>Premium</li><li>Royal</li></ul>
-      </div>
-      <div class="info-card" data-reveal>
-        <div class="info-icon">🍽️</div>
-        <h3>Catering</h3>
-        <ul><li>Inside Catering</li><li>Outside Catering</li><li>Live Counters</li><li>Buffet — Veg &amp; Non-Veg</li></ul>
-      </div>
-      <div class="info-card" data-reveal>
-        <div class="info-icon">📸</div>
-        <h3>Photography &amp; Video</h3>
-        <ul><li>Drone Coverage</li><li>Candid Photography</li><li>Traditional Photography</li><li>Videography</li></ul>
-      </div>
+      <span class="eyebrow">Reserve Your Date</span>
+      <h2 class="section-title">Book the Open Lawn</h2>
+      <p class="section-desc center">A landscaped, tree-lined garden fitted with a permanent stage, ambient lighting and full outdoor infrastructure — ideal for daytime rituals and starlit evenings alike.</p>
     </div>
   </div>
 
-  <section class="booking-section section-pad">
-    <div class="container">
-      <div class="center" data-reveal>
-        <span class="eyebrow">Reserve Your Date</span>
-        <h2 class="section-title">Lawn Booking Form</h2>
-        <p class="section-desc center">Tell us about your event and our team will confirm availability within 24 hours.</p>
-      </div>
+  <!-- Immersive Booking Scene -->
+  <section class="venue-booking-scene" style="background-image:url('assets/images/lawn.jpeg')">
+    <div class="vbs-overlay"></div>
 
-      <form class="booking-wrap" id="lawnBookingForm" data-venue="Lawn" data-reveal>
-        <div class="form-grid">
+    <!-- Animated Quotes Panel -->
+    <div class="vbs-quotes">
+      
+      <div class="vbs-quote-carousel" id="lawnQuoteCarousel">
+        <div class="vbs-quote active">
+          <span class="vbs-quote-mark">"</span>
+          <p>Every love story deserves a beautiful setting under the open sky.</p>
+          <span class="vbs-author">— Tripura Convention</span>
+        </div>
+        <div class="vbs-quote">
+          <span class="vbs-quote-mark">"</span>
+          <p>Where nature meets celebration, memories are made forever.</p>
+          <span class="vbs-author">— Tripura Convention</span>
+        </div>
+        <div class="vbs-quote">
+          <span class="vbs-quote-mark">"</span>
+          <p>From haldi rituals to starlit receptions — we hold every moment with grace.</p>
+          <span class="vbs-author">— Tripura Convention</span>
+        </div>
+        <div class="vbs-quote">
+          <span class="vbs-quote-mark">"</span>
+          <p>Your perfect outdoor celebration begins with a single date.</p>
+          <span class="vbs-author">— Tripura Convention</span>
+        </div>
+      </div>
+      <div class="vbs-quote-dots" id="lawnQuoteDots"></div>
+      
+      <div class="vbs-feature-pills">
+        <div class="vbs-pill-wrap">
+          <span class="vbs-pill">🎉 Suitable Events</span>
+          <div class="vbs-pill-card">
+            <h4>Suitable Events</h4>
+            <ul>
+              <li>Haldi</li>
+              <li>Mehendi</li>
+              <li>Reception</li>
+              <li>Birthday</li>
+              <li>Outdoor Wedding</li>
+              <li>Musical Night</li>
+            </ul>
+          </div>
+        </div>
+        
+        <div class="vbs-pill-wrap">
+          <span class="vbs-pill">👥 Guest Capacity</span>
+          <div class="vbs-pill-card">
+            <h4>Guest Capacity</h4>
+            <div class="vbs-capacity-tags">
+              <span>500</span><span>750</span><span>1000</span><span>1500+</span>
+            </div>
+          </div>
+        </div>
+
+        <div class="vbs-pill-wrap">
+          <span class="vbs-pill">⚙️ Facilities</span>
+          <div class="vbs-pill-card">
+            <h4>Facilities</h4>
+            <ul>
+              <li>Outdoor Stage</li>
+              <li>LED Wall</li>
+              <li>DJ Setup</li>
+              <li>Parking</li>
+              <li>Power Backup & Generator</li>
+              <li>Garden Lighting</li>
+              
+            </ul>
+          </div>
+        </div>
+
+        <div class="vbs-pill-wrap">
+          <span class="vbs-pill">🎨 Decoration</span>
+          <div class="vbs-pill-card">
+            <h4>Decoration Packages</h4>
+            <ul>
+              <li>Basic</li>
+              <li>Premium</li>
+              <li>Royal</li>
+            </ul>
+          </div>
+        </div>
+
+       
+
+        <div class="vbs-pill-wrap">
+          <span class="vbs-pill">📸 Photo & Video</span>
+          <div class="vbs-pill-card">
+            <h4>Photography & Video</h4>
+            <ul>
+              <li>Drone Coverage</li>
+              <li>Candid Photography</li>
+            </ul>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Glass Form Panel -->
+    <div class="vbs-form-panel">
+      <div class="vbs-form-inner">
+        <div class="vbs-form-header">
+          <span class="eyebrow" style="color:var(--color-gold-light)">Open Lawn</span>
+          <h3>Lawn Booking Form</h3>
+          <p>Our team will confirm availability within 24 hours.</p>
+        </div>
+        <form class="vbs-form" id="lawnBookingForm" data-venue="Lawn">
           <div class="form-group"><label for="lawnFullName">Full Name</label><input type="text" id="lawnFullName" name="fullName" placeholder="Your full name" required></div>
           <div class="form-group"><label for="lawnPhone">Phone Number</label><input type="tel" id="lawnPhone" name="phone" placeholder="+91 00000 00000" required></div>
           <div class="form-group"><label for="lawnEmail">Email Address</label><input type="email" id="lawnEmail" name="email" placeholder="you@example.com" required></div>
@@ -356,84 +490,149 @@
           <div class="form-group"><label for="lawnEventTime">Event Time</label><input type="time" id="lawnEventTime" name="eventTime" required></div>
           <div class="form-group">
             <label for="lawnGuests">Number of Guests <span class="range-value" id="lawnGuestsValue">500</span></label>
-            <input type="range" id="lawnGuests" name="guests" min="500" max="2000" step="10" value="500"
-                   oninput="document.getElementById('lawnGuestsValue').textContent=this.value">
+            <input type="range" id="lawnGuests" name="guests" min="500" max="2000" step="10" value="500" oninput="document.getElementById('lawnGuestsValue').textContent=this.value">
           </div>
-         
-          <div class="form-group"><label for="lawnBudget">Estimated Budget (₹) — min ₹2,60,000</label><input type="number" id="lawnBudget" name="budget" min="200000" step="10000" placeholder="e.g. 500000"></div>
-          <div class="form-group full"><label for="lawnRequirements">Special Requirements</label><textarea id="lawnRequirements" name="requirements" rows="4" placeholder="Any special arrangements, allergies, or requests"></textarea></div>
-          <div class="form-group full"><label class="checkbox-row"><input type="checkbox" required> I agree to the Terms and Conditions</label></div>
-        </div>
-        <div class="form-footer">
-          <div class="progress-steps"><span class="dot active"></span> Details <span class="dot"></span> Review <span class="dot"></span> Payment</div>
-          <button type="submit" class="btn btn-primary" data-ripple>Book Now</button>
-        </div>
-      </form>
+          <div class="form-group"><label for="lawnBudget">Estimated Budget (₹)</label><input type="number" id="lawnBudget" name="budget" min="260000" step="10000" placeholder="e.g. 260000"></div>
+          <div class="form-group"><label for="lawnRequirements">Special Requirements</label><textarea id="lawnRequirements" name="requirements" rows="3" placeholder="Any special arrangements or requests"></textarea></div>
+         <button type="submit" class="btn btn-primary" data-ripple style="width:100%;margin-top:4px">Confirm Booking</button>
+        </form>
+      </div>
     </div>
   </section>
 </section>
 
 <!-- ============ HALL SECTION (shown only when Hall is selected) ============ -->
 <section class="venue-section" id="hallSection">
-  <section class="page-hero" style="background-image:url('https://images.unsplash.com/photo-1519167758481-83f550bb49b3?q=80&w=1600')">
+  <section class="page-hero" style="background-image:url('assets/images/hall-hero.jpeg')">
     <div class="page-hero-content">
       <span class="eyebrow">Indoor Celebrations</span>
       <h1>The Luxury Hall</h1>
     </div>
   </section>
 
-  <div class="container section-pad">
+  <div class="container section-pad" style="padding-bottom:0">
     <span class="back-home-btn" data-back-home>← Back to Home</span>
     <div class="center" data-reveal>
-      <span class="eyebrow">Venue Overview</span>
-      <h2 class="section-title">An Air-Conditioned Space, Styled to Impress</h2>
-      <p class="section-desc center">Our indoor hall offers a fully air-conditioned, elegantly lit setting with dedicated VIP rooms — built for weddings, receptions, conferences and every indoor celebration.</p>
-    </div>
-
-    <div class="info-grid" style="margin-top:50px;">
-      <div class="info-card" data-reveal>
-        <div class="info-icon">👥</div>
-        <h3>Guest Capacity</h3>
-        <div class="capacity-tags"><span>100</span><span>300</span><span>500</span><span>800</span></div>
-      </div>
-      <div class="info-card" data-reveal>
-        <div class="info-icon">❄️</div>
-        <h3>Comfort &amp; Ambience</h3>
-        <ul><li>Fully AC Hall</li><li>Premium Lighting</li><li>Custom Decoration</li><li>LED Wall</li><li>Sound System</li></ul>
-      </div>
-      <div class="info-card" data-reveal>
-        <div class="info-icon">🍽️</div>
-        <h3>Dining &amp; Service</h3>
-        <ul><li>Dedicated Dining Area</li><li>Inside &amp; Outside Catering</li><li>Live Counters</li><li>Buffet — Veg &amp; Non-Veg</li></ul>
-      </div>
-      <div class="info-card" data-reveal>
-        <div class="info-icon">👑</div>
-        <h3>VIP Amenities</h3>
-        <ul><li>VIP Rooms</li><li>Bride's Room</li><li>Waiting Lounge</li></ul>
-      </div>
-      <div class="info-card" data-reveal>
-        <div class="info-icon">⚙️</div>
-        <h3>Facilities</h3>
-        <ul><li>Generator Backup</li><li>Ample Parking</li><li>24x7 Security</li></ul>
-      </div>
-      <div class="info-card" data-reveal>
-        <div class="info-icon">📸</div>
-        <h3>Photography &amp; Video</h3>
-        <ul><li>Candid Photography</li><li>Traditional Photography</li><li>Videography</li></ul>
-      </div>
+      <span class="eyebrow">Reserve Your Date</span>
+      <h2 class="section-title">Book the Luxury Hall</h2>
+      <p class="section-desc center">A fully air-conditioned, elegantly lit setting with dedicated VIP rooms — built for weddings, receptions, conferences and every grand indoor celebration.</p>
     </div>
   </div>
 
-  <section class="booking-section section-pad">
-    <div class="container">
-      <div class="center" data-reveal>
-        <span class="eyebrow">Reserve Your Date</span>
-        <h2 class="section-title">Hall Booking Form</h2>
-        <p class="section-desc center">Tell us about your event and our team will confirm availability within 24 hours.</p>
-      </div>
+  <!-- Immersive Hall Booking Scene -->
+  <section class="venue-booking-scene" style="background-image:url('assets/images/Reception.png')">
+    <div class="vbs-overlay"></div>
 
-      <form class="booking-wrap" id="hallBookingForm" data-venue="Hall" data-reveal>
-        <div class="form-grid">
+    <!-- Animated Quotes Panel -->
+    <div class="vbs-quotes">
+      
+      <div class="vbs-quote-carousel" id="hallQuoteCarousel">
+        <div class="vbs-quote active">
+          <span class="vbs-quote-mark">"</span>
+          <p>Elegance is not just seen — it is felt in every corner of our grand hall.</p>
+          <span class="vbs-author">— Tripura Convention</span>
+        </div>
+        <div class="vbs-quote">
+          <span class="vbs-quote-mark">"</span>
+          <p>Where grandeur meets intimacy — every seat feels like the best seat.</p>
+          <span class="vbs-author">— Tripura Convention</span>
+        </div>
+        <div class="vbs-quote">
+          <span class="vbs-quote-mark">"</span>
+          <p>Every detail is crafted to perfection so your celebration truly shines.</p>
+          <span class="vbs-author">— Tripura Convention</span>
+        </div>
+        <div class="vbs-quote">
+          <span class="vbs-quote-mark">"</span>
+          <p>The stage is set, the lights are ready — now write your story with us.</p>
+          <span class="vbs-author">— Tripura Convention</span>
+        </div>
+      </div>
+      <div class="vbs-quote-dots" id="hallQuoteDots"></div>
+      
+      <div class="vbs-feature-pills">
+        <div class="vbs-pill-wrap">
+          <span class="vbs-pill">🎉 Suitable Events</span>
+          <div class="vbs-pill-card">
+            <h4>Suitable Events</h4>
+            <ul>
+              <li>Marriage</li>
+              <li>Corporate Events</li>
+              <li>Reception</li>
+              <li>Birthday</li>
+            </ul>
+          </div>
+        </div>
+
+        <div class="vbs-pill-wrap">
+          <span class="vbs-pill">👥 Guest Capacity</span>
+          <div class="vbs-pill-card">
+            <h4>Guest Capacity</h4>
+            <div class="vbs-capacity-tags">
+              <span>100</span><span>250</span><span>500</span>
+            </div>
+          </div>
+        </div>
+
+        <div class="vbs-pill-wrap">
+          <span class="vbs-pill">⚙️ Facilities</span>
+          <div class="vbs-pill-card">
+            <h4>Facilities</h4>
+            <ul>
+              <li>Air Conditioning</li>
+              <li>Banquet Chairs</li>
+              <li>Elegant Lighting</li>
+              <li>Stage</li>
+              <li>Washrooms</li>
+              <li>Power Backup</li>
+            </ul>
+          </div>
+        </div>
+
+        <div class="vbs-pill-wrap">
+          <span class="vbs-pill">🎨 Decoration</span>
+          <div class="vbs-pill-card">
+            <h4>Decoration Packages</h4>
+            <ul>
+              <li>Floral</li>
+              <li>Elegant</li>
+              <li>Royal</li>
+            </ul>
+          </div>
+        </div>
+
+        <div class="vbs-pill-wrap">
+          <span class="vbs-pill">🍽️ Catering</span>
+          <div class="vbs-pill-card">
+            <h4>Catering</h4>
+            <ul>
+              <li>Inside Catering</li>
+            </ul>
+          </div>
+        </div>
+
+        <div class="vbs-pill-wrap">
+          <span class="vbs-pill">📸 Photo & Video</span>
+          <div class="vbs-pill-card">
+            <h4>Photography & Video</h4>
+            <ul>
+              <li>Candid Photography</li>
+              <li>Cinematic Video</li>
+            </ul>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Glass Form Panel -->
+    <div class="vbs-form-panel">
+      <div class="vbs-form-inner">
+        <div class="vbs-form-header">
+          <span class="eyebrow" style="color:var(--color-gold-light)">Indoor Hall</span>
+          <h3>Hall Booking Form</h3>
+          <p>Our team will confirm availability within 24 hours.</p>
+        </div>
+        <form class="vbs-form" id="hallBookingForm" data-venue="Hall">
           <div class="form-group"><label for="hallFullName">Full Name</label><input type="text" id="hallFullName" name="fullName" placeholder="Your full name" required></div>
           <div class="form-group"><label for="hallPhone">Phone Number</label><input type="tel" id="hallPhone" name="phone" placeholder="+91 00000 00000" required></div>
           <div class="form-group"><label for="hallEmail">Email Address</label><input type="email" id="hallEmail" name="email" placeholder="you@example.com" required></div>
@@ -442,26 +641,20 @@
           <div class="form-group"><label for="hallEventTime">Event Time</label><input type="time" id="hallEventTime" name="eventTime" required></div>
           <div class="form-group">
             <label for="hallGuests">Number of Guests <span class="range-value" id="hallGuestsValue">500</span></label>
-            <input type="range" id="hallGuests" name="guests" min="500" max="2000" step="10" value="500"
-                   oninput="document.getElementById('hallGuestsValue').textContent=this.value">
+            <input type="range" id="hallGuests" name="guests" min="500" max="2000" step="10" value="500" oninput="document.getElementById('hallGuestsValue').textContent=this.value">
           </div>
-         
-          <div class="form-group"><label for="hallBudget">Estimated Budget (₹) — min ₹2,60,000</label><input type="number" id="hallBudget" name="budget" min="200000" step="10000" placeholder="e.g. 500000"></div>
-          <div class="form-group full"><label for="hallRequirements">Special Requirements</label><textarea id="hallRequirements" name="requirements" rows="4" placeholder="Any special arrangements, allergies, or requests"></textarea></div>
-          <div class="form-group full"><label class="checkbox-row"><input type="checkbox" required> I agree to the Terms and Conditions</label></div>
-        </div>
-        <div class="form-footer">
-          <div class="progress-steps"><span class="dot active"></span> Details <span class="dot"></span> Review <span class="dot"></span> Payment</div>
-          <button type="submit" class="btn btn-primary" data-ripple>Book Now</button>
-        </div>
-      </form>
+          <div class="form-group"><label for="hallBudget">Estimated Budget (₹)</label><input type="number" id="hallBudget" name="budget" min="200000" step="10000" placeholder="e.g. 500000"></div>
+          <div class="form-group"><label for="hallRequirements">Special Requirements</label><textarea id="hallRequirements" name="requirements" rows="3" placeholder="Any special arrangements or requests"></textarea></div>
+          <button type="submit" class="btn btn-primary" data-ripple style="width:100%;margin-top:10px">Confirm Booking</button>
+        </form>
+      </div>
     </div>
   </section>
 </section>
 
 <!-- ============ GALLERY SECTION (shown only when "View Full Gallery" is clicked) ============ -->
 <section class="venue-section" id="gallerySection">
-  <section class="page-hero" style="background-image:url('https://images.unsplash.com/photo-1519167758481-83f550bb49b3?q=80&w=1600')">
+  <section class="page-hero" style="background-image:url('assets/images/tripura-collage.png')">
     <div class="page-hero-content">
       <span class="eyebrow">Every Celebration, Framed</span>
       <h1>Full Gallery</h1>
@@ -501,17 +694,10 @@
       <div>
         <div class="footer-logo">
           <a href="index.html" class="logo">
-      <img src="assets/images/tripura-header-logo.png" alt="Tripura Convention" class="logo-img">
-    </a>
+            <img src="assets/images/tripura-header-logo.png" alt="Tripura Convention" class="logo-img">
+          </a>
         </div>
-       <p class="footer-quote">"Creating unforgettable celebrations, one beautiful moment at a time."</p>
-        <div class="footer-social">
-          <a href="https://instagram.com/tripuraconvention" target="_blank" rel="noopener" aria-label="Instagram"><i class="fab fa-instagram"></i></a>
-          <a href="https://facebook.com/tripuraconvention" target="_blank" rel="noopener" aria-label="Facebook"><i class="fab fa-facebook-f"></i></a>
-          <a href="https://youtube.com/@tripuraconvention" target="_blank" rel="noopener" aria-label="YouTube"><i class="fab fa-youtube"></i></a>
-          <a href="https://wa.me/919696396666" target="_blank" rel="noopener" aria-label="WhatsApp"><i class="fab fa-whatsapp"></i></a>
-        </div>
-
+        <p class="footer-quote">"Creating unforgettable celebrations, one beautiful moment at a time."</p>
       </div>
       <div>
         <h4>Explore</h4>
@@ -524,19 +710,35 @@
         </ul>
       </div>
       <div>
-      <h4>Venues</h4>
+        <h4>Venues</h4>
         <ul class="footer-links">
           <li><a href="#lawnSection" data-show-venue="lawn">Open Lawn</a></li>
           <li><a href="#hallSection" data-show-venue="hall">Indoor Hall</a></li>
         </ul>
       </div>
       <div>
-        <h4>Newsletter</h4>
-        <p style="font-size:.88rem;color:#aaa;">Subscribe for offers and event inspiration.</p>
-        <form class="newsletter-form" onsubmit="event.preventDefault(); this.reset(); alert('Subscribed successfully!');">
-          <input type="email" placeholder="Your email" required>
-          <button type="submit">→</button>
-        </form>
+        <h4>Connect With Us</h4>
+        <p style="font-size:.88rem;color:#aaa;margin-bottom:16px;">Follow our official channels for event inspiration & updates.</p>
+        
+        <div class="social-card">
+          <!-- Instagram -->
+          <a href="https://instagram.com/tripuraconvention" target="_blank" rel="noopener" aria-label="Instagram" class="socialContainer containerOne">
+            <svg class="socialSvg instagramSvg" viewBox="0 0 16 16"><path fill="#ffffff" d="M8 0C5.829 0 5.556.01 4.703.048 3.85.088 3.269.222 2.76.42a3.917 3.917 0 0 0-1.417.923A3.927 3.927 0 0 0 .42 2.76C.222 3.268.087 3.85.048 4.7.01 5.555 0 5.827 0 8.001c0 2.172.01 2.444.048 3.297.04 1.05.24 1.77.42 2.27.2.5.49.95.9 1.35.4.4.85.7 1.35.9.5.18 1.22.38 2.27.42.85.04 1.12.05 3.29.05s2.44-.01 3.29-.05c1.05-.04 1.77-.24 2.27-.42.5-.2.95-.49 1.35-.9.4-.4.7-.85.9-1.35.18-.5.38-1.22.42-2.27.04-.85.05-1.12.05-3.29s-.01-2.44-.05-3.29c-.04-1.05-.24-1.77-.42-2.27a3.916 3.916 0 0 0-.9-1.35 3.915 3.915 0 0 0-1.35-.9C12.73.222 12.15.087 11.3.048 10.45.01 10.17 0 8 0zm0 1.441c2.136 0 2.389.007 3.232.046.78.035 1.204.166 1.486.275.373.145.64.319.92.599.28.28.453.546.598.92.11.281.24.705.275 1.485.039.843.047 1.096.047 3.231s-.008 2.389-.047 3.232c-.035.78-.166 1.203-.275 1.485a2.47 2.47 0 0 1-.599.919c-.28.28-.546.453-.92.598-.28.11-.704.24-1.485.276-.843.038-1.096.047-3.232.047s-2.39-.009-3.233-.047c-.78-.036-1.203-.166-1.485-.276a2.478 2.478 0 0 1-.92-.598 2.48 2.48 0 0 1-.6-.92c-.109-.281-.24-.705-.275-1.485-.038-.843-.046-1.096-.046-3.232 0-2.136.008-2.388.046-3.231.036-.78.166-1.204.276-1.486.145-.373.319-.64.599-.92.28-.28.546-.453.92-.598.282-.11.705-.24 1.485-.276.843-.039 1.096-.047 3.232-.047zm0 2.452a4.108 4.108 0 1 0 0 8.216 4.108 4.108 0 0 0 0-8.216zm0 6.775a2.667 2.667 0 1 1 0-5.334 2.667 2.667 0 0 1 0 5.334zm5.23-6.937a.96.96 0 1 1-1.92 0 .96.96 0 0 1 1.92 0z"/></svg>
+          </a>
+          <!-- Facebook -->
+          <a href="https://facebook.com/tripuraconvention" target="_blank" rel="noopener" aria-label="Facebook" class="socialContainer containerTwo">
+            <svg class="socialSvg facebookSvg" viewBox="0 0 16 16"><path fill="#ffffff" d="M16 8.049c0-4.446-3.582-8.05-8-8.05C3.58 0-.002 3.603-.002 8.05c0 4.017 2.926 7.347 6.75 7.951v-5.625h-2.03V8.05H6.75V6.275c0-2.017 1.195-3.131 3.022-3.131.876 0 1.791.157 1.791.157v1.98h-1.009c-.993 0-1.303.621-1.303 1.258v1.51h2.218l-.354 2.326H9.25V16c3.824-.604 6.75-3.934 6.75-7.951z"/></svg>
+          </a>
+          <!-- YouTube -->
+          <a href="https://youtube.com/@tripuraconvention" target="_blank" rel="noopener" aria-label="YouTube" class="socialContainer containerThree">
+            <svg class="socialSvg youtubeSvg" viewBox="0 0 16 16"><path fill="#ffffff" d="M8.051 1.999h.089c.822.003 4.987.033 6.11.335a2.01 2.01 0 0 1 1.415 1.42c.301 1.127.328 4.298.328 5.127 0 .828-.027 4-.328 5.127a2.01 2.01 0 0 1-1.415 1.419c-1.123.303-5.288.333-6.11.334-.822-.001-4.987-.03-6.11-.334a2.01 2.01 0 0 1-1.415-1.419C.003 12.89 0 9.718 0 8.89c0-.829.003-4.001.304-5.127A2.01 2.01 0 0 1 1.719 2.334c1.123-.302 5.288-.332 6.11-.335zM6.355 5.51v6.76l5.882-3.38-5.882-3.38z"/></svg>
+          </a>
+          <!-- WhatsApp -->
+          <a href="https://wa.me/919696396666" target="_blank" rel="noopener" aria-label="WhatsApp" class="socialContainer containerFour">
+            <svg class="socialSvg whatsappSvg" viewBox="0 0 24 24">
+    <path fill="currentColor" d="M20.52 3.48A11.86 11.86 0 0 0 12.03 0C5.4 0 .02 5.37.02 12c0 2.12.55 4.18 1.6 6L0 24l6.18-1.62A11.95 11.95 0 0 0 12.03 24c6.63 0 12-5.37 12-12 0-3.2-1.25-6.2-3.51-8.52zm-8.49 18.5c-1.8 0-3.56-.49-5.1-1.42l-.36-.21-3.67.96.98-3.58-.24-.37A9.93 9.93 0 0 1 2.03 12c0-5.51 4.49-10 10-10s10 4.49 10 10-4.49 9.98-10 9.98zm5.48-7.48c-.3-.15-1.77-.88-2.04-.98-.27-.1-.47-.15-.67.15-.2.3-.77.98-.95 1.18-.17.2-.35.23-.65.08-.3-.15-1.27-.47-2.42-1.5-.89-.8-1.5-1.79-1.67-2.09-.17-.3-.02-.46.13-.61.14-.14.3-.35.45-.53.15-.17.2-.3.3-.5.1-.2.05-.38-.02-.53-.08-.15-.67-1.62-.92-2.22-.24-.58-.49-.5-.67-.51h-.57c-.2 0-.53.08-.8.38-.28.3-1.05 1.03-1.05 2.5s1.08 2.9 1.23 3.1c.15.2 2.12 3.23 5.13 4.53.72.31 1.28.49 1.72.63.72.23 1.37.2 1.89.12.58-.09 1.77-.72 2.02-1.42.25-.7.25-1.3.18-1.42-.07-.13-.27-.2-.57-.35"/>
+</svg></a>
+        </div>
       </div>
     </div>
     <div class="footer-bottom">
@@ -598,8 +800,7 @@
 
           <div class="form-group"><label for="popupBudget">Estimated Budget (₹) — min ₹2,60,000</label><input type="number" id="popupBudget" name="budget" min="260000" step="10000" placeholder="e.g. 500000"></div>
 
-          <div class="form-group full"><label class="checkbox-row"><input type="checkbox" required> I agree to the Terms and Conditions</label></div>
-        </div>
+         
 
         <div class="form-footer">
           <button type="submit" class="btn btn-primary" data-ripple style="width:100%;">Start Planning</button>
