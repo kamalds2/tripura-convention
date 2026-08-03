@@ -1322,9 +1322,12 @@ body.venue-view #mainSections{ display:none; }
 }
 
 @media (max-width:600px){
-  .contact-map-full{ height:220px; }
-  .map-pin-icon{ font-size:2.2rem; }
-  .map-pin-tooltip{ font-size:.72rem; padding:6px 12px; }
+  .contact-map-full{ height:260px; }
+  .map-aerial-img{ object-position:center 35%; }
+  .map-pin-icon{ font-size:2rem; }
+  .map-pin-pulse{ width:28px; height:28px; }
+  .map-pin-wrap::before{ width:90px; height:90px; }
+  .map-pin-tooltip{ font-size:.68rem; padding:5px 10px; white-space:normal; max-width:160px; text-align:center; }
 }
 
 
@@ -1530,9 +1533,11 @@ body.venue-view #mainSections{ display:none; }
   z-index: 100;
   pointer-events: none;
 }
-.vbs-pill-wrap:hover .vbs-pill-card {
+.vbs-pill-wrap:hover .vbs-pill-card,
+.vbs-pill-wrap.open .vbs-pill-card{
   opacity: 1;
   visibility: visible;
+  pointer-events: auto;
   transform: translateX(-50%) scale(1) translateY(0);
 }
 .vbs-pill-card h4 {
@@ -1544,6 +1549,24 @@ body.venue-view #mainSections{ display:none; }
 .vbs-capacity-tags { display: flex; flex-wrap: wrap; gap: 8px; }
 .vbs-capacity-tags span {
   background: rgba(217, 174, 123, 0.2); color: #fff; padding: 6px 12px; border-radius: 50px; font-size: .8rem; font-weight: 600;
+}
+
+@media (max-width: 600px){
+  /* A floating popover anchored to whichever pill was tapped can easily run
+     off-screen on a narrow phone. Anchor it to the viewport instead — a
+     simple, reliable bottom-sheet that always stays fully visible. */
+  .vbs-pill{ cursor:pointer; }
+  .vbs-pill-card{
+    position:fixed;
+    left:50%; top:auto; bottom:18px;
+    transform:translateX(-50%) scale(0.92) translateY(12px);
+    width:88vw; max-width:360px; max-height:70vh; overflow-y:auto;
+    background:rgba(30,16,14,0.92);
+  }
+  .vbs-pill-wrap:hover .vbs-pill-card,
+  .vbs-pill-wrap.open .vbs-pill-card{
+    transform:translateX(-50%) scale(1) translateY(0);
+  }
 }
 
 /* ---- Glass Form panel (right) — Compact 2-column layout, NO inner scrollbar ---- */
@@ -1706,9 +1729,15 @@ input[type="range"]::-moz-range-thumb{
   .about-extra-frame.frame-2{ width:42%; height:110px; right:0; top:-10px; }
   .about::before{ width:300px; height:300px; left:-150px; opacity:0.08; }
   .about::after{ width:300px; height:300px; right:-150px; opacity:0.08; }
-  footer::before{ width:360px; height:360px; top:-160px; opacity:0.12; }
+  footer::before{ width:300px; height:300px; top:60px; opacity:0.1; }
   .stats-grid{ grid-template-columns:1fr 1fr; }
-  .footer-grid{ grid-template-columns:1fr; text-align:left; gap:28px; }
+  .footer-grid{
+    grid-template-columns:1fr 1fr; text-align:left; gap:28px 20px;
+  }
+  .footer-grid > div:first-child,   /* logo + quote */
+  .footer-grid > div:last-child{    /* connect + social */
+    grid-column:1 / -1;
+  }
   .venue-options{ flex-direction:column; }
   .booking-wrap{ padding:24px 16px; }
   .events-grid{ grid-template-columns:1fr 1fr; gap:16px; }
@@ -1724,6 +1753,10 @@ input[type="range"]::-moz-range-thumb{
 
   /* ---- Hero / 3D Tour ---- */
   .hero{ height:100svh; }
+  .hero-slide-bg{ background-position:center top; } /* keep the subject in frame instead of a dead-center crop on a tall narrow viewport */
+  .hero-slide-content{ padding-top:70px; }
+  .hero-slide-content .hero-title{ font-size:clamp(1.55rem,6vw,2.3rem); margin-bottom:10px; }
+  .hero-quote{ max-width:90%; }
   .tour-hero-content{ padding:40px 20px 100px; }
   .tour-hero-content .hero-title{ font-size:clamp(1.6rem,6vw,2.8rem); }
   .tour-hero-content .hero-sub{ font-size:.9rem; margin-bottom:20px; }
@@ -1761,6 +1794,14 @@ input[type="range"]::-moz-range-thumb{
 
 @media (max-width: 480px){
   .container{ padding:0 14px; }
+  /* .hero-title alone never matched .hero-slide-content .hero-title (higher
+     specificity), so this override was silently ignored — the real hero
+     title stayed at desktop size and visually buried the photo behind it. */
+  .hero-slide-content .hero-title{ font-size:clamp(1.35rem,7vw,1.9rem); margin-bottom:8px; }
+  .hero-slide-content{ padding-top:80px; }
+  .hero-eyebrow{ font-size:.68rem; padding:5px 14px; margin-bottom:12px; letter-spacing:2px; }
+  .hero-quote{ display:none; } /* trims vertical stacking so the photo stays visible */
+  .hero-subtext{ font-size:.72rem; margin-bottom:18px; letter-spacing:1.5px; }
   .hero-title{ font-size:clamp(1.5rem,8vw,2.4rem); }
   .section-pad{ padding:48px 0; }
   .events-grid{ grid-template-columns:1fr; }

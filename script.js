@@ -478,21 +478,48 @@ document.addEventListener('DOMContentLoaded', () => {
   }
 
   if (planEventList) {
+    let planIndex = 0;
+    let planAutoTimer = null;
+    let planPaused = false;
+    let planResumeTimeout = null;
+
+    function activateEvent(i, evt) {
+      planIndex = i;
+      planEventList.querySelectorAll('li').forEach(el => el.classList.remove('active'));
+      const li = planEventList.children[i];
+      if (li) li.classList.add('active');
+      setShowcase(evt);
+    }
+
+    function pausePlanAutoRotate() {
+      planPaused = true;
+      clearTimeout(planResumeTimeout);
+      planResumeTimeout = setTimeout(() => { planPaused = false; }, 6000);
+    }
+
     eventTypes.forEach((evt, i) => {
       const li = document.createElement('li');
       li.textContent = evt.name;
       li.setAttribute('data-event', evt.name);
       if (i === 0) li.classList.add('active');
-      li.addEventListener('mouseenter', () => {
-        planEventList.querySelectorAll('li').forEach(el => el.classList.remove('active'));
-        li.classList.add('active');
-        setShowcase(evt);
-      });
-      
+
+      // Desktop: hover switches the showcase
+      li.addEventListener('mouseenter', () => { activateEvent(i, evt); pausePlanAutoRotate(); });
+      // Mobile/touch: tap switches the showcase (hover never fires on touch devices)
+      li.addEventListener('click', () => { activateEvent(i, evt); pausePlanAutoRotate(); });
+
       planEventList.appendChild(li);
     });
     // set initial showcase content
     setShowcase(eventTypes[0]);
+
+    // Auto-rotate through events (mirrors the lawn/hall quote carousels) so the
+    // showcase keeps cycling even on touch devices with no hover interaction.
+    planAutoTimer = setInterval(() => {
+      if (planPaused) return;
+      const next = (planIndex + 1) % eventTypes.length;
+      activateEvent(next, eventTypes[next]);
+    }, 3800);
   }
 
   /* ---------- Venue Selection Modal ---------- */
@@ -989,6 +1016,23 @@ document.querySelectorAll('[data-show-venue]').forEach(link => {
 
   initQuoteCarousel('lawnQuoteCarousel', 'lawnQuoteDots');
   initQuoteCarousel('hallQuoteCarousel', 'hallQuoteDots');
+
+  /* ---------- Feature Pills (Lawn/Hall facility chips) — tap-to-open on
+     touch devices, since :hover never fires there. Works alongside the
+     existing CSS :hover behavior for mouse users; doesn't replace it. */
+  document.querySelectorAll('.vbs-pill-wrap').forEach(wrap => {
+    const pill = wrap.querySelector('.vbs-pill');
+    if (!pill) return;
+    pill.addEventListener('click', (e) => {
+      e.stopPropagation();
+      const isOpen = wrap.classList.contains('open');
+      document.querySelectorAll('.vbs-pill-wrap.open').forEach(w => w.classList.remove('open'));
+      if (!isOpen) wrap.classList.add('open');
+    });
+  });
+  document.addEventListener('click', () => {
+    document.querySelectorAll('.vbs-pill-wrap.open').forEach(w => w.classList.remove('open'));
+  });
 
 
 
