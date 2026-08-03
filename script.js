@@ -494,7 +494,7 @@ document.addEventListener('DOMContentLoaded', () => {
     function pausePlanAutoRotate() {
       planPaused = true;
       clearTimeout(planResumeTimeout);
-      planResumeTimeout = setTimeout(() => { planPaused = false; }, 6000);
+      planResumeTimeout = setTimeout(() => { planPaused = false; }, 2500);
     }
 
     eventTypes.forEach((evt, i) => {

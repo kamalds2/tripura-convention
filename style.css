@@ -1551,21 +1551,35 @@ body.venue-view #mainSections{ display:none; }
   background: rgba(217, 174, 123, 0.2); color: #fff; padding: 6px 12px; border-radius: 50px; font-size: .8rem; font-weight: 600;
 }
 
-@media (max-width: 600px){
-  /* A floating popover anchored to whichever pill was tapped can easily run
-     off-screen on a narrow phone. Anchor it to the viewport instead — a
-     simple, reliable bottom-sheet that always stays fully visible. */
-  .vbs-pill{ cursor:pointer; }
-  .vbs-pill-card{
-    position:fixed;
-    left:50%; top:auto; bottom:18px;
-    transform:translateX(-50%) scale(0.92) translateY(12px);
-    width:88vw; max-width:360px; max-height:70vh; overflow-y:auto;
-    background:rgba(30,16,14,0.92);
+@media (max-width: 768px){
+  .vbs-feature-pills {
+    display: flex; flex-wrap: wrap; gap: 8px; margin-top: 16px; position: relative;
   }
-  .vbs-pill-wrap:hover .vbs-pill-card,
-  .vbs-pill-wrap.open .vbs-pill-card{
-    transform:translateX(-50%) scale(1) translateY(0);
+  .vbs-pill-wrap {
+    position: relative;
+  }
+  .vbs-pill {
+    padding: 7px 14px; font-size: .78rem; cursor: pointer;
+  }
+  .vbs-pill-card {
+    position: absolute;
+    bottom: calc(100% + 8px); /* Opens UPWARD above the pill, so it NEVER blocks the booking form below! */
+    top: auto;
+    left: 50%;
+    transform: translateX(-50%) scale(0.9) translateY(10px);
+    width: 260px; max-width: 85vw; max-height: 240px; overflow-y: auto;
+    background: rgba(20, 11, 8, 0.95);
+    border: 1px solid rgba(212, 175, 55, 0.4);
+    border-radius: var(--radius-md);
+    padding: 14px;
+    box-shadow: 0 12px 30px rgba(0, 0, 0, 0.6);
+    z-index: 500;
+  }
+  .vbs-pill-wrap.open .vbs-pill-card,
+  .vbs-pill-wrap:hover .vbs-pill-card {
+    transform: translateX(-50%) scale(1) translateY(0);
+    opacity: 1;
+    visibility: visible;
   }
 }
 
@@ -1712,61 +1726,86 @@ input[type="range"]::-moz-range-thumb{
     background:#fff; flex-direction:column; padding:90px 28px; gap:22px; box-shadow:var(--shadow-lift);
     transition:right .4s ease; z-index:1050; overflow-y:auto;
   }
+  /* ---- Nav & Logos ---- */
+  .nav-links{
+    position:fixed; top:0; right:-100%; width:72%; max-width:300px; height:100vh;
+    background:#fff; flex-direction:column; padding:90px 28px; gap:22px; box-shadow:var(--shadow-lift);
+    transition:right .4s ease; z-index:1050; overflow-y:auto;
+  }
   .nav-links.open{ right:0; }
   .nav-links a{ color:var(--color-royal) !important; font-size:1.05rem; }
   .nav-close{ display:flex; }
   .hamburger{ display:flex; }
   .nav-wrap{ gap:10px; overflow:hidden; }
-  .logo-img{ height:38px; }
+  .logo-img{ height:48px; width:auto; } /* Prominent visible header logo on mobile */
+  header.scrolled .logo-img{ height:42px; }
   .nav-cta{ gap:8px; }
   .nav-cta .btn-primary{ padding:9px 16px; font-size:.8rem; }
 
   /* ---- Sections ---- */
-  .section-pad{ padding:60px 0; }
+  .section-pad{ padding:50px 0; }
   .about-list{ grid-template-columns:1fr; }
   .about-visual-wrap{ padding-right:0; padding-bottom:50px; }
   .about-extra-frame.frame-1{ width:55%; height:140px; right:0; bottom:-25px; }
   .about-extra-frame.frame-2{ width:42%; height:110px; right:0; top:-10px; }
-  .about::before{ width:300px; height:300px; left:-150px; opacity:0.08; }
-  .about::after{ width:300px; height:300px; right:-150px; opacity:0.08; }
-  footer::before{ width:300px; height:300px; top:60px; opacity:0.1; }
+  .about::before{ width:280px; height:280px; left:-140px; opacity:0.08; }
+  .about::after{ width:280px; height:280px; right:-140px; opacity:0.08; }
+  footer::before{ width:280px; height:280px; top:-60px; left:50%; transform:translateX(-50%); opacity:0.12; mix-blend-mode:screen; pointer-events:none; }
   .stats-grid{ grid-template-columns:1fr 1fr; }
+
+  /* ---- Footer Grid (3 Columns Grid View on Mobile) ---- */
   .footer-grid{
-    grid-template-columns:1fr 1fr; text-align:left; gap:28px 20px;
+    grid-template-columns:1fr 1fr 1fr; /* 3-column mobile grid view */
+    gap:24px 12px; text-align:left;
   }
-  .footer-grid > div:first-child,   /* logo + quote */
-  .footer-grid > div:last-child{    /* connect + social */
-    grid-column:1 / -1;
+  .footer-grid > div:first-child{
+    grid-column:1 / -1; /* Logo + Quote spans full width across top */
+    text-align:center; margin-bottom:6px;
   }
+  .footer-logo{ justify-content:center; margin-bottom:12px; }
+  .footer-logo .logo-img{ height:52px; width:auto; } /* Prominent visible footer logo */
+  .footer-quote{ max-width:100%; font-size:.88rem; text-align:center; margin:0 auto; line-height:1.45; }
+  .footer h4{ font-size:.88rem; margin-bottom:12px; color:#fff; letter-spacing:.5px; }
+  .footer-links li{ margin-bottom:8px; }
+  .footer-links a{ font-size:.82rem; }
+  .social-card{ padding:8px; gap:8px; flex-wrap:wrap; justify-content:flex-start; max-width:100%; }
+  .socialContainer{ width:36px; height:36px; border-radius:10px; }
+  .socialSvg{ width:15px; height:15px; }
+
   .venue-options{ flex-direction:column; }
-  .booking-wrap{ padding:24px 16px; }
-  .events-grid{ grid-template-columns:1fr 1fr; gap:16px; }
-  .event-card{ height:240px; }
+  .booking-wrap{ padding:20px 14px; }
+  .events-grid{ grid-template-columns:1fr 1fr; gap:14px; }
+  .event-card{ height:230px; }
   .info-grid{ grid-template-columns:1fr; }
+
+  /* ---- Contact Location Aerial Map Image (100% visible, no side crop) ---- */
+  .contact-map-full{ height:auto; min-height:220px; max-height:300px; border-radius:var(--radius-md); overflow:hidden; }
+  .map-aerial-img{ width:100%; height:auto; max-height:300px; object-fit:contain; background:#090605; }
+  .map-pin-wrap{ top:45%; left:68%; }
 
   /* ---- Plan showcase ---- */
   .plan-showcase{ grid-template-columns:1fr; gap:20px; }
-  .plan-showcase-image{ min-height:280px; }
-  .plan-showcase-overlay{ padding:24px; }
-  .plan-event-list{ flex-direction:row; flex-wrap:wrap; gap:4px 16px; }
-  .plan-event-list li{ border-bottom:none; padding:6px 4px; font-size:.95rem; }
+  .plan-showcase-image{ min-height:260px; }
+  .plan-showcase-overlay{ padding:20px 18px; }
+  .plan-event-list{ flex-direction:row; flex-wrap:wrap; gap:4px 12px; justify-content:center; }
+  .plan-event-list li{ border-bottom:none; padding:6px 10px; font-size:.85rem; }
 
-  /* ---- Hero / 3D Tour ---- */
+  /* ---- Hero Section Mobile Scaling (Clear background images & compact text) ---- */
   .hero{ height:100svh; }
-  .hero-slide-bg{ background-position:center top; } /* keep the subject in frame instead of a dead-center crop on a tall narrow viewport */
-  .hero-slide-content{ padding-top:70px; }
-  .hero-slide-content .hero-title{ font-size:clamp(1.55rem,6vw,2.3rem); margin-bottom:10px; }
-  .hero-quote{ max-width:90%; }
+  .hero-slide-overlay{
+    background:linear-gradient(180deg, rgba(10,5,5,.25) 0%, rgba(10,5,5,.35) 50%, rgba(10,5,5,.65) 100%);
+  }
+  .hero-slide-bg{ background-position:center center; }
+  .hero-slide-content{ padding-top:65px; text-align:center; align-items:center; }
+  .hero-eyebrow{ font-size:.7rem; padding:5px 14px; margin-bottom:10px; letter-spacing:1.5px; border-radius:50px; background:rgba(0,0,0,0.4); border:1px solid rgba(212,175,55,0.4); max-width:92%; }
+  .hero-slide-content .hero-title{ font-size:clamp(1.25rem, 5.5vw, 1.65rem); line-height:1.25; margin-bottom:8px; font-weight:700; max-width:95%; }
+  .hero-quote{ font-size:.82rem; line-height:1.35; margin-bottom:8px; max-width:88%; opacity:0.9; }
+  .hero-subtext{ font-size:.68rem; margin-bottom:16px; letter-spacing:1.5px; }
   .tour-hero-content{ padding:40px 20px 100px; }
-  .tour-hero-content .hero-title{ font-size:clamp(1.6rem,6vw,2.8rem); }
-  .tour-hero-content .hero-sub{ font-size:.9rem; margin-bottom:20px; }
-  .hero-btn-wrap{ gap:10px; }
-  .tour-label-wrap{ top:90px; left:16px; }
-  .tour-location-badge{ padding:8px 14px; font-size:.82rem; }
-  .tour-nav{ width:40px; height:40px; font-size:.9rem; }
-  .tour-nav-prev{ left:10px; }
-  .tour-nav-next{ right:10px; }
-  .tour-counter{ right:14px; bottom:18px; font-size:.72rem; }
+  .hero-btn-wrap{ gap:10px; justify-content:center; }
+  .hero-btn-wrap .btn{ padding:10px 18px; font-size:.8rem; }
+  .hero-vertical-nav{ right:12px; }
+  .hero-dot{ width:10px; height:10px; }
   .hero-scroll-indicator{ display:none; }
 
   /* ---- About images ---- */
