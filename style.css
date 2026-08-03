@@ -144,7 +144,7 @@ header.scrolled .logo-img {
 }
 .btn-primary:hover{ transform:translateY(-3px); box-shadow:var(--shadow-lift); background-position:100% 0; }
 .btn-outline{
-  border:1.5px solid var(--color-royal); color:var(--color-royal); background:transparent;
+  border:1.5px solid var(--color-royal); color:var(--color-royal); background:#fff;
 }
 .btn-outline:hover{ background:var(--color-royal); color:#fff; transform:translateY(-3px); }
 .ripple{ position:absolute; border-radius:50%; background:rgba(255,255,255,.55); transform:scale(0); animation:ripple .6s ease-out; pointer-events:none; }
@@ -453,7 +453,7 @@ header:not(.scrolled) .hamburger span{ background:#fff; }
 .about::after{
   content:'';
   position:absolute;
-  top:50%;
+  top:55%;
   width:460px;
   height:460px;
   background-image:url('assets/images/logo_mandala.png');
@@ -1051,7 +1051,7 @@ footer .container{
   justify-content: center;
 
   gap: 14px;
-  backdrop-filter: blur(8px);
+  
 }
 
 /* for all social containers */
@@ -1519,10 +1519,10 @@ body.venue-view #mainSections{ display:none; }
   opacity: 0;
   visibility: hidden;
   /* Glassmorphism transparent background */
-  background: rgba(255, 255, 255, 0.05);
+  
   backdrop-filter: blur(16px);
   -webkit-backdrop-filter: blur(16px);
-  border: 1px solid rgba(255, 255, 255, 0.15);
+  
   border-radius: var(--radius-md);
   padding: 20px;
   width: max-content;
@@ -1565,11 +1565,9 @@ body.venue-view #mainSections{ display:none; }
     position: absolute;
     bottom: calc(100% + 8px); /* Opens UPWARD above the pill, so it NEVER blocks the booking form below! */
     top: auto;
-    left: 50%;
+    left: 100%;
     transform: translateX(-50%) scale(0.9) translateY(10px);
     width: 260px; max-width: 85vw; max-height: 240px; overflow-y: auto;
-    background: rgba(20, 11, 8, 0.95);
-    border: 1px solid rgba(212, 175, 55, 0.4);
     border-radius: var(--radius-md);
     padding: 14px;
     box-shadow: 0 12px 30px rgba(0, 0, 0, 0.6);
@@ -1650,20 +1648,59 @@ body.venue-view #mainSections{ display:none; }
 .vbs-form .checkbox-row{ color:rgba(255,255,255,.8); font-size:.82rem; }
 .vbs-form .range-value{ background:var(--gradient-gold); padding:2px 10px; }
 
-/* Mobile stacked */
+/* Mobile stacked — Background image constrained to top showcase area (quotes & pills) only */
 @media (max-width:960px){
   .venue-booking-scene{
     grid-template-columns:1fr;
-    padding:20px 0;
+    padding:0;
+    background-image:none !important;
+    background:#0f0907; /* Solid dark background for form & outer container below */
   }
-  .vbs-quotes{ padding:40px 20px 24px; }
-  .vbs-form-inner{ margin-right:0; border-left:none; border-top:1px solid rgba(255,255,255,.15); padding:30px 20px; }
+  .venue-booking-scene > .vbs-overlay{ display:none; } /* overlay handled inside vbs-quotes on mobile */
+
+  .vbs-quotes{
+    position:relative;
+    padding:44px 20px 32px;
+    background-image:var(--scene-bg);
+    background-size:cover;
+    background-position:center center;
+    background-repeat:no-repeat;
+    overflow:hidden;
+  }
+  /* Dark overlay for top quotes showcase on mobile */
+  .vbs-quotes::before{
+    content:'';
+    position:absolute; inset:0;
+    background:linear-gradient(180deg, rgba(0,0,0,0.72) 0%, rgba(0,0,0,0.85) 100%);
+    z-index:0; pointer-events:none;
+  }
+  .vbs-quotes > *{
+    position:relative; z-index:2;
+  }
+
+  /* Glass type background for form panel & inner on mobile */
+  .vbs-form-panel{
+    position:relative; z-index:2;
+    background:transparent;
+  }
+  .vbs-form-inner{
+    margin-right:0;
+    border-left:none;
+    border-radius:24px 24px 0 0;
+    background:rgba(255,255,255,0.06);
+    backdrop-filter:blur(16px);
+    -webkit-backdrop-filter:blur(16px);
+    border:1px solid rgba(255,255,255,0.15);
+    border-top:1px solid rgba(212,175,55,0.4);
+    padding:30px 20px 24px;
+    box-shadow:0 -10px 30px rgba(0,0,0,0.4);
+  }
   .vbs-form{ grid-template-columns:1fr; }
 }
 @media (max-width:480px){
-  .vbs-quotes{ padding:36px 18px 24px; }
-  .vbs-form-inner{ padding:24px 16px; }
-  .vbs-quote-mark{ font-size:4rem; }
+  .vbs-quotes{ padding:38px 16px 26px; }
+  .vbs-form-inner{ padding:24px 16px; border-radius:20px 20px 0 0; }
+  .vbs-quote-mark{ font-size:3.5rem; }
 }
 
 /* ---------- Booking Form ---------- */
@@ -1737,7 +1774,7 @@ input[type="range"]::-moz-range-thumb{
   .nav-close{ display:flex; }
   .hamburger{ display:flex; }
   .nav-wrap{ gap:10px; overflow:hidden; }
-  .logo-img{ height:48px; width:auto; } /* Prominent visible header logo on mobile */
+  .logo-img{ height:100px; width:auto; } /* Prominent visible header logo on mobile */
   header.scrolled .logo-img{ height:42px; }
   .nav-cta{ gap:8px; }
   .nav-cta .btn-primary{ padding:9px 16px; font-size:.8rem; }
@@ -1748,9 +1785,9 @@ input[type="range"]::-moz-range-thumb{
   .about-visual-wrap{ padding-right:0; padding-bottom:50px; }
   .about-extra-frame.frame-1{ width:55%; height:140px; right:0; bottom:-25px; }
   .about-extra-frame.frame-2{ width:42%; height:110px; right:0; top:-10px; }
-  .about::before{ width:280px; height:280px; left:-140px; opacity:0.08; }
-  .about::after{ width:280px; height:280px; right:-140px; opacity:0.08; }
-  footer::before{ width:280px; height:280px; top:-60px; left:50%; transform:translateX(-50%); opacity:0.12; mix-blend-mode:screen; pointer-events:none; }
+ 
+  .about::after{ top:73%; width:280px; height:280px; right:-140px; opacity:0.08; }
+  footer::before{ width:280px; height:280px; top:260px; left:50%; transform:translateX(-50%); opacity:0.12; mix-blend-mode:screen; pointer-events:none; }
   .stats-grid{ grid-template-columns:1fr 1fr; }
 
   /* ---- Footer Grid (3 Columns Grid View on Mobile) ---- */
@@ -1763,7 +1800,7 @@ input[type="range"]::-moz-range-thumb{
     text-align:center; margin-bottom:6px;
   }
   .footer-logo{ justify-content:center; margin-bottom:12px; }
-  .footer-logo .logo-img{ height:52px; width:auto; } /* Prominent visible footer logo */
+  .footer-logo .logo-img{ height:100px; width:auto; } /* Prominent visible footer logo */
   .footer-quote{ max-width:100%; font-size:.88rem; text-align:center; margin:0 auto; line-height:1.45; }
   .footer h4{ font-size:.88rem; margin-bottom:12px; color:#fff; letter-spacing:.5px; }
   .footer-links li{ margin-bottom:8px; }
@@ -1779,7 +1816,7 @@ input[type="range"]::-moz-range-thumb{
   .info-grid{ grid-template-columns:1fr; }
 
   /* ---- Contact Location Aerial Map Image (100% visible, no side crop) ---- */
-  .contact-map-full{ height:auto; min-height:220px; max-height:300px; border-radius:var(--radius-md); overflow:hidden; }
+  .contact-map-full{ height:auto; min-height:50px; max-height:300px; border-radius:var(--radius-md); overflow:hidden; }
   .map-aerial-img{ width:100%; height:auto; max-height:300px; object-fit:contain; background:#090605; }
   .map-pin-wrap{ top:45%; left:68%; }
 
