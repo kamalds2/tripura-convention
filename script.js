@@ -13,91 +13,51 @@ document.addEventListener('DOMContentLoaded', () => {
      – Background: assets/images/logo-bg.png (CSS).
      ========================================================== */
   /* ==========================================================
-     FRAME SEQUENCE LOGO PRELOADER
-     – Plays sequence frame_000001.png to frame_000220.png from
-       assets/images/tripura-logo-frames/
-     – Remains visible until the last frame finishes, then fades out.
+     LOGO MP4 VIDEO PRELOADER
+     – Plays assets/images/logo.mp4 full screen on site launch.
+     – As soon as the video finishes playing (ended event), fades out
+       the preloader smoothly to reveal the website.
      ========================================================== */
+  (function initVideoPreloader() {
+    const preloader = document.getElementById('preloader');
+    const video     = document.getElementById('preloaderVideo');
+    if (!preloader || !video) return;
+
+    let isHidden = false;
+    function hidePreloader() {
+      if (isHidden) return;
+      isHidden = true;
+      preloader.classList.add('hide');
+    }
+
+    // Fade out preloader when video finishes playing natively
+    video.addEventListener('ended', hidePreloader);
+
+    // Fallback: Set timeout based on video duration
+    video.addEventListener('loadedmetadata', () => {
+      const dur = (video.duration || 6) * 1000 + 300;
+      setTimeout(hidePreloader, dur);
+    });
+
+    // Handle autoplay start
+    video.play().catch(() => {
+      // If autoplay was blocked by browser, hide preloader after 2.5s
+      setTimeout(hidePreloader, 2500);
+    });
+
+    // Absolute failsafe maximum
+    setTimeout(hidePreloader, 9000);
+  })();
+
   /* ==========================================================
-     HYBRID ULTRA-FAST LOGO PRELOADER
-     – Stepped Keyframe Preloader (28 keyframes stepping by 8)
-     – Pre-buffers keyframes first so animation plays smoothly without network lag.
-     – Max 2.5s failsafe timer ensures instant access on any connection speed.
-     ========================================================== */
+     OLD FRAME SEQUENCE LOGO PRELOADER (COMMENTED OUT)
   (function initLogoPreloader() {
     const preloader = document.getElementById('preloader');
     const stage     = document.getElementById('logoReveal');
     if (!preloader || !stage) return;
-
-    const KEYFRAMES = [];
-    const TOTAL_FRAMES = 220;
-    const STEP = 8; // Step by 8 frames -> ~28 keyframe images (~5MB total payload instead of 110MB!)
-    const FRAME_DIR = 'assets/images/tripura-logo-frames/';
-
-    for (let i = 1; i <= TOTAL_FRAMES; i += STEP) {
-      KEYFRAMES.push(i);
-    }
-    if (KEYFRAMES[KEYFRAMES.length - 1] !== TOTAL_FRAMES) {
-      KEYFRAMES.push(TOTAL_FRAMES);
-    }
-
-    let frameImg = stage.querySelector('img');
-    if (!frameImg) {
-      stage.innerHTML = `<img id="preloaderFrameImg" src="${FRAME_DIR}frame_000001.png" alt="Tripura Convention Logo Animation">`;
-      frameImg = document.getElementById('preloaderFrameImg');
-    }
-
-    function getFrameUrl(num) {
-      const padded = String(num).padStart(6, '0');
-      return `${FRAME_DIR}frame_${padded}.png`;
-    }
-
-    let isHidden = false;
-    function hide() {
-      if (isHidden) return;
-      isHidden = true;
-      if (animTimer) clearInterval(animTimer);
-      preloader.classList.add('hide');
-    }
-
-    let currentIdx = 0;
-    let animTimer = null;
-    let loadedCount = 0;
-    const cachedImages = {};
-
-    // Preload keyframe images first before playing
-    KEYFRAMES.forEach((frameNum) => {
-      const img = new Image();
-      img.src = getFrameUrl(frameNum);
-      img.onload = () => {
-        loadedCount++;
-        cachedImages[frameNum] = img;
-        // Start animation as soon as first 4 keyframes load
-        if (loadedCount >= 4 && !animTimer && !isHidden) {
-          startPlayback();
-        }
-      };
-    });
-
-    function startPlayback() {
-      if (animTimer || isHidden) return;
-      animTimer = setInterval(() => {
-        currentIdx++;
-        if (currentIdx < KEYFRAMES.length) {
-          const frameNum = KEYFRAMES[currentIdx];
-          if (frameImg) {
-            frameImg.src = getFrameUrl(frameNum);
-          }
-        } else {
-          clearInterval(animTimer);
-          setTimeout(hide, 300);
-        }
-      }, 55); // 55ms per keyframe for a smooth, fast 1.5-second intro
-    }
-
-    // Maximum 2.5s failsafe so visitors on slow connections/mobile data enter immediately
-    setTimeout(hide, 2500);
+    // ...
   })();
+     ========================================================== */
 
   /* ---------- About Section 3D MP4 Video (Auto-looping natively via HTML5 Video) ---------- */
 

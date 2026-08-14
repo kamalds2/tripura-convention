@@ -61,13 +61,13 @@ section{ position:relative; }
   background:var(--gradient-gold-blue); z-index:2000; transition:width .1s linear;
 }
 
-/* ---------- Preloader (Shatter → Assemble Logo) ---------- */
+/* ---------- Preloader (Black Background + Logo Sized MP4 Video) ---------- */
 #preloader {
   position: fixed;
   inset: 0;
   width: 100vw;
   height: 100vh;
-  background: radial-gradient(circle at center, #1a120c 0%, #090605 80%);
+  background: #000000;
   z-index: 5000;
   display: flex;
   align-items: center;
@@ -83,24 +83,35 @@ section{ position:relative; }
   pointer-events: none;
 }
 
-/* Frame sequence stage container */
-.logo-reveal-stage {
-  position: relative;
-  max-width: min(95vw, 680px);
-  width: 100%;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-}
-
-#preloaderFrameImg {
+#preloaderVideo {
+  max-width: min(90vw, 480px);
   width: 100%;
   height: auto;
   max-height: 70vh;
   object-fit: contain;
   display: block;
-  filter: drop-shadow(0 10px 25px rgba(0,0,0,0.4));
+  filter: drop-shadow(0 10px 30px rgba(0, 0, 0, 0.5));
 }
+
+/* ==========================================================
+   OLD FRAME SEQUENCE / TILE PRELOADER STYLES (COMMENTED OUT)
+   .logo-reveal-stage {
+     position: relative;
+     max-width: min(95vw, 680px);
+     width: 100%;
+     display: flex;
+     align-items: center;
+     justify-content: center;
+   }
+   #preloaderFrameImg {
+     width: 100%;
+     height: auto;
+     max-height: 70vh;
+     object-fit: contain;
+     display: block;
+     filter: drop-shadow(0 10px 25px rgba(0,0,0,0.4));
+   }
+   ========================================================== */
 
 /* ---------- Header Logo ---------- */
 .logo { 
