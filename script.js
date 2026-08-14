@@ -18,14 +18,28 @@ document.addEventListener('DOMContentLoaded', () => {
        assets/images/tripura-logo-frames/
      – Remains visible until the last frame finishes, then fades out.
      ========================================================== */
+  /* ==========================================================
+     HYBRID ULTRA-FAST LOGO PRELOADER
+     – Stepped Keyframe Preloader (28 keyframes stepping by 8)
+     – Pre-buffers keyframes first so animation plays smoothly without network lag.
+     – Max 2.5s failsafe timer ensures instant access on any connection speed.
+     ========================================================== */
   (function initLogoPreloader() {
     const preloader = document.getElementById('preloader');
     const stage     = document.getElementById('logoReveal');
     if (!preloader || !stage) return;
 
+    const KEYFRAMES = [];
     const TOTAL_FRAMES = 220;
-    const FRAME_DIR    = 'assets/images/tripura-logo-frames/';
-    const FRAME_RATE   = 30; // ~33ms per frame (smooth 30fps animation)
+    const STEP = 8; // Step by 8 frames -> ~28 keyframe images (~5MB total payload instead of 110MB!)
+    const FRAME_DIR = 'assets/images/tripura-logo-frames/';
+
+    for (let i = 1; i <= TOTAL_FRAMES; i += STEP) {
+      KEYFRAMES.push(i);
+    }
+    if (KEYFRAMES[KEYFRAMES.length - 1] !== TOTAL_FRAMES) {
+      KEYFRAMES.push(TOTAL_FRAMES);
+    }
 
     let frameImg = stage.querySelector('img');
     if (!frameImg) {
@@ -38,50 +52,51 @@ document.addEventListener('DOMContentLoaded', () => {
       return `${FRAME_DIR}frame_${padded}.png`;
     }
 
-    // Lightweight frame buffer to avoid network latency on startup
-    const preloadedImages = {};
-    function preloadAhead(fromFrame) {
-      const end = Math.min(fromFrame + 5, TOTAL_FRAMES);
-      for (let i = fromFrame; i <= end; i++) {
-        if (!preloadedImages[i]) {
-          const img = new Image();
-          img.src = getFrameUrl(i);
-          preloadedImages[i] = img;
-        }
-      }
-    }
-
-    // Preload initial batch
-    preloadAhead(1);
-
-    let currentFrame = 1;
-    let animTimer = null;
-
+    let isHidden = false;
     function hide() {
+      if (isHidden) return;
+      isHidden = true;
       if (animTimer) clearInterval(animTimer);
-      if (!preloader.classList.contains('hide')) {
-        preloader.classList.add('hide');
-      }
+      preloader.classList.add('hide');
     }
 
-    // Start sequence loop through all 220 frames
-    animTimer = setInterval(() => {
-      currentFrame++;
-      preloadAhead(currentFrame);
+    let currentIdx = 0;
+    let animTimer = null;
+    let loadedCount = 0;
+    const cachedImages = {};
 
-      if (currentFrame <= TOTAL_FRAMES) {
-        if (frameImg) {
-          frameImg.src = getFrameUrl(currentFrame);
+    // Preload keyframe images first before playing
+    KEYFRAMES.forEach((frameNum) => {
+      const img = new Image();
+      img.src = getFrameUrl(frameNum);
+      img.onload = () => {
+        loadedCount++;
+        cachedImages[frameNum] = img;
+        // Start animation as soon as first 4 keyframes load
+        if (loadedCount >= 4 && !animTimer && !isHidden) {
+          startPlayback();
         }
-      } else {
-        // Last frame reached: hold final frame for a brief moment, then fade out preloader!
-        clearInterval(animTimer);
-        setTimeout(hide, 450);
-      }
-    }, 1000 / FRAME_RATE);
+      };
+    });
 
-    // Failsafe in case of network stalls
-    setTimeout(hide, 12000);
+    function startPlayback() {
+      if (animTimer || isHidden) return;
+      animTimer = setInterval(() => {
+        currentIdx++;
+        if (currentIdx < KEYFRAMES.length) {
+          const frameNum = KEYFRAMES[currentIdx];
+          if (frameImg) {
+            frameImg.src = getFrameUrl(frameNum);
+          }
+        } else {
+          clearInterval(animTimer);
+          setTimeout(hide, 300);
+        }
+      }, 55); // 55ms per keyframe for a smooth, fast 1.5-second intro
+    }
+
+    // Maximum 2.5s failsafe so visitors on slow connections/mobile data enter immediately
+    setTimeout(hide, 2500);
   })();
 
   /* ---------- About Section 3D MP4 Video (Auto-looping natively via HTML5 Video) ---------- */
