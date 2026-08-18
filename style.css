@@ -864,25 +864,27 @@ header:not(.scrolled) .hamburger span{ background:#fff; }
   100% { left:100%; opacity:0; }
 }
 .plan-showcase-frame{
-  position:absolute; inset:22px; border:1.5px solid rgba(212,175,55,.65); pointer-events:none;
+  position:absolute; inset:16px; border:1.5px solid rgba(212,175,55,.8); pointer-events:none; z-index:3;
+  box-shadow:inset 0 0 15px rgba(0,0,0,0.3);
 }
 .plan-showcase-image::before{
   content:''; position:absolute; inset:0;
-  background:linear-gradient(0deg, rgba(20,10,8,.82) 0%, rgba(20,10,8,.15) 45%, rgba(20,10,8,0) 65%);
+  background:linear-gradient(0deg, rgba(20,10,8,.92) 0%, rgba(20,10,8,.45) 50%, rgba(20,10,8,0) 75%);
   z-index:1;
 }
 .plan-showcase-overlay{
-  position:absolute; left:0; right:0; bottom:0; z-index:2; padding:44px;
+  position:absolute; inset:16px; z-index:4; display:flex; flex-direction:column; justify-content:flex-end;
+  padding:24px 28px; box-sizing:border-box;
 }
 .plan-showcase-overlay h3{
-  color:#fff; font-size:clamp(1.8rem,3vw,2.6rem); margin-bottom:14px;
+  color:#fff; font-size:clamp(1.5rem,3vw,2.4rem); margin-bottom:8px; text-shadow:0 2px 8px rgba(0,0,0,0.6);
 }
-.plan-showcase-quote-row{ display:flex; align-items:center; gap:22px; flex-wrap:wrap; }
+.plan-showcase-quote-row{ display:flex; align-items:center; gap:16px; flex-wrap:wrap; justify-content:space-between; }
 .plan-showcase-quote{
-  font-family:var(--font-display); font-style:italic; color:#f0ebe3; font-size:1rem;
-  max-width:520px; line-height:1.6; margin:0; flex:1;
+  font-family:var(--font-display); font-style:italic; color:#f0ebe3; font-size:.95rem;
+  max-width:480px; line-height:1.5; margin:0; flex:1 1 200px; text-shadow:0 1px 6px rgba(0,0,0,0.7);
 }
-.plan-showcase-book{ padding:12px 26px; font-size:.85rem; flex-shrink:0; }
+.plan-showcase-book{ padding:10px 22px; font-size:.85rem; flex-shrink:0; box-shadow:0 4px 14px rgba(0,0,0,0.3); }
 
 .plan-event-list{ list-style:none; display:flex; flex-direction:column; }
 .plan-event-list li{
@@ -995,6 +997,9 @@ header:not(.scrolled) .hamburger span{ background:#fff; }
   .popup-booking-box{
     flex-direction:column; max-height:94vh; width:96%;
     border-radius:var(--radius-md);
+  }
+  header {
+    padding: 0;
   }
   .popup-booking-image{ flex:0 0 150px; border-radius:var(--radius-md) var(--radius-md) 0 0; }
   .popup-booking-image img{ object-position:center 30%; }
@@ -1392,6 +1397,9 @@ body.venue-view #mainSections{ display:none; }
 
 @media (max-width:700px){
   .gallery-trio{ grid-template-columns:1fr; height:auto; }
+  header {
+    padding: 0;
+  }
   .gallery-trio-main{ height:260px; }
   .gallery-trio-stack{ flex-direction:row; height:160px; }
   .gallery-trio-stack > div{ height:100%; width:calc(50% - 9px); }
@@ -1881,8 +1889,8 @@ body.venue-view #mainSections{ display:none; }
   .nav-close{ display:flex; }
   .hamburger{ display:flex; }
   .nav-wrap{ gap:10px; overflow:hidden; }
-  .logo-img{ height:100px; width:auto; } /* Prominent visible header logo on mobile */
-  header.scrolled .logo-img{ height:80px; }
+  .logo-img{ height:100px; width:auto; max-width:180px; object-fit:contain; } /* Prominent visible header logo on mobile */
+  header.scrolled .logo-img{ height:75px; }
   .nav-cta{ gap:8px; }
   .nav-cta .btn-primary{ padding:9px 16px; font-size:.8rem; }
 
@@ -1929,8 +1937,13 @@ body.venue-view #mainSections{ display:none; }
 
   /* ---- Plan showcase ---- */
   .plan-showcase{ grid-template-columns:1fr; gap:20px; }
-  .plan-showcase-image{ min-height:260px; }
-  .plan-showcase-overlay{ padding:20px 18px; }
+  .plan-showcase-image{ min-height:290px; }
+  .plan-showcase-frame{ inset:12px; }
+  .plan-showcase-overlay{ inset:12px; padding:14px 16px; }
+  .plan-showcase-overlay h3{ font-size:1.4rem; margin-bottom:4px; }
+  .plan-showcase-quote-row{ gap:8px; align-items:flex-end; }
+  .plan-showcase-quote{ font-size:.82rem; line-height:1.35; max-width:100%; flex:1 1 100%; }
+  .plan-showcase-book{ padding:8px 16px; font-size:.78rem; align-self:flex-start; margin-top:4px; }
   .plan-event-list{ flex-direction:row; flex-wrap:wrap; gap:4px 12px; justify-content:center; }
   .plan-event-list li{ border-bottom:none; padding:6px 10px; font-size:.85rem; }
 
@@ -2005,7 +2018,21 @@ body.venue-view #mainSections{ display:none; }
   .floating-actions{ bottom:14px; left:10px; }
 }
 
+@media (max-width: 680px){
+  .logo-img{ height:100px; max-width:200px; }
+  header.scrolled .logo-img{ height:60px; }
+  .nav-cta .btn-primary{ padding:7px 14px; font-size:.76rem; }
+}
+
 @media (max-width: 420px){
-  .nav-cta .btn-primary{ display:none; }
-  .logo-img{ height:100px; }
+  .logo-img{ height:100px; max-width:200px; }
+  header.scrolled .logo-img{ height:55px; }
+  .nav-cta{ gap:6px; }
+  .nav-cta .btn-primary{ padding:6px 12px; font-size:.72rem; display:inline-flex; }
+  header { padding: 2px 0; }
+  .plan-showcase-frame{ inset:8px; }
+  .plan-showcase-overlay{ inset:8px; padding:10px 12px; }
+  .plan-showcase-overlay h3{ font-size:1.2rem; }
+  .plan-showcase-quote{ font-size:.76rem; }
+  .plan-showcase-book{ padding:6px 14px; font-size:.74rem; }
 }
