@@ -6,11 +6,11 @@ document.addEventListener('DOMContentLoaded', () => {
 
   /* ==========================================================
      SHATTER-TO-ASSEMBLE LOGO PRELOADER
-     – tripura-logo.png sliced into a 20×20 grid (400 tiny tiles)
+     – tripura-logo.webp sliced into a 20×20 grid (400 tiny tiles)
      – Each tile scattered in 3-D space, then converges inward
        toward the center (outer edge tiles fly in first so the
        logo "assembles" from the perimeter inward).
-     – Background: assets/images/logo-bg.png (CSS).
+     – Background: assets/images/logo-bg.webp (CSS).
      ========================================================== */
   /* ==========================================================
      LOGO MP4 VIDEO PRELOADER
@@ -385,12 +385,12 @@ document.addEventListener('DOMContentLoaded', () => {
   /* ---------- Plan Your Event data ---------- */
   const eventTypes = [
     { name: 'Weddings', img: 'https://images.unsplash.com/photo-1519741497674-611481863552?q=80&w=1600', quote: 'Sacred unions composed in resplendent grandeur — every ritual elevated to royal ceremony.' },
-    { name: 'Reception', img: 'assets/images/Reception.png', quote: 'An evening of elegance, laughter and gold-lit toasts to new beginnings.' },
-    { name: 'Birthday', img: 'https://i.pinimg.com/1200x/c6/d2/3a/c6d23a69a5477b32b644112fee21aa4e.jpg', quote: 'Playful, personal and beautifully staged — birthdays made unforgettable.' },
+    { name: 'Reception', img: 'assets/images/Reception.webp', quote: 'An evening of elegance, laughter and gold-lit toasts to new beginnings.' },
+    { name: 'Birthday', img: 'https://i.pinimg.com/1200x/c6/d2/3a/c6d23a69a5477b32b644112fee21aa4e.webp', quote: 'Playful, personal and beautifully staged — birthdays made unforgettable.' },
     { name: 'Corporate Event', img: 'https://images.unsplash.com/photo-1560523160-754a9e25c68f?q=80&w=1600', quote: 'Where business meets brilliance, in a setting built for impact.' },
-    { name: 'Haldi', img: 'assets/images/haldi-1.jpg', quote: 'Turmeric, tradition and golden joy — rituals wrapped in warmth.' },
-    { name: 'Engagement', img: 'assets/images/Engagement.jpg', quote: 'The promise of forever, framed in candlelight and quiet elegance.' },
-    { name: 'Baby Shower', img: 'assets/images/baby-shower.png', quote: 'A tender celebration of new life, styled with soft grace.' },
+    { name: 'Haldi', img: 'assets/images/haldi-1.webp', quote: 'Turmeric, tradition and golden joy — rituals wrapped in warmth.' },
+    { name: 'Engagement', img: 'assets/images/Engagement.webp', quote: 'The promise of forever, framed in candlelight and quiet elegance.' },
+    { name: 'Baby Shower', img: 'assets/images/baby-shower.webp', quote: 'A tender celebration of new life, styled with soft grace.' },
     { name: 'Cultural Events', img: 'https://images.unsplash.com/photo-1533174072545-7a4b6ad7a6c3?q=80&w=1600', quote: 'Heritage and artistry, staged with pride and colour.' }
   ];
 
@@ -535,39 +535,39 @@ document.addEventListener('DOMContentLoaded', () => {
   /* ---------- Gallery: Hall / Office tabs (preview + full gallery, independent) ---------- */
   const galleryData = {
     hall: [
-      { name: 'Aerial View', img: 'assets/images/3d/night-view.jpeg' },
-      { name: 'Main Hall', img: 'assets/images/3d/main-hall.jpeg' },
-      { name: 'Guest Arrival', img: 'assets/images/guest-arrival.jpeg' },
-      { name: 'Banquet Floor', img: 'assets/images/3d/banquet-floor.jpeg' }
+      { name: 'Aerial View', img: 'assets/images/3d/night-view.webp' },
+      { name: 'Main Hall', img: 'assets/images/3d/main-hall.webp' },
+      { name: 'Guest Arrival', img: 'assets/images/guest-arrival.webp' },
+      { name: 'Banquet Floor', img: 'assets/images/3d/banquet-floor.webp' }
     ],
     office: [
-      { name: 'Reception Desk', img: 'assets/images/3d/office-desk.jpg' },
-      { name: 'Meeting Room', img: 'assets/images/3d/meeting-room.jpg' },
-      { name: 'Workspace', img: 'assets/images/3d/office-space.png' },
-      { name: 'Conference Hall', img: 'assets/images/3d/conference-hall.png' }
+      { name: 'Reception Desk', img: 'assets/images/3d/office-desk.webp' },
+      { name: 'Meeting Room', img: 'assets/images/3d/meeting-room.webp' },
+      { name: 'Workspace', img: 'assets/images/3d/office-space.webp' },
+      { name: 'Conference Hall', img: 'assets/images/3d/conference-hall.webp' }
     ]
   };
 
   // the full gallery shows a larger set per category
   const galleryDataFull = {
     hall: [
-      { name: 'Aerial View', img: 'assets/images/3d/night-view.jpeg' },
-      { name: 'Main Hall', img: 'assets/images/3d/main-hall.jpeg' },
-      { name: 'Guest Arrival', img: 'assets/images/guest-arrival.jpeg' },
-      { name: 'Banquet Floor', img: 'assets/images/3d/banquet-floor.jpeg' },
-      { name: 'Wedding Stage', img: 'assets/images/wedding-stage1.png' },
-      { name: 'Reception Setup', img: 'assets/images/reception-setup.jpeg' },
-      { name: 'Haldi Corner', img: 'assets/images/Haldi-Lawn.jpg' },
-      { name: 'Birthday Setup', img: 'assets/images/birthday-setup.jpg' }
+      { name: 'Aerial View', img: 'assets/images/3d/night-view.webp' },
+      { name: 'Main Hall', img: 'assets/images/3d/main-hall.webp' },
+      { name: 'Guest Arrival', img: 'assets/images/guest-arrival.webp' },
+      { name: 'Banquet Floor', img: 'assets/images/3d/banquet-floor.webp' },
+      { name: 'Wedding Stage', img: 'assets/images/wedding-stage1.webp' },
+      { name: 'Reception Setup', img: 'assets/images/reception-setup.webp' },
+      { name: 'Haldi Corner', img: 'assets/images/Haldi-Lawn.webp' },
+      { name: 'Birthday Setup', img: 'assets/images/birthday-setup.webp' }
     ],
     office: [
-      { name: 'Reception Desk', img: 'assets/images/3d/office-desk.jpg' },
-      { name: 'Meeting Room', img: 'assets/images/3d/meeting-room.jpg' },
-      { name: 'Workspace', img: 'assets/images/3d/office-space.png' },
-      { name: 'Conference Hall', img: 'assets/images/3d/conference-hall.png' },
-      { name: 'Lounge Area', img: 'assets/images/3d/office-space.png' },
-      { name: 'Management Office', img: 'assets/images/3d/md-office.png' },
-      { name: 'Luxury Rooms', img: 'assets/images/3d/rooms.PNG' }
+      { name: 'Reception Desk', img: 'assets/images/3d/office-desk.webp' },
+      { name: 'Meeting Room', img: 'assets/images/3d/meeting-room.webp' },
+      { name: 'Workspace', img: 'assets/images/3d/office-space.webp' },
+      { name: 'Conference Hall', img: 'assets/images/3d/conference-hall.webp' },
+      { name: 'Lounge Area', img: 'assets/images/3d/office-space.webp' },
+      { name: 'Management Office', img: 'assets/images/3d/md-office.webp' },
+      { name: 'Luxury Rooms', img: 'assets/images/3d/rooms.webp' }
     ]
   };
 
@@ -712,8 +712,8 @@ document.querySelectorAll('[data-show-venue]').forEach(link => {
 
     const FRAME_COUNT  = 300;
     const FRAME_PREFIX = 'assets/images/about-frames/frame_000';
-    const FRAME_PAD    = 3;   // ezgif-frame-001.jpg … ezgif-frame-300.jpg
-    const FRAME_EXT    = '.jpg';
+    const FRAME_PAD    = 3;   // ezgif-frame-001.webp … ezgif-frame-300.webp
+    const FRAME_EXT    = '.webp';
     const STEP_MS      = 55;  // auto-rotate interval (~18fps feels smooth with real photos)
     const DRAG_PX_PER_FRAME = 4; // px of drag to advance one frame
 

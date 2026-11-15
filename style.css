@@ -444,7 +444,7 @@ header:not(.scrolled) .hamburger span{ background:#fff; }
   top:55%;
   width:460px;
   height:460px;
-  background-image:url('assets/images/logo_mandala.png');
+  background-image:url('assets/images/logo_mandala.webp');
   background-size:contain;
   background-repeat:no-repeat;
   background-position:center;
@@ -545,7 +545,7 @@ header:not(.scrolled) .hamburger span{ background:#fff; }
   transform:scale(1.1);
 }
 
-/* Frame 1: Bottom-Right overlap (tripura-wall.jpeg) — tilted like a dropped print */
+/* Frame 1: Bottom-Right overlap (tripura-wall.webp) — tilted like a dropped print */
 .about-extra-frame.frame-1{
   width:52%;
   height:170px;
@@ -555,7 +555,7 @@ header:not(.scrolled) .hamburger span{ background:#fff; }
   animation:floatFrame1 6s ease-in-out infinite alternate;
 }
 
-/* Frame 2: Top-Right floating accent (slider-1.jpeg) — opposite tilt for the collage feel */
+/* Frame 2: Top-Right floating accent (slider-1.webp) — opposite tilt for the collage feel */
 .about-extra-frame.frame-2{
   width:34%;
   height:118px;
@@ -910,9 +910,10 @@ header:not(.scrolled) .hamburger span{ background:#fff; }
 
 /* ---------- Modal ---------- */
 .modal-overlay{
-  position:fixed; inset:0; background:rgba(26,26,26,.6); backdrop-filter:blur(6px);
+  position:fixed; inset:0; background:rgba(26,26,26,.65); backdrop-filter:blur(6px);
   display:flex; align-items:center; justify-content:center; z-index:3000;
   opacity:0; visibility:hidden; transition:opacity .4s ease, visibility .4s ease;
+  padding:16px; box-sizing:border-box;
 }
 .modal-overlay.show{ opacity:1; visibility:visible; }
 .modal-box{
@@ -954,7 +955,7 @@ header:not(.scrolled) .hamburger span{ background:#fff; }
 
 /* --- Right form panel --- */
 .popup-booking-form-panel{
-  flex:1; overflow-y:auto; padding:28px 28px 20px;
+  flex:1; min-height:0; overflow-y:auto; padding:28px 28px 20px;
   display:flex; flex-direction:column; position:relative;
 }
 .popup-form-header{ text-align:center; margin-bottom:14px; }
@@ -994,21 +995,128 @@ header:not(.scrolled) .hamburger span{ background:#fff; }
 .popup-booking-box h3{ text-align:center; font-size:1.6rem; }
 .popup-booking-form .form-footer{ justify-content:center; }
 @media (max-width:640px){
+  .modal-overlay{
+    padding:12px;
+    align-items:center;
+    justify-content:center;
+  }
+  .modal-box{
+    padding:24px 18px;
+    width:100%;
+    max-width:380px;
+    margin:auto;
+  }
   .popup-booking-box{
-    flex-direction:column; max-height:94vh; width:96%;
-    border-radius:var(--radius-md);
+    flex-direction:column;
+    width:100%;
+    max-width:420px;
+    max-height:88vh;
+    max-height:88dvh;
+    margin:auto;
+    border-radius:18px;
+    box-shadow:0 12px 35px rgba(0,0,0,0.35);
+    display:flex;
+    overflow:hidden;
   }
   header {
     padding: 0;
   }
-  .popup-booking-image{ flex:0 0 150px; border-radius:var(--radius-md) var(--radius-md) 0 0; }
-  .popup-booking-image img{ object-position:center 30%; }
-  .popup-booking-form-panel{ padding:16px 14px 12px; overflow-y:auto; }
-  .popup-modal-logo{ height:32px; }
-  .popup-form-header{ margin-bottom:8px; }
-  .popup-form-header h3{ font-size:1.1rem; }
-  .popup-form-grid{ gap:6px; }
-  .popup-booking-form .form-footer .btn{ padding:9px 0; font-size:.82rem; }
+  .popup-booking-image{
+    flex:0 0 75px;
+    height:75px;
+    border-radius:18px 18px 0 0;
+  }
+  .popup-booking-image img{
+    object-position:center 30%;
+  }
+  .popup-booking-image-overlay{
+    padding:8px 14px;
+    background:linear-gradient(to top, rgba(10,10,30,0.7) 0%, rgba(10,10,30,0.2) 100%);
+  }
+  .popup-img-tagline{
+    font-size:0.88rem;
+    letter-spacing:0.3px;
+  }
+  .popup-booking-form-panel{
+    padding:14px 16px 14px;
+    flex:1 1 auto;
+    min-height:0;
+    overflow-y:auto;
+    -webkit-overflow-scrolling:touch;
+  }
+  .popup-modal-logo{ height:28px; }
+  .popup-form-header{
+    margin-bottom:8px;
+    padding-right:26px;
+    text-align:center;
+  }
+  .popup-form-header h3{
+    font-size:1.15rem;
+    margin:0 0 2px;
+    line-height:1.2;
+  }
+  .popup-form-header p{
+    font-size:0.75rem;
+    line-height:1.3;
+    color:#666;
+    margin:0;
+  }
+  .modal-close{
+    top:8px;
+    right:10px;
+    width:30px;
+    height:30px;
+    font-size:1.2rem;
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    background:rgba(0,0,0,0.06);
+    border-radius:50%;
+    z-index:20;
+    color:#555;
+  }
+  .popup-form-grid{
+    gap:7px;
+  }
+  .popup-form-grid .form-group label{
+    font-size:0.72rem;
+    font-weight:600;
+    margin-bottom:2px;
+  }
+  .popup-form-grid .form-group input,
+  .popup-form-grid .form-group select{
+    padding:7px 10px;
+    font-size:0.84rem;
+    border-radius:6px;
+  }
+  .popup-form-grid .form-group textarea{
+    padding:6px 10px;
+    font-size:0.82rem;
+    min-height:44px;
+  }
+  .popup-booking-form .form-footer{
+    margin-top:10px;
+    margin-bottom:4px;
+  }
+  .popup-booking-form .form-footer .btn{
+    padding:10px 0;
+    font-size:0.88rem;
+    width:100%;
+    border-radius:8px;
+  }
+  .popup-trust-bar{
+    font-size:0.68rem;
+    margin-top:8px;
+  }
+}
+@media (max-height:620px) and (max-width:640px){
+  .popup-booking-image{
+    display:none;
+  }
+  .popup-booking-box{
+    max-height:92vh;
+    max-height:92dvh;
+  }
 }
 
 .modal-event-name{ color:var(--color-gold); font-weight:600; margin-bottom:26px; display:block; font-size:.9rem; letter-spacing:1px; text-transform:uppercase; }
@@ -1068,7 +1176,7 @@ footer::before{
   transform:translateX(-50%);
   width:560px;
   height:560px;
-  background-image:url('assets/images/logo_mandala.png');
+  background-image:url('assets/images/logo_mandala.webp');
   background-size:contain;
   background-position:center;
   background-repeat:no-repeat;
