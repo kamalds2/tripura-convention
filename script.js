@@ -398,7 +398,7 @@ document.addEventListener('DOMContentLoaded', () => {
   const eventTypes = [
     { name: 'Weddings', img: 'https://images.unsplash.com/photo-1519741497674-611481863552?q=80&w=1600', quote: 'Sacred unions composed in resplendent grandeur — every ritual elevated to royal ceremony.' },
     { name: 'Reception', img: 'assets/images/Reception.webp', quote: 'An evening of elegance, laughter and gold-lit toasts to new beginnings.' },
-    { name: 'Birthday', img: 'https://i.pinimg.com/1200x/c6/d2/3a/c6d23a69a5477b32b644112fee21aa4e.webp', quote: 'Playful, personal and beautifully staged — birthdays made unforgettable.' },
+    { name: 'Birthday', img: 'assets/images/birthday-setup.webp', quote: 'Playful, personal and beautifully staged — birthdays made unforgettable.' },
     { name: 'Corporate Event', img: 'https://images.unsplash.com/photo-1560523160-754a9e25c68f?q=80&w=1600', quote: 'Where business meets brilliance, in a setting built for impact.' },
     { name: 'Haldi', img: 'assets/images/haldi-1.webp', quote: 'Turmeric, tradition and golden joy — rituals wrapped in warmth.' },
     { name: 'Engagement', img: 'assets/images/Engagement.webp', quote: 'The promise of forever, framed in candlelight and quiet elegance.' },
