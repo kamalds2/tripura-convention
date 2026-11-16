@@ -15,8 +15,8 @@ document.addEventListener('DOMContentLoaded', () => {
   /* ==========================================================
      LOGO MP4 VIDEO PRELOADER
      – Plays assets/images/logo.mp4 full screen on site launch.
-     – As soon as the video finishes playing (ended event), fades out
-       the preloader smoothly to reveal the website.
+     – Only after the video finishes playing completely (ended event),
+       fades out the preloader smoothly to reveal the home page.
      ========================================================== */
   (function initVideoPreloader() {
     const preloader = document.getElementById('preloader');
@@ -30,23 +30,35 @@ document.addEventListener('DOMContentLoaded', () => {
       preloader.classList.add('hide');
     }
 
-    // Fade out preloader when video finishes playing natively
-    video.addEventListener('ended', hidePreloader);
-
-    // Fallback: Set timeout based on video duration
-    video.addEventListener('loadedmetadata', () => {
-      const dur = (video.duration || 6) * 1000 + 300;
-      setTimeout(hidePreloader, dur);
+    // Only hide after the full logo video finishes playing to the very end
+    video.addEventListener('ended', () => {
+      // Small pause (200ms) on completed logo before smooth reveal
+      setTimeout(hidePreloader, 200);
     });
 
-    // Handle autoplay start
-    video.play().catch(() => {
-      // If autoplay was blocked by browser, hide preloader after 2.5s
-      setTimeout(hidePreloader, 2500);
-    });
+    // If an error loading the video occurs, ensure site remains accessible
+    video.addEventListener('error', hidePreloader);
 
-    // Absolute failsafe maximum
-    setTimeout(hidePreloader, 9000);
+    // Start video playback cleanly
+    const startPlay = () => {
+      const p = video.play();
+      if (p !== undefined) {
+        p.catch(() => {
+          // If autoplay with sound was blocked, ensure it plays muted so video plays completely
+          video.muted = true;
+          video.play().catch(() => {});
+        });
+      }
+    };
+
+    if (video.readyState >= 2) {
+      startPlay();
+    } else {
+      video.addEventListener('canplay', startPlay, { once: true });
+    }
+
+    // Generous failsafe only in case video network load completely hangs indefinitely (15s)
+    setTimeout(hidePreloader, 15000);
   })();
 
   /* ==========================================================
