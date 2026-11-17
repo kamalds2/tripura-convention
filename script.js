@@ -1254,4 +1254,35 @@ document.querySelectorAll('[data-show-venue]').forEach(link => {
     });
   })();
 
+  /* ---------- FAQ Accordion Handler ---------- */
+  document.querySelectorAll('.faq-acc-trigger').forEach(trigger => {
+    trigger.addEventListener('click', () => {
+      const item = trigger.closest('.faq-acc-item');
+      if (!item) return;
+      const content = item.querySelector('.faq-acc-content');
+      const isOpen = item.classList.contains('active');
+
+      // Close other open accordions in the same container for clean presentation
+      const container = item.closest('.faq-accordion-wrap');
+      if (container) {
+        container.querySelectorAll('.faq-acc-item.active').forEach(other => {
+          if (other !== item) {
+            other.classList.remove('active');
+            const otherContent = other.querySelector('.faq-acc-content');
+            if (otherContent) otherContent.style.maxHeight = null;
+          }
+        });
+      }
+
+      if (isOpen) {
+        item.classList.remove('active');
+        if (content) content.style.maxHeight = null;
+      } else {
+        item.classList.add('active');
+        if (content) content.style.maxHeight = content.scrollHeight + 'px';
+      }
+    });
+  });
+
 });
+

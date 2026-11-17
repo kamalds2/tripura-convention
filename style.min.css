@@ -2358,3 +2358,149 @@ body.venue-view #mainSections{ display:none; }
   .loc-distance-strip { padding: 30px 18px; }
   .loc-hero-btns .btn { width: 100%; }
 }
+
+/* =========================================================
+   CURATED EVENT EXPERIENCES & SEO KNOWLEDGE HUB
+   ========================================================= */
+.seo-hub-section {
+  background: #fbf7f2;
+  padding: 80px 0;
+  position: relative;
+}
+.seo-category-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+  gap: 24px;
+  margin-top: 36px;
+}
+.seo-category-card {
+  background: #fff;
+  border-radius: var(--radius-md);
+  padding: 30px 24px;
+  box-shadow: var(--shadow-soft);
+  border-top: 3px solid var(--color-gold);
+  transition: transform var(--transition), box-shadow var(--transition);
+  display: flex;
+  flex-direction: column;
+}
+.seo-category-card:hover {
+  transform: translateY(-5px);
+  box-shadow: var(--shadow-lift);
+}
+.seo-category-card .card-icon {
+  width: 56px;
+  height: 56px;
+  border-radius: 14px;
+  background: rgba(169,112,46,0.12);
+  color: var(--color-gold);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 1.5rem;
+  margin-bottom: 18px;
+}
+.seo-category-card h3 {
+  color: var(--color-royal);
+  font-size: 1.25rem;
+  margin-bottom: 12px;
+  font-family: var(--font-heading);
+}
+.seo-category-card p {
+  color: #555;
+  font-size: 0.92rem;
+  line-height: 1.6;
+  margin-bottom: 16px;
+}
+.seo-tag-list {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px;
+  margin-top: auto;
+  padding-top: 12px;
+  border-top: 1px dashed rgba(169,112,46,0.25);
+}
+.seo-tag {
+  background: rgba(169,112,46,0.08);
+  color: var(--color-royal);
+  font-size: 0.78rem;
+  font-weight: 600;
+  padding: 4px 10px;
+  border-radius: 20px;
+  display: inline-block;
+}
+
+/* On-Page FAQ Accordion */
+.faq-section {
+  padding: 80px 0;
+  background: #fff;
+}
+.faq-accordion-wrap {
+  max-width: 900px;
+  margin: 40px auto 0;
+}
+.faq-acc-item {
+  border: 1px solid rgba(169,112,46,0.2);
+  border-radius: var(--radius-sm);
+  margin-bottom: 14px;
+  overflow: hidden;
+  background: #fff;
+  transition: box-shadow 0.25s ease, border-color 0.25s ease;
+}
+.faq-acc-item.active {
+  border-color: var(--color-gold);
+  box-shadow: 0 4px 16px rgba(169,112,46,0.08);
+}
+.faq-acc-trigger {
+  width: 100%;
+  text-align: left;
+  padding: 18px 24px;
+  background: none;
+  border: none;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 16px;
+  cursor: pointer;
+  font-family: var(--font-heading);
+  font-size: 1.08rem;
+  font-weight: 600;
+  color: var(--color-royal);
+  transition: color 0.2s ease;
+}
+.faq-acc-trigger:hover {
+  color: var(--color-gold);
+}
+.faq-acc-icon {
+  width: 28px;
+  height: 28px;
+  border-radius: 50%;
+  background: rgba(169,112,46,0.1);
+  color: var(--color-gold);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 0.85rem;
+  flex-shrink: 0;
+  transition: transform 0.3s ease, background 0.3s ease, color 0.3s ease;
+}
+.faq-acc-item.active .faq-acc-icon {
+  transform: rotate(180deg);
+  background: var(--color-gold);
+  color: #fff;
+}
+.faq-acc-content {
+  max-height: 0;
+  overflow: hidden;
+  transition: max-height 0.35s cubic-bezier(0.4, 0, 0.2, 1);
+  padding: 0 24px;
+}
+.faq-acc-item.active .faq-acc-content {
+  padding: 0 24px 20px 24px;
+}
+.faq-acc-content p {
+  color: #555;
+  font-size: 0.94rem;
+  line-height: 1.68;
+  margin: 0;
+}
+
