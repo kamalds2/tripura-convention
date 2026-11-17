@@ -1190,7 +1190,7 @@ footer .container{
   z-index:1;
 }
 .footer-grid{
-  display:grid; grid-template-columns:1.4fr 1fr 1fr 1.2fr; gap:50px; padding-bottom:50px; border-bottom:1px solid rgba(255,255,255,.1);
+  display:grid; grid-template-columns:1.3fr 1fr 1fr 1fr 1.2fr; gap:36px; padding-bottom:50px; border-bottom:1px solid rgba(255,255,255,.1);
 }
 .footer-logo{ display:flex; align-items:center; gap:10px; margin-bottom:18px; }
 .footer-logo .logo-text{ color:#fff; }
@@ -2143,4 +2143,218 @@ body.venue-view #mainSections{ display:none; }
   .plan-showcase-overlay h3{ font-size:1.2rem; }
   .plan-showcase-quote{ font-size:.76rem; }
   .plan-showcase-book{ padding:6px 14px; font-size:.74rem; }
+}
+
+/* =========================================================
+   LOCATION PAGES (Chevella, Moinabad, Gachibowli, Kondapur, Narsingi)
+   ========================================================= */
+.loc-hero {
+  position: relative;
+  min-height: 58vh;
+  padding: 160px 0 80px;
+  background-size: cover;
+  background-position: center;
+  display: flex;
+  align-items: center;
+  color: #fff;
+}
+.loc-hero::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(135deg, rgba(20,10,12,0.88) 0%, rgba(36,18,17,0.72) 60%, rgba(20,10,12,0.92) 100%);
+  z-index: 1;
+}
+.loc-hero-content {
+  position: relative;
+  z-index: 2;
+  max-width: 900px;
+}
+.loc-badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  background: rgba(169,112,46,0.22);
+  border: 1px solid var(--color-gold);
+  color: var(--color-gold-light);
+  padding: 7px 18px;
+  border-radius: 50px;
+  font-size: 0.84rem;
+  letter-spacing: 0.5px;
+  margin-bottom: 18px;
+  text-transform: uppercase;
+  font-weight: 600;
+}
+.loc-title {
+  color: #fff;
+  font-size: clamp(2rem, 4.5vw, 3.4rem);
+  line-height: 1.18;
+  margin-bottom: 16px;
+}
+.loc-desc {
+  font-size: clamp(1rem, 1.8vw, 1.15rem);
+  color: #f1e7dd;
+  max-width: 740px;
+  margin-bottom: 28px;
+  line-height: 1.6;
+}
+.loc-hero-btns {
+  display: flex;
+  gap: 14px;
+  flex-wrap: wrap;
+}
+.loc-stats-bar {
+  background: #fff;
+  border-radius: var(--radius-md);
+  padding: 26px 30px;
+  box-shadow: var(--shadow-lift);
+  margin-top: -45px;
+  position: relative;
+  z-index: 5;
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 20px;
+  text-align: center;
+  border: 1px solid rgba(169,112,46,0.15);
+}
+.loc-stat-item h3 {
+  color: var(--color-royal);
+  font-size: 1.65rem;
+  margin-bottom: 4px;
+  font-weight: 700;
+}
+.loc-stat-item p {
+  color: #666;
+  font-size: 0.85rem;
+  font-weight: 500;
+  margin: 0;
+}
+.loc-grid-2 {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 40px;
+  align-items: center;
+  margin-top: 40px;
+}
+.loc-card-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+  gap: 24px;
+  margin-top: 36px;
+}
+.loc-feature-card {
+  background: #fff;
+  border-radius: var(--radius-md);
+  padding: 28px 24px;
+  box-shadow: var(--shadow-soft);
+  transition: transform var(--transition), box-shadow var(--transition);
+  border-top: 3px solid var(--color-gold);
+}
+.loc-feature-card:hover {
+  transform: translateY(-4px);
+  box-shadow: var(--shadow-lift);
+}
+.loc-feature-card .icon-wrap {
+  width: 52px;
+  height: 52px;
+  border-radius: 12px;
+  background: rgba(169,112,46,0.1);
+  color: var(--color-gold);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 1.4rem;
+  margin-bottom: 16px;
+}
+.loc-feature-card h3 {
+  font-size: 1.2rem;
+  margin-bottom: 8px;
+  color: var(--color-royal);
+}
+.loc-feature-card p {
+  color: #555;
+  font-size: 0.92rem;
+  line-height: 1.55;
+  margin: 0;
+}
+.loc-distance-strip {
+  background: var(--color-royal);
+  color: #fff;
+  padding: 44px 30px;
+  border-radius: var(--radius-md);
+  margin: 50px 0;
+  text-align: center;
+  box-shadow: var(--shadow-lift);
+}
+.loc-distance-strip h3 {
+  color: #fff;
+  font-size: clamp(1.4rem, 2.8vw, 2rem);
+  margin-bottom: 12px;
+}
+.loc-distance-strip p {
+  color: var(--color-gold-light);
+  font-size: 1.05rem;
+  max-width: 720px;
+  margin: 0 auto 24px;
+  line-height: 1.6;
+}
+.loc-faq-item {
+  background: #fff;
+  border-radius: var(--radius-sm);
+  padding: 22px 26px;
+  margin-bottom: 16px;
+  box-shadow: 0 4px 15px rgba(0,0,0,0.04);
+  border-left: 3px solid var(--color-gold);
+}
+.loc-faq-item h3 {
+  font-size: 1.1rem;
+  color: var(--color-royal);
+  margin-bottom: 8px;
+}
+.loc-faq-item p {
+  color: #555;
+  font-size: 0.92rem;
+  line-height: 1.6;
+  margin: 0;
+}
+.loc-gallery-preview {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+  gap: 16px;
+  margin-top: 30px;
+}
+.loc-gallery-item {
+  height: 220px;
+  border-radius: var(--radius-md);
+  overflow: hidden;
+  position: relative;
+}
+.loc-gallery-item img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  transition: transform 0.5s ease;
+}
+.loc-gallery-item:hover img {
+  transform: scale(1.05);
+}
+.loc-gallery-caption {
+  position: absolute;
+  bottom: 0;
+  inset-inline: 0;
+  padding: 12px 14px;
+  background: linear-gradient(to top, rgba(0,0,0,0.7) 0%, transparent 100%);
+  color: #fff;
+  font-size: 0.88rem;
+  font-weight: 600;
+}
+@media (max-width: 900px) {
+  .loc-stats-bar { grid-template-columns: 1fr 1fr; gap: 16px; padding: 20px 16px; }
+  .loc-grid-2 { grid-template-columns: 1fr; }
+}
+@media (max-width: 540px) {
+  .loc-hero { padding: 130px 0 60px; min-height: auto; }
+  .loc-stats-bar { grid-template-columns: 1fr; margin-top: -20px; }
+  .loc-distance-strip { padding: 30px 18px; }
+  .loc-hero-btns .btn { width: 100%; }
 }
