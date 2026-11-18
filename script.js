@@ -396,15 +396,14 @@ document.addEventListener('DOMContentLoaded', () => {
 
   /* ---------- Plan Your Event data ---------- */
   const eventTypes = [
-    { name: 'Weddings & Marriage', img: 'https://images.unsplash.com/photo-1519741497674-611481863552?q=80&w=1600', quote: 'Sacred unions composed in resplendent grandeur — every ritual elevated to royal ceremony.' },
+    { name: 'Weddings', img: 'https://images.unsplash.com/photo-1519741497674-611481863552?q=80&w=1600', quote: 'Sacred unions composed in resplendent grandeur — every ritual elevated to royal ceremony.' },
     { name: 'Reception', img: 'assets/images/Reception.webp', quote: 'An evening of elegance, laughter and gold-lit toasts to new beginnings.' },
-    { name: 'Birthday Parties', img: 'assets/images/birthday-setup.webp', quote: 'Playful, personal and beautifully staged — 1st birthdays & milestone celebrations made unforgettable.' },
-    { name: 'Corporate Events & Conferences', img: 'https://images.unsplash.com/photo-1560523160-754a9e25c68f?q=80&w=1600', quote: 'Where business meets brilliance — conference halls with projectors, AV and breakout lawns.' },
-    { name: 'Haldi & Mehendi', img: 'assets/images/haldi-1.webp', quote: 'Turmeric, tradition and golden joy — open-air lawn rituals wrapped in festive warmth.' },
-    { name: 'Engagement & Sangeet', img: 'assets/images/Engagement.webp', quote: 'The promise of forever with high-energy dance floors, stage lights, and romantic ambiance.' },
-    { name: 'Cultural Events & Exhibitions', img: 'https://images.unsplash.com/photo-1533174072545-7a4b6ad7a6c3?q=80&w=1600', quote: 'Heritage, artistry and community summits staged with pride and colour.' },
-    { name: 'Farewell & Youth Parties', img: 'https://images.unsplash.com/photo-1511795409834-ef04bbd61622?q=80&w=1600', quote: 'Cherish memories with lively music, DJ nights, and starlit celebration lawns.' },
-    { name: 'Ceremonies & Baby Shower', img: 'assets/images/baby-shower.webp', quote: 'Cradle ceremonies, namakaranam, housewarmings, and baby showers styled with soft grace.' }
+    { name: 'Birthday', img: 'assets/images/birthday-setup.webp', quote: 'Playful, personal and beautifully staged — birthdays made unforgettable.' },
+    { name: 'Corporate Event', img: 'https://images.unsplash.com/photo-1560523160-754a9e25c68f?q=80&w=1600', quote: 'Where business meets brilliance, in a setting built for impact.' },
+    { name: 'Haldi', img: 'assets/images/haldi-1.webp', quote: 'Turmeric, tradition and golden joy — rituals wrapped in warmth.' },
+    { name: 'Engagement', img: 'assets/images/Engagement.webp', quote: 'The promise of forever, framed in candlelight and quiet elegance.' },
+    { name: 'Baby Shower', img: 'assets/images/baby-shower.webp', quote: 'A tender celebration of new life, styled with soft grace.' },
+    { name: 'Cultural Events', img: 'https://images.unsplash.com/photo-1533174072545-7a4b6ad7a6c3?q=80&w=1600', quote: 'Heritage and artistry, staged with pride and colour.' }
   ];
 
   const planEventList = document.getElementById('planEventList');
@@ -1255,35 +1254,4 @@ document.querySelectorAll('[data-show-venue]').forEach(link => {
     });
   })();
 
-  /* ---------- FAQ Accordion Handler ---------- */
-  document.querySelectorAll('.faq-acc-trigger').forEach(trigger => {
-    trigger.addEventListener('click', () => {
-      const item = trigger.closest('.faq-acc-item');
-      if (!item) return;
-      const content = item.querySelector('.faq-acc-content');
-      const isOpen = item.classList.contains('active');
-
-      // Close other open accordions in the same container for clean presentation
-      const container = item.closest('.faq-accordion-wrap');
-      if (container) {
-        container.querySelectorAll('.faq-acc-item.active').forEach(other => {
-          if (other !== item) {
-            other.classList.remove('active');
-            const otherContent = other.querySelector('.faq-acc-content');
-            if (otherContent) otherContent.style.maxHeight = null;
-          }
-        });
-      }
-
-      if (isOpen) {
-        item.classList.remove('active');
-        if (content) content.style.maxHeight = null;
-      } else {
-        item.classList.add('active');
-        if (content) content.style.maxHeight = content.scrollHeight + 'px';
-      }
-    });
-  });
-
 });
-
