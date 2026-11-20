@@ -1223,7 +1223,7 @@ document.querySelectorAll('[data-show-venue]').forEach(link => {
       let venue = formData.get('venue') || form.getAttribute('data-venue') || 'Tripura Convention';
 
       const isContactForm = form.id === 'contactForm';
-      const targetEmail = 'KamalKumar.doddi@gmail.com';
+      const targetEmail = 'Tripuraconvention9696@gmail.com';
 
       // Executive structured plain-text layout
       const fallbackMessage = [

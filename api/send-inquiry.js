@@ -250,7 +250,7 @@ export default async function handler(req, res) {
     });
 
     const senderEmail = process.env.RESEND_FROM_EMAIL || 'Tripura Convention <onboarding@resend.dev>';
-    const recipientEmail = process.env.RECIPIENT_EMAIL || 'KamalKumar.doddi@gmail.com';
+    const recipientEmail = process.env.RECIPIENT_EMAIL || 'Tripuraconvention9696@gmail.com';
 
     const resendResponse = await fetch('https://api.resend.com/emails', {
       method: 'POST',

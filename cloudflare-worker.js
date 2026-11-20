@@ -9,7 +9,7 @@
  *    - Value: your_resend_api_key (from https://resend.com)
  *    Optional Secret:
  *    - RESEND_FROM_EMAIL (e.g. "Tripura Convention <inquiries@tripuraconvention.com>" or default "Tripura Convention <onboarding@resend.dev>")
- *    - RECIPIENT_EMAIL (default "KamalKumar.doddi@gmail.com")
+ *    - RECIPIENT_EMAIL (default "Tripuraconvention9696@gmail.com")
  * 4. Copy your worker URL (e.g. https://tripura-mail.your-subdomain.workers.dev) and paste it into script.js!
  */
 
@@ -266,7 +266,7 @@ export default {
       });
 
       const senderEmail = env.RESEND_FROM_EMAIL || "Tripura Convention <onboarding@resend.dev>";
-      const recipientEmail = env.RECIPIENT_EMAIL || "KamalKumar.doddi@gmail.com";
+      const recipientEmail = env.RECIPIENT_EMAIL || "Tripuraconvention9696@gmail.com";
 
       const resendResponse = await fetch("https://api.resend.com/emails", {
         method: "POST",
