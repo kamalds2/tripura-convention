@@ -1185,7 +1185,11 @@ document.querySelectorAll('[data-show-venue]').forEach(link => {
 </html>`.trim();
   }
 
-  /* ---------- Background Direct Form Submission (Visual HTML Cards + Fallback) ---------- */
+  /* ---------- Serverless Email API Endpoint Configuration ---------- */
+  // Paste your Cloudflare Worker URL or Vercel endpoint below (e.g. "https://tripura-inquiry.yourname.workers.dev"):
+  const SERVERLESS_ENDPOINT = "";
+
+  /* ---------- Background Direct Form Submission (Visual HTML Cards via Resend / Serverless) ---------- */
   const allForms = document.querySelectorAll('#bookingForm, #lawnBookingForm, #hallBookingForm, #popupBookingForm, #contactForm');
   
   allForms.forEach(form => {
@@ -1221,22 +1225,7 @@ document.querySelectorAll('[data-show-venue]').forEach(link => {
       const isContactForm = form.id === 'contactForm';
       const targetEmail = 'KamalKumar.doddi@gmail.com';
 
-      // Visual HTML card payload
-      const htmlPayload = buildInquiryCardsHtml({
-        name,
-        phone,
-        email,
-        venue,
-        eventType,
-        eventDate,
-        eventTime,
-        guests,
-        budget,
-        requirements,
-        isContactForm
-      });
-
-      // Executive structured plain-text fallback
+      // Executive structured plain-text layout
       const fallbackMessage = [
         `══════════════════════════════════════════════`,
         `  TRIPURA CONVENTION — ${isContactForm ? 'CLIENT INQUIRY' : 'BOOKING INQUIRY'}`,
@@ -1260,9 +1249,24 @@ document.querySelectorAll('[data-show-venue]').forEach(link => {
         `══════════════════════════════════════════════`
       ].join('\n');
 
-      // 1. Format payload data for background API submission
-      const payload = {
-        access_key: "49538f2e-7172-4714-99cc-c644e6b6ede7", // Public submission key for KamalKumar.doddi@gmail.com
+      // Serverless JSON payload for Resend
+      const serverlessPayload = {
+        name: name,
+        phone: phone,
+        email: email,
+        venue: venue,
+        eventType: eventType,
+        eventDate: eventDate,
+        eventTime: eventTime,
+        guests: guests,
+        budget: budget,
+        requirements: requirements,
+        isContactForm: isContactForm
+      };
+
+      // Web3Forms payload (clean executive fields without raw HTML code dump)
+      const web3Payload = {
+        access_key: "49538f2e-7172-4714-99cc-c644e6b6ede7",
         to_email: targetEmail,
         subject: isContactForm 
           ? `New Inquiry from ${name} - Tripura Convention` 
@@ -1278,19 +1282,37 @@ document.querySelectorAll('[data-show-venue]').forEach(link => {
         guests: guests,
         budget: budget,
         requirements: requirements,
-        message: fallbackMessage,
-        html_message: htmlPayload
+        message: fallbackMessage
       };
 
-      // 2. Direct background AJAX submission (No popups / external applications!)
-      try {
-        await fetch('https://api.web3forms.com/submit', {
-          method: 'POST',
-          headers: { 'Content-Type': 'application/json', 'Accept': 'application/json' },
-          body: JSON.stringify(payload)
-        }).catch(() => {});
-      } catch (err) {
-        console.log('Submission processed');
+      // 1. Send via Serverless Endpoint (Resend) if configured
+      let sentSuccessfully = false;
+      if (SERVERLESS_ENDPOINT && SERVERLESS_ENDPOINT.trim() !== '') {
+        try {
+          const sRes = await fetch(SERVERLESS_ENDPOINT.trim(), {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify(serverlessPayload)
+          });
+          if (sRes.ok) {
+            sentSuccessfully = true;
+          }
+        } catch (err) {
+          console.warn('Serverless endpoint unreachable, falling back to backup relay.', err);
+        }
+      }
+
+      // 2. Backup Relay (Web3Forms) if serverless not configured or offline
+      if (!sentSuccessfully) {
+        try {
+          await fetch('https://api.web3forms.com/submit', {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json', 'Accept': 'application/json' },
+            body: JSON.stringify(web3Payload)
+          }).catch(() => {});
+        } catch (err) {
+          console.log('Submission processed');
+        }
       }
 
       // Restore submit button state
