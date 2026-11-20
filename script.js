@@ -1330,7 +1330,7 @@ document.querySelectorAll('[data-show-venue]').forEach(link => {
           </div>
           <h3 style="font-family:var(--font-display); font-size:1.6rem; color:var(--color-royal); margin-bottom:10px;">Inquiry Submitted!</h3>
           <p style="font-size:0.95rem; color:#555; line-height:1.6; margin-bottom:20px;">
-            Thank you, <strong id="succName"></strong>! Your details have been sent directly to <strong>Tripura Convention</strong> (<em>KamalKumar.doddi@gmail.com</em>).
+            Thank you, <strong id="succName"></strong>! Your details have been sent directly to <strong>Tripura Convention</strong>.
           </p>
           <div style="background:#f8f9fa; padding:14px; border-radius:10px; font-size:0.88rem; color:#444; text-align:left; margin-bottom:24px; border-left:4px solid var(--color-gold);">
             <div style="margin-bottom:4px;"><strong>Venue:</strong> <span id="succVenue"></span></div>
