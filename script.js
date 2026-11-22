@@ -1185,11 +1185,10 @@ document.querySelectorAll('[data-show-venue]').forEach(link => {
 </html>`.trim();
   }
 
-  /* ---------- Serverless Email API Endpoint Configuration ---------- */
-  // Paste your Cloudflare Worker URL or Vercel endpoint below (e.g. "https://tripura-inquiry.yourname.workers.dev"):
-  const SERVERLESS_ENDPOINT = "";
+  /* ---------- Google Apps Script / Serverless Email API Endpoint Configuration ---------- */
+  const SERVERLESS_ENDPOINT = "https://script.google.com/macros/s/AKfycbzD34gp5QmCB1GeANF4Mq7WEyjQetb6--epP5mygpcem1dHM8q-o8ufa2yWerqldmsQ/exec";
 
-  /* ---------- Background Direct Form Submission (Visual HTML Cards via Resend / Serverless) ---------- */
+  /* ---------- Background Direct Form Submission (Visual HTML Cards via Google Apps Script) ---------- */
   const allForms = document.querySelectorAll('#bookingForm, #lawnBookingForm, #hallBookingForm, #popupBookingForm, #contactForm');
   
   allForms.forEach(form => {
@@ -1285,20 +1284,19 @@ document.querySelectorAll('[data-show-venue]').forEach(link => {
         message: fallbackMessage
       };
 
-      // 1. Send via Serverless Endpoint (Resend) if configured
+      // 1. Send via Google Apps Script (or Serverless Endpoint)
       let sentSuccessfully = false;
       if (SERVERLESS_ENDPOINT && SERVERLESS_ENDPOINT.trim() !== '') {
         try {
-          const sRes = await fetch(SERVERLESS_ENDPOINT.trim(), {
+          await fetch(SERVERLESS_ENDPOINT.trim(), {
             method: 'POST',
-            headers: { 'Content-Type': 'application/json' },
+            mode: 'no-cors',
+            headers: { 'Content-Type': 'text/plain;charset=utf-8' },
             body: JSON.stringify(serverlessPayload)
           });
-          if (sRes.ok) {
-            sentSuccessfully = true;
-          }
+          sentSuccessfully = true;
         } catch (err) {
-          console.warn('Serverless endpoint unreachable, falling back to backup relay.', err);
+          console.warn('Endpoint unreachable, falling back to backup relay.', err);
         }
       }
 
