@@ -15,8 +15,8 @@ document.addEventListener('DOMContentLoaded', () => {
   /* ==========================================================
      LOGO MP4 VIDEO PRELOADER
      – Plays assets/images/logo.mp4 full screen on site launch.
-     – Only after the video finishes playing completely (ended event),
-       fades out the preloader smoothly to reveal the home page.
+     – Fades out smoothly when done, or after 3.5s, or on click.
+     – Permanently muted for instant hardware decoding.
      ========================================================== */
   (function initVideoPreloader() {
     const preloader = document.getElementById('preloader');
@@ -28,25 +28,32 @@ document.addEventListener('DOMContentLoaded', () => {
       if (isHidden) return;
       isHidden = true;
       preloader.classList.add('hide');
+      setTimeout(() => {
+        preloader.style.display = 'none';
+      }, 500);
     }
+
+    // Allow user to tap/click anywhere to skip preloader immediately
+    preloader.addEventListener('click', hidePreloader);
 
     // Only hide after the full logo video finishes playing to the very end
     video.addEventListener('ended', () => {
-      // Small pause (200ms) on completed logo before smooth reveal
       setTimeout(hidePreloader, 200);
     });
 
     // If an error loading the video occurs, ensure site remains accessible
     video.addEventListener('error', hidePreloader);
 
+    // Permanently ensure video is muted for instant hardware decode
+    video.defaultMuted = true;
+    video.muted = true;
+
     // Start video playback cleanly
     const startPlay = () => {
       const p = video.play();
       if (p !== undefined) {
         p.catch(() => {
-          // If autoplay with sound was blocked, ensure it plays muted so video plays completely
-          video.muted = true;
-          video.play().catch(() => {});
+          hidePreloader();
         });
       }
     };
@@ -57,8 +64,8 @@ document.addEventListener('DOMContentLoaded', () => {
       video.addEventListener('canplay', startPlay, { once: true });
     }
 
-    // Generous failsafe only in case video network load completely hangs indefinitely (15s)
-    setTimeout(hidePreloader, 15000);
+    // Responsive failsafe: if video takes more than 3.5 seconds to finish, reveal the site
+    setTimeout(hidePreloader, 3500);
   })();
 
   /* ==========================================================
@@ -1116,9 +1123,9 @@ document.querySelectorAll('[data-show-venue]').forEach(link => {
                 <td style="padding:4px 0; font-size:14px; color:#111827; font-weight:600;">${eventType}</td>
               </tr>
               <tr>
-                <td style="padding:4px 0; font-size:14px; color:#6b7280; vertical-align:top;"><strong>Date &amp; Time:</strong></td>
+                <td style="padding:4px 0; font-size:14px; color:#6b7280; vertical-align:top;"><strong>Event Date:</strong></td>
                 <td style="padding:4px 0; font-size:14px; color:#111827; font-weight:700;">
-                  📅 ${eventDate} &nbsp;•&nbsp; ⏰ ${eventTime}
+                  📅 ${eventDate}
                 </td>
               </tr>
             </table>
@@ -1214,7 +1221,6 @@ document.querySelectorAll('[data-show-venue]').forEach(link => {
       const email = formData.get('email') || 'Not provided';
       const eventType = formData.get('eventType') || 'Event Inquiry';
       const eventDate = formData.get('eventDate') || 'Not specified';
-      const eventTime = formData.get('eventTime') || 'Not specified';
       const guests = formData.get('guests') || 'Not specified';
       const rawBudget = formData.get('budget');
       const budget = rawBudget ? `₹${Number(rawBudget).toLocaleString('en-IN')}` : 'Not specified';
@@ -1238,7 +1244,7 @@ document.querySelectorAll('[data-show-venue]').forEach(link => {
           `EVENT DETAILS:`,
           `• Venue Space: ${venue}`,
           `• Event Occasion: ${eventType}`,
-          `• Date & Time: ${formatDisplayDate(eventDate)} at ${formatDisplayTime(eventTime)}`,
+          `• Event Date: ${formatDisplayDate(eventDate)}`,
           `• Expected Guests: ${guests}`,
           `• Estimated Budget: ${budget}`,
           ``,
@@ -1248,7 +1254,7 @@ document.querySelectorAll('[data-show-venue]').forEach(link => {
         `══════════════════════════════════════════════`
       ].join('\n');
 
-      // Serverless JSON payload for Resend
+      // Serverless JSON payload
       const serverlessPayload = {
         name: name,
         phone: phone,
@@ -1256,7 +1262,6 @@ document.querySelectorAll('[data-show-venue]').forEach(link => {
         venue: venue,
         eventType: eventType,
         eventDate: eventDate,
-        eventTime: eventTime,
         guests: guests,
         budget: budget,
         requirements: requirements,
@@ -1277,7 +1282,6 @@ document.querySelectorAll('[data-show-venue]').forEach(link => {
         venue: venue,
         event_type: eventType,
         event_date: formatDisplayDate(eventDate),
-        event_time: formatDisplayTime(eventTime),
         guests: guests,
         budget: budget,
         requirements: requirements,
