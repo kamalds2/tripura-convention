@@ -14,8 +14,9 @@ document.addEventListener('DOMContentLoaded', () => {
      ========================================================== */
   /* ==========================================================
      LOGO MP4 VIDEO PRELOADER
-     – Plays assets/images/logo.mp4 full screen on site launch.
-     – Fades out smoothly when done, or after 3.5s, or on click.
+     – Plays assets/images/logo.mp4 (7.25s) full screen on site launch.
+     – Waits until the full logo is completely formed (video ended event).
+     – Clicking or tapping the screen at any point will skip the preloader.
      – Permanently muted for instant hardware decoding.
      ========================================================== */
   (function initVideoPreloader() {
@@ -30,15 +31,17 @@ document.addEventListener('DOMContentLoaded', () => {
       preloader.classList.add('hide');
       setTimeout(() => {
         preloader.style.display = 'none';
-      }, 500);
+      }, 600);
     }
 
-    // Allow user to tap/click anywhere to skip preloader immediately
+    // Allow user to click or tap the screen at any time to skip the preloader
     preloader.addEventListener('click', hidePreloader);
+    preloader.addEventListener('touchstart', hidePreloader, { passive: true });
 
-    // Only hide after the full logo video finishes playing to the very end
+    // Wait until the logo is 100% fully formed before fading out
     video.addEventListener('ended', () => {
-      setTimeout(hidePreloader, 200);
+      // Hold the completed formed logo for 600ms so the user sees it in full before reveal
+      setTimeout(hidePreloader, 600);
     });
 
     // If an error loading the video occurs, ensure site remains accessible
@@ -53,7 +56,8 @@ document.addEventListener('DOMContentLoaded', () => {
       const p = video.play();
       if (p !== undefined) {
         p.catch(() => {
-          hidePreloader();
+          // If browser policy blocks autoplay, wait for first user touch/click
+          preloader.addEventListener('click', hidePreloader, { once: true });
         });
       }
     };
@@ -64,8 +68,8 @@ document.addEventListener('DOMContentLoaded', () => {
       video.addEventListener('canplay', startPlay, { once: true });
     }
 
-    // Responsive failsafe: if video takes more than 3.5 seconds to finish, reveal the site
-    setTimeout(hidePreloader, 3500);
+    // Generous failsafe (15s) only in case video network load hangs indefinitely
+    setTimeout(hidePreloader, 15000);
   })();
 
   /* ==========================================================
