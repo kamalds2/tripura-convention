@@ -633,6 +633,8 @@ document.addEventListener('DOMContentLoaded', () => {
       const min = +range.min || 0, max = +range.max || 100, val = +range.value;
       const pct = ((val - min) / (max - min)) * 100;
       range.style.background = `linear-gradient(90deg, var(--color-gold) 0%, var(--color-gold) ${pct}%, #e2e2e2 ${pct}%, #e2e2e2 100%)`;
+      const valSpan = document.getElementById(range.id + 'Value');
+      if (valSpan) valSpan.textContent = val;
     };
     range.addEventListener('input', updateFill);
     updateFill();
@@ -925,8 +927,11 @@ document.querySelectorAll('[data-show-venue]').forEach(link => {
     const openPopup  = () => popupBookingModal.classList.add('show');
     const closePopup = () => popupBookingModal.classList.remove('show');
 
-    /* Open ONLY when header "Book Now" is clicked */
+    /* Open when header "Book Now", mobile bar "Book Now", or trigger buttons are clicked */
     if (headerBookNowBtn) headerBookNowBtn.addEventListener('click', openPopup);
+    const mobileBarBookBtn = document.getElementById('mobileBarBookBtn');
+    if (mobileBarBookBtn) mobileBarBookBtn.addEventListener('click', openPopup);
+    document.querySelectorAll('.trigger-booking-modal').forEach(btn => btn.addEventListener('click', openPopup));
 
     if (popupBookingClose) popupBookingClose.addEventListener('click', closePopup);
     popupBookingModal.addEventListener('click', (e) => {
@@ -1200,7 +1205,7 @@ document.querySelectorAll('[data-show-venue]').forEach(link => {
   const SERVERLESS_ENDPOINT = "https://script.google.com/macros/s/AKfycbzD34gp5QmCB1GeANF4Mq7WEyjQetb6--epP5mygpcem1dHM8q-o8ufa2yWerqldmsQ/exec";
 
   /* ---------- Background Direct Form Submission (Visual HTML Cards via Google Apps Script) ---------- */
-  const allForms = document.querySelectorAll('#bookingForm, #lawnBookingForm, #hallBookingForm, #popupBookingForm, #contactForm');
+  const allForms = document.querySelectorAll('#bookingForm, #lawnBookingForm, #hallBookingForm, #popupBookingForm, #contactForm, #landingBookingForm, .event-booking-form');
   
   allForms.forEach(form => {
     const params = new URLSearchParams(window.location.search);
