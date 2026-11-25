@@ -24,11 +24,14 @@ document.addEventListener('DOMContentLoaded', () => {
     const video     = document.getElementById('preloaderVideo');
     if (!preloader || !video) return;
 
+    document.body.classList.add('preloader-active');
+
     let isHidden = false;
     function hidePreloader() {
       if (isHidden) return;
       isHidden = true;
       preloader.classList.add('hide');
+      document.body.classList.remove('preloader-active');
       setTimeout(() => {
         preloader.style.display = 'none';
       }, 600);

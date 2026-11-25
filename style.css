@@ -2001,7 +2001,7 @@ body.venue-view #mainSections{ display:none; }
   .logo-img{ height:100px; width:auto; max-width:180px; object-fit:contain; } /* Prominent visible header logo on mobile */
   header.scrolled .logo-img{ height:75px; }
   .nav-cta{ gap:8px; }
-  .nav-cta .btn-primary{ padding:9px 16px; font-size:.8rem; }
+  .nav-cta #headerBookNowBtn{ display:none !important; }
 
   /* ---- Sections ---- */
   .section-pad{ padding:50px 0; }
@@ -2130,14 +2130,14 @@ body.venue-view #mainSections{ display:none; }
 @media (max-width: 680px){
   .logo-img{ height:100px; max-width:200px; }
   header.scrolled .logo-img{ height:60px; }
-  .nav-cta .btn-primary{ padding:7px 14px; font-size:.76rem; }
+  .nav-cta #headerBookNowBtn{ display:none !important; }
 }
 
 @media (max-width: 420px){
   .logo-img{ height:100px; max-width:200px; }
   header.scrolled .logo-img{ height:55px; }
   .nav-cta{ gap:6px; }
-  .nav-cta .btn-primary{ padding:6px 12px; font-size:.72rem; display:inline-flex; }
+  .nav-cta #headerBookNowBtn{ display:none !important; }
   header { padding: 2px 0; }
   .plan-showcase-frame{ inset:8px; }
   .plan-showcase-overlay{ inset:8px; padding:10px 12px; }
@@ -2153,9 +2153,29 @@ body.venue-view #mainSections{ display:none; }
   display: none;
 }
 
+/* Suppress bottom action bar and floating buttons while preloader is active */
+#preloader:not(.hide) ~ .mobile-sticky-bar,
+#preloader:not(.hide) ~ .floating-actions,
+body.preloader-active .mobile-sticky-bar,
+body.preloader-active .floating-actions,
+body:has(#preloader:not(.hide)) .mobile-sticky-bar,
+body:has(#preloader:not(.hide)) .floating-actions {
+  display: none !important;
+  opacity: 0 !important;
+  visibility: hidden !important;
+  pointer-events: none !important;
+}
+
 @media (max-width: 768px) {
   body {
     padding-bottom: calc(62px + env(safe-area-inset-bottom, 0px));
+  }
+
+  /* Hide header "Book Now" on mobile since it is anchored in the bottom action bar */
+  #headerBookNowBtn,
+  .nav-cta #headerBookNowBtn,
+  header .nav-cta .btn-primary {
+    display: none !important;
   }
 
   .floating-actions {
