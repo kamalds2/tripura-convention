@@ -2236,14 +2236,14 @@ body.venue-view #mainSections{ display:none; }
 }
 
 /* =========================================================
-   DEDICATED LANDING PAGES (LOCATION & KEYWORD SEO HUBS)
+   DEDICATED SERVICE PAGES (ROYAL LUXURY UI / UX)
    ========================================================= */
 .landing-page-hero {
   position: relative;
-  min-height: 480px;
+  min-height: 520px;
   display: flex;
   align-items: center;
-  padding: 130px 0 60px;
+  padding: 140px 0 70px;
   background-size: cover;
   background-position: center;
   color: #fff;
@@ -2253,12 +2253,12 @@ body.venue-view #mainSections{ display:none; }
   content: "";
   position: absolute;
   inset: 0;
-  background: linear-gradient(135deg, rgba(36, 18, 17, 0.94) 0%, rgba(92, 26, 43, 0.88) 60%, rgba(20, 8, 10, 0.95) 100%);
+  background: linear-gradient(135deg, rgba(20, 6, 10, 0.92) 0%, rgba(92, 26, 43, 0.85) 50%, rgba(36, 12, 17, 0.95) 100%);
 }
 .landing-hero-content {
   position: relative;
   z-index: 2;
-  max-width: 860px;
+  max-width: 900px;
 }
 .landing-breadcrumbs {
   display: flex;
@@ -2278,16 +2278,18 @@ body.venue-view #mainSections{ display:none; }
 }
 .landing-hero-title {
   font-family: var(--font-display);
-  font-size: clamp(2rem, 4.5vw, 3.2rem);
-  line-height: 1.2;
+  font-size: clamp(2.2rem, 5vw, 3.4rem);
+  line-height: 1.18;
   margin-bottom: 16px;
   font-weight: 700;
+  color: #ffffff;
 }
 .landing-hero-desc {
-  font-size: 1.05rem;
-  color: rgba(255, 255, 255, 0.9);
-  line-height: 1.65;
-  margin-bottom: 24px;
+  font-size: 1.1rem;
+  color: rgba(255, 255, 255, 0.92);
+  line-height: 1.7;
+  margin-bottom: 26px;
+  max-width: 820px;
 }
 .landing-badges-wrap {
   display: flex;
@@ -2298,13 +2300,15 @@ body.venue-view #mainSections{ display:none; }
 .landing-badge {
   display: inline-flex;
   align-items: center;
-  gap: 6px;
+  gap: 8px;
   background: rgba(255, 255, 255, 0.12);
-  border: 1px solid rgba(217, 174, 123, 0.45);
+  border: 1px solid rgba(217, 174, 123, 0.5);
+  backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px);
   color: #fff;
-  padding: 6px 14px;
+  padding: 8px 18px;
   border-radius: 30px;
-  font-size: 0.84rem;
+  font-size: 0.88rem;
   font-weight: 500;
 }
 .landing-badge i {
@@ -2316,124 +2320,267 @@ body.venue-view #mainSections{ display:none; }
   flex-wrap: wrap;
 }
 
-/* Feature & Overview Cards */
-.landing-cards-grid {
+/* Dual Venue Showcase (Hall & Lawn with Real Photography) */
+.dual-venue-grid {
   display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
-  gap: 24px;
+  grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+  gap: 28px;
   margin: 36px 0;
 }
-.landing-card {
+.dual-venue-card {
+  position: relative;
   background: #ffffff;
+  border-radius: var(--radius-md);
+  overflow: hidden;
+  border: 1px solid #ebdccb;
+  box-shadow: var(--shadow-soft);
+  transition: transform 0.35s ease, box-shadow 0.35s ease;
+}
+.dual-venue-card:hover {
+  transform: translateY(-6px);
+  box-shadow: var(--shadow-lift);
+  border-color: var(--color-gold);
+}
+.dual-venue-img {
+  position: relative;
+  height: 260px;
+  overflow: hidden;
+}
+.dual-venue-img img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  transition: transform 0.6s ease;
+}
+.dual-venue-card:hover .dual-venue-img img {
+  transform: scale(1.06);
+}
+.dual-venue-tag {
+  position: absolute;
+  top: 16px;
+  left: 16px;
+  background: rgba(92, 26, 43, 0.9);
+  color: var(--color-gold-light);
+  border: 1px solid var(--color-gold);
+  padding: 5px 14px;
+  border-radius: 20px;
+  font-size: 0.8rem;
+  font-weight: 600;
+  letter-spacing: 0.05em;
+  text-transform: uppercase;
+}
+.dual-venue-body {
+  padding: 24px;
+}
+.dual-venue-body h3 {
+  font-family: var(--font-display);
+  font-size: 1.45rem;
+  color: var(--color-royal);
+  margin-bottom: 10px;
+}
+.dual-venue-body p {
+  font-size: 0.95rem;
+  color: #555;
+  line-height: 1.6;
+  margin-bottom: 16px;
+}
+.dual-venue-specs {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+  padding-top: 14px;
+  border-top: 1px solid #f0e6d9;
+}
+.dual-venue-specs span {
+  font-size: 0.82rem;
+  color: var(--color-royal);
+  background: #fbf8f3;
+  padding: 4px 10px;
+  border-radius: 6px;
+  font-weight: 600;
+  border: 1px solid #ebdccb;
+}
+
+/* Luxury Feature Cards */
+.luxury-features-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+  gap: 22px;
+  margin: 36px 0;
+}
+.luxury-feature-card {
+  background: linear-gradient(145deg, #ffffff 0%, #fdfbf7 100%);
   border: 1px solid #ebdccb;
   border-radius: var(--radius-md);
-  padding: 28px 24px;
+  padding: 28px 22px;
   box-shadow: var(--shadow-soft);
   transition: transform 0.3s ease, box-shadow 0.3s ease, border-color 0.3s ease;
   position: relative;
 }
-.landing-card:hover {
+.luxury-feature-card:hover {
   transform: translateY(-5px);
   box-shadow: var(--shadow-lift);
   border-color: var(--color-gold);
 }
-.landing-card-icon {
-  width: 52px;
-  height: 52px;
-  border-radius: 12px;
-  background: rgba(92, 26, 43, 0.08);
+.luxury-feature-icon {
+  width: 56px;
+  height: 56px;
+  border-radius: 14px;
+  background: linear-gradient(135deg, rgba(92, 26, 43, 0.1) 0%, rgba(169, 112, 46, 0.15) 100%);
   color: var(--color-royal);
   display: flex;
   align-items: center;
   justify-content: center;
-  font-size: 1.4rem;
+  font-size: 1.5rem;
   margin-bottom: 18px;
 }
-.landing-card h3 {
+.luxury-feature-card h4 {
   font-family: var(--font-display);
-  font-size: 1.35rem;
-  color: var(--color-royal);
-  margin-bottom: 10px;
-}
-.landing-card p {
-  font-size: 0.94rem;
-  color: #555;
-  line-height: 1.6;
-}
-
-/* Route & Distance Box */
-.route-distance-box {
-  background: #fdfbf7;
-  border: 1px solid #ebdccb;
-  border-left: 4px solid var(--color-gold);
-  border-radius: var(--radius-sm);
-  padding: 20px 24px;
-  margin: 28px 0;
-}
-.route-distance-box h4 {
-  font-family: var(--font-display);
-  font-size: 1.18rem;
-  color: var(--color-royal);
-  margin-bottom: 12px;
-}
-.route-milestones {
-  display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
-  gap: 14px;
-  margin-top: 14px;
-}
-.route-milestone-item {
-  background: #ffffff;
-  border: 1px solid #e7ded4;
-  padding: 12px 14px;
-  border-radius: 8px;
-}
-.route-milestone-item .route-name {
-  font-size: 0.8rem;
-  color: #777;
-  text-transform: uppercase;
-  letter-spacing: 0.05em;
-  font-weight: 600;
-}
-.route-milestone-item .route-val {
-  font-size: 1.05rem;
-  color: var(--color-royal);
-  font-weight: 700;
-  margin-top: 2px;
-}
-
-/* Landing Form Section */
-.landing-form-section {
-  background: linear-gradient(135deg, #fbf8f4 0%, #f4ede3 100%);
-  border-radius: var(--radius-lg);
-  padding: 40px 32px;
-  border: 1px solid #e8ded4;
-  margin: 40px 0;
-}
-
-/* Landing FAQ Grid */
-.landing-faq-list {
-  display: flex;
-  flex-direction: column;
-  gap: 16px;
-  margin: 32px 0;
-}
-.landing-faq-item {
-  background: #ffffff;
-  border: 1px solid #ebdccb;
-  border-radius: var(--radius-sm);
-  padding: 20px 24px;
-}
-.landing-faq-item h4 {
-  font-family: var(--font-display);
-  font-size: 1.15rem;
+  font-size: 1.25rem;
   color: var(--color-royal);
   margin-bottom: 8px;
 }
-.landing-faq-item p {
-  font-size: 0.94rem;
+.luxury-feature-card p {
+  font-size: 0.92rem;
+  color: #666;
+  line-height: 1.6;
+}
+
+/* Venue Photo Showcase Strip */
+.photo-strip-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+  gap: 16px;
+  margin: 36px 0;
+}
+.photo-strip-item {
+  position: relative;
+  height: 200px;
+  border-radius: var(--radius-sm);
+  overflow: hidden;
+  box-shadow: var(--shadow-soft);
+}
+.photo-strip-item img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  transition: transform 0.5s ease;
+}
+.photo-strip-item:hover img {
+  transform: scale(1.08);
+}
+.photo-strip-overlay {
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(to top, rgba(0, 0, 0, 0.75) 0%, rgba(0, 0, 0, 0) 60%);
+  display: flex;
+  align-items: flex-end;
+  padding: 14px;
+  color: #fff;
+  font-size: 0.9rem;
+  font-weight: 600;
+}
+
+/* Royal Luxury Booking Card */
+.royal-booking-card {
+  background: linear-gradient(135deg, #2b0b14 0%, #4a1525 60%, #1d070e 100%);
+  border: 1px solid rgba(217, 174, 123, 0.4);
+  border-radius: var(--radius-lg);
+  padding: 44px 36px;
+  color: #ffffff;
+  box-shadow: 0 16px 40px rgba(43, 11, 20, 0.35);
+  margin: 40px 0;
+}
+.royal-booking-card .section-header h2 {
+  color: #ffffff;
+}
+.royal-booking-card .section-header p {
+  color: rgba(255, 255, 255, 0.85);
+}
+.royal-booking-card .section-eyebrow {
+  color: var(--color-gold-light);
+}
+.royal-booking-form {
+  background: transparent;
+  padding: 0;
+  box-shadow: none;
+}
+.royal-booking-form .form-group label {
+  color: #f7ede2;
+  font-weight: 500;
+}
+.royal-booking-form input,
+.royal-booking-form select,
+.royal-booking-form textarea {
+  background: rgba(255, 255, 255, 0.08);
+  border: 1px solid rgba(217, 174, 123, 0.35);
+  color: #ffffff;
+}
+.royal-booking-form input:focus,
+.royal-booking-form select:focus,
+.royal-booking-form textarea:focus {
+  border-color: var(--color-gold-light);
+  background: rgba(255, 255, 255, 0.14);
+}
+.royal-booking-form input::placeholder,
+.royal-booking-form textarea::placeholder {
+  color: rgba(255, 255, 255, 0.55);
+}
+.royal-booking-form select option {
+  background: #3d101c;
+  color: #ffffff;
+}
+
+/* Single Venue Landmark Notice Box */
+.single-venue-notice {
+  background: #fdfbf7;
+  border: 1px solid #ebdccb;
+  border-left: 5px solid var(--color-gold);
+  border-radius: var(--radius-sm);
+  padding: 22px 26px;
+  margin: 32px 0;
+}
+.single-venue-notice h4 {
+  font-family: var(--font-display);
+  font-size: 1.25rem;
+  color: var(--color-royal);
+  margin-bottom: 8px;
+}
+.single-venue-notice p {
+  font-size: 0.95rem;
   color: #555;
   line-height: 1.6;
+  margin: 0;
+}
+
+/* Luxury FAQ Accordion Cards */
+.luxury-faq-wrap {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+  margin: 36px 0;
+}
+.luxury-faq-card {
+  background: #ffffff;
+  border: 1px solid #ebdccb;
+  border-radius: var(--radius-sm);
+  padding: 22px 26px;
+  transition: border-color 0.2s, box-shadow 0.2s;
+}
+.luxury-faq-card:hover {
+  border-color: var(--color-gold);
+  box-shadow: var(--shadow-soft);
+}
+.luxury-faq-card h4 {
+  font-family: var(--font-display);
+  font-size: 1.2rem;
+  color: var(--color-royal);
+  margin-bottom: 8px;
+}
+.luxury-faq-card p {
+  font-size: 0.95rem;
+  color: #555;
+  line-height: 1.65;
   margin: 0;
 }
 
@@ -2442,7 +2589,13 @@ body.venue-view #mainSections{ display:none; }
     padding: 100px 0 50px;
     min-height: auto;
   }
-  .landing-form-section {
-    padding: 24px 16px;
+  .royal-booking-card {
+    padding: 28px 18px;
+  }
+  .dual-venue-grid {
+    grid-template-columns: 1fr;
+  }
+  .photo-strip-grid {
+    grid-template-columns: 1fr 1fr;
   }
 }
