@@ -2168,7 +2168,7 @@ body:has(#preloader:not(.hide)) .floating-actions {
 
 @media (max-width: 768px) {
   body {
-    padding-bottom: calc(62px + env(safe-area-inset-bottom, 0px));
+    padding-bottom: calc(48px + env(safe-area-inset-bottom, 0px));
   }
 
   /* Hide header "Book Now" on mobile since it is anchored in the bottom action bar */
@@ -2183,7 +2183,7 @@ body:has(#preloader:not(.hide)) .floating-actions {
   }
 
   .back-to-top {
-    bottom: 78px !important;
+    bottom: 58px !important;
     right: 14px !important;
   }
 
@@ -2195,10 +2195,12 @@ body:has(#preloader:not(.hide)) .floating-actions {
     right: 0;
     width: 100%;
     z-index: 9999;
-    background: linear-gradient(180deg, #5C1A2B 0%, #3d101c 100%);
-    border-top: 1.5px solid #A9702E;
-    box-shadow: 0 -4px 25px rgba(0, 0, 0, 0.45);
+    background: linear-gradient(180deg, #5C1A2B 0%, #43121e 100%);
+    border-top: 1px solid rgba(169, 112, 46, 0.5);
+    box-shadow: 0 -3px 18px rgba(0, 0, 0, 0.35);
     padding-bottom: env(safe-area-inset-bottom, 0px);
+    backdrop-filter: blur(8px);
+    -webkit-backdrop-filter: blur(8px);
   }
 
   .mobile-sticky-btn {
@@ -2207,19 +2209,20 @@ body:has(#preloader:not(.hide)) .floating-actions {
     flex-direction: column;
     align-items: center;
     justify-content: center;
-    gap: 4px;
-    padding: 10px 4px 8px;
+    gap: 2px;
+    padding: 5px 2px 4px;
     color: #ffffff;
     text-decoration: none;
     font-family: var(--font-body);
-    font-size: 0.76rem;
+    font-size: 0.65rem;
     font-weight: 600;
-    letter-spacing: 0.03em;
+    letter-spacing: 0.04em;
+    line-height: 1.15;
     text-transform: uppercase;
     background: transparent;
     border: none;
     cursor: pointer;
-    border-right: 1px solid rgba(169, 112, 46, 0.3);
+    border-right: 1px solid rgba(169, 112, 46, 0.25);
     transition: background 0.2s ease;
   }
 
@@ -2228,7 +2231,7 @@ body:has(#preloader:not(.hide)) .floating-actions {
   }
 
   .mobile-sticky-btn i {
-    font-size: 1.15rem;
+    font-size: 0.92rem;
     color: #D9AE7B;
     transition: transform 0.2s ease;
   }
@@ -2251,7 +2254,7 @@ body:has(#preloader:not(.hide)) .floating-actions {
   }
 
   .mobile-sticky-btn:active i {
-    transform: scale(1.15);
+    transform: scale(1.12);
   }
 }
 
