@@ -69,126 +69,149 @@ function buildInquiryCardsHtml(data) {
   return `
 <!DOCTYPE html>
 <html>
-<head><meta charset="utf-8"></head>
-<body style="margin:0; padding:0; background-color:#f4f1ea; font-family:'Helvetica Neue', Arial, sans-serif; -webkit-font-smoothing:antialiased;">
-  <div style="background-color:#f4f1ea; padding:24px 12px; min-height:100%;">
-    <table align="center" border="0" cellpadding="0" cellspacing="0" width="100%" style="max-width:600px; margin:0 auto; background:#ffffff; border-radius:14px; overflow:hidden; border:1px solid #e5ded2; box-shadow:0 8px 30px rgba(74,21,37,0.08);">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+</head>
+<body style="margin:0; padding:0; background-color:#f8fafc; font-family:-apple-system, BlinkMacSystemFont, 'Inter', 'Segoe UI', Roboto, Helvetica, Arial, sans-serif; -webkit-font-smoothing:antialiased; color:#0f172a;">
+  <div style="background-color:#f8fafc; padding:32px 16px; min-height:100%;">
+    
+    <!-- MAIN CONTAINER -->
+    <table align="center" border="0" cellpadding="0" cellspacing="0" width="100%" style="max-width:600px; margin:0 auto; background:#ffffff; border-radius:16px; overflow:hidden; border:1px solid #e2e8f0; box-shadow:0 4px 20px rgba(15, 23, 42, 0.04);">
       
-      <!-- HEADER / BRAND BANNER -->
+      <!-- TOP HEADER BAR -->
       <tr>
-        <td style="background:linear-gradient(135deg, #2c0b15 0%, #4a1525 60%, #1f070f 100%); padding:28px 24px; text-align:center; border-top:4px solid #d4af37;">
-          <div style="font-size:11px; letter-spacing:0.18em; text-transform:uppercase; color:#d4af37; font-weight:700; margin-bottom:6px;">
-            ★ TRIPURA CONVENTION ★
-          </div>
-          <h1 style="color:#ffffff; margin:0 0 6px 0; font-size:22px; font-weight:700; letter-spacing:0.02em;">
-            ${isContact ? 'New Client Message' : 'New Booking Inquiry'}
-          </h1>
-          <div style="display:inline-block; background:rgba(212,175,55,0.18); border:1px solid #d4af37; border-radius:20px; padding:4px 14px; margin-top:6px;">
-            <span style="color:#fde047; font-size:13px; font-weight:600;">
-              ${eventType} ${venue !== 'Tripura Convention' ? `• ${venue}` : ''}
-            </span>
-          </div>
+        <td style="padding:24px 28px; border-bottom:1px solid #f1f5f9;">
+          <table border="0" cellpadding="0" cellspacing="0" width="100%">
+            <tr>
+              <td style="vertical-align:middle;">
+                <div style="font-size:11px; font-weight:700; letter-spacing:0.08em; text-transform:uppercase; color:#6366f1; margin-bottom:4px;">
+                  TRIPURA CONVENTION
+                </div>
+                <h1 style="margin:0; font-size:20px; font-weight:700; color:#0f172a; letter-spacing:-0.01em;">
+                  ${isContact ? 'New Client Message' : 'New Booking Inquiry'}
+                </h1>
+              </td>
+              <td align="right" style="vertical-align:middle;">
+                <span style="display:inline-block; background:#eef2ff; color:#4f46e5; border:1px solid #e0e7ff; border-radius:9999px; padding:6px 14px; font-size:12px; font-weight:600;">
+                  ${eventType}${venue !== 'Tripura Convention' ? ` • ${venue}` : ''}
+                </span>
+              </td>
+            </tr>
+          </table>
         </td>
       </tr>
 
       <!-- BODY CONTENT -->
       <tr>
-        <td style="padding:24px 20px 20px 20px;">
+        <td style="padding:24px 28px;">
 
-          <!-- CARD 1: CLIENT DETAILS -->
-          <div style="background:#ffffff; border:1px solid #e7ded4; border-left:4px solid #d4af37; border-radius:8px; padding:18px 20px; margin-bottom:16px; box-shadow:0 2px 6px rgba(0,0,0,0.02);">
-            <div style="font-size:11px; font-weight:700; color:#8b6d38; text-transform:uppercase; letter-spacing:0.08em; margin-bottom:12px;">
-              👤 Client Contact Information
+          ${!isContact ? `
+          <!-- KEY METRICS ROW (DASHBOARD KPI CARDS) -->
+          <table border="0" cellpadding="0" cellspacing="0" width="100%" style="margin-bottom:20px;">
+            <tr>
+              <!-- METRIC 1: EVENT DATE -->
+              <td width="32%" style="background:#f8fafc; border:1px solid #e2e8f0; border-radius:12px; padding:14px 16px; vertical-align:top;">
+                <div style="font-size:11px; font-weight:600; color:#64748b; text-transform:uppercase; letter-spacing:0.04em; margin-bottom:6px;">
+                  Event Date
+                </div>
+                <div style="font-size:16px; font-weight:700; color:#0f172a;">
+                  ${eventDate}
+                </div>
+              </td>
+              <td width="2%"></td>
+              <!-- METRIC 2: GUESTS -->
+              <td width="32%" style="background:#f8fafc; border:1px solid #e2e8f0; border-radius:12px; padding:14px 16px; vertical-align:top;">
+                <div style="font-size:11px; font-weight:600; color:#64748b; text-transform:uppercase; letter-spacing:0.04em; margin-bottom:6px;">
+                  Expected Guests
+                </div>
+                <div style="font-size:18px; font-weight:700; color:#0f172a;">
+                  ${guests}
+                </div>
+              </td>
+              <td width="2%"></td>
+              <!-- METRIC 3: BUDGET -->
+              <td width="32%" style="background:#f0fdf4; border:1px solid #bbf7d0; border-radius:12px; padding:14px 16px; vertical-align:top;">
+                <div style="font-size:11px; font-weight:600; color:#15803d; text-transform:uppercase; letter-spacing:0.04em; margin-bottom:6px;">
+                  Est. Budget
+                </div>
+                <div style="font-size:18px; font-weight:700; color:#16a34a;">
+                  ${budget}
+                </div>
+              </td>
+            </tr>
+          </table>
+          ` : ''}
+
+          <!-- SECTION 1: CLIENT OVERVIEW -->
+          <div style="border:1px solid #e2e8f0; border-radius:12px; padding:18px 20px; margin-bottom:16px; background:#ffffff;">
+            <div style="font-size:12px; font-weight:700; color:#475569; text-transform:uppercase; letter-spacing:0.05em; margin-bottom:14px; border-bottom:1px solid #f1f5f9; padding-bottom:8px;">
+              Client Details
             </div>
             <table border="0" cellpadding="0" cellspacing="0" width="100%">
               <tr>
-                <td style="padding:4px 0; font-size:14px; color:#6b7280; width:100px; vertical-align:top;"><strong>Full Name:</strong></td>
-                <td style="padding:4px 0; font-size:15px; color:#111827; font-weight:700;">${name}</td>
+                <td style="padding:5px 0; font-size:13px; color:#64748b; width:120px;">Full Name</td>
+                <td style="padding:5px 0; font-size:14px; color:#0f172a; font-weight:600;">${name}</td>
               </tr>
               <tr>
-                <td style="padding:4px 0; font-size:14px; color:#6b7280; vertical-align:top;"><strong>Phone:</strong></td>
-                <td style="padding:4px 0; font-size:15px;">
-                  <a href="tel:${cleanPhone}" style="color:#4a1525; font-weight:700; text-decoration:none; background:#f9f5f0; padding:3px 8px; border-radius:4px; border:1px solid #ebdccb; display:inline-block;">
-                    📞 ${phone}
+                <td style="padding:5px 0; font-size:13px; color:#64748b;">Phone Number</td>
+                <td style="padding:5px 0; font-size:14px;">
+                  <a href="tel:${cleanPhone}" style="color:#4f46e5; font-weight:600; text-decoration:none;">
+                    ${phone}
                   </a>
                 </td>
               </tr>
               ${email !== 'Not provided' ? `
               <tr>
-                <td style="padding:4px 0; font-size:14px; color:#6b7280; vertical-align:top;"><strong>Email:</strong></td>
-                <td style="padding:4px 0; font-size:14px;">
-                  <a href="mailto:${email}" style="color:#2563eb; text-decoration:none;">${email}</a>
+                <td style="padding:5px 0; font-size:13px; color:#64748b;">Email Address</td>
+                <td style="padding:5px 0; font-size:14px;">
+                  <a href="mailto:${email}" style="color:#0f172a; text-decoration:underline;">${email}</a>
                 </td>
               </tr>` : ''}
             </table>
           </div>
 
           ${!isContact ? `
-          <!-- CARD 2: EVENT SCHEDULE & VENUE -->
-          <div style="background:#ffffff; border:1px solid #e7ded4; border-left:4px solid #4a1525; border-radius:8px; padding:18px 20px; margin-bottom:16px; box-shadow:0 2px 6px rgba(0,0,0,0.02);">
-            <div style="font-size:11px; font-weight:700; color:#4a1525; text-transform:uppercase; letter-spacing:0.08em; margin-bottom:12px;">
-              🎪 Event &amp; Schedule Details
+          <!-- SECTION 2: VENUE & OCCASION -->
+          <div style="border:1px solid #e2e8f0; border-radius:12px; padding:18px 20px; margin-bottom:16px; background:#ffffff;">
+            <div style="font-size:12px; font-weight:700; color:#475569; text-transform:uppercase; letter-spacing:0.05em; margin-bottom:14px; border-bottom:1px solid #f1f5f9; padding-bottom:8px;">
+              Event Overview
             </div>
             <table border="0" cellpadding="0" cellspacing="0" width="100%">
               <tr>
-                <td style="padding:4px 0; font-size:14px; color:#6b7280; width:110px; vertical-align:top;"><strong>Venue Space:</strong></td>
-                <td style="padding:4px 0; font-size:14px; color:#111827; font-weight:600;">
-                  <span style="background:#f4ece1; color:#4a1525; padding:2px 10px; border-radius:12px; font-size:13px; font-weight:700; display:inline-block;">
+                <td style="padding:5px 0; font-size:13px; color:#64748b; width:120px;">Venue Space</td>
+                <td style="padding:5px 0; font-size:14px; color:#0f172a; font-weight:600;">
+                  <span style="background:#f1f5f9; color:#334155; padding:3px 10px; border-radius:6px; font-size:13px; font-weight:600;">
                     ${venue}
                   </span>
                 </td>
               </tr>
               <tr>
-                <td style="padding:4px 0; font-size:14px; color:#6b7280; vertical-align:top;"><strong>Event Occasion:</strong></td>
-                <td style="padding:4px 0; font-size:14px; color:#111827; font-weight:600;">${eventType}</td>
-              </tr>
-              <tr>
-                <td style="padding:4px 0; font-size:14px; color:#6b7280; vertical-align:top;"><strong>Date &amp; Time:</strong></td>
-                <td style="padding:4px 0; font-size:14px; color:#111827; font-weight:700;">
-                  📅 ${eventDate} &nbsp;•&nbsp; ⏰ ${eventTime}
-                </td>
-              </tr>
-            </table>
-          </div>
-
-          <!-- CARD 3: CAPACITY & BUDGET -->
-          <div style="background:#ffffff; border:1px solid #e7ded4; border-left:4px solid #16a34a; border-radius:8px; padding:18px 20px; margin-bottom:16px; box-shadow:0 2px 6px rgba(0,0,0,0.02);">
-            <div style="font-size:11px; font-weight:700; color:#16a34a; text-transform:uppercase; letter-spacing:0.08em; margin-bottom:12px;">
-              👥 Scale &amp; Budget
-            </div>
-            <table border="0" cellpadding="0" cellspacing="0" width="100%">
-              <tr>
-                <td style="padding:4px 0; font-size:14px; color:#6b7280; width:130px; vertical-align:top;"><strong>Expected Guests:</strong></td>
-                <td style="padding:4px 0; font-size:14px; color:#111827; font-weight:700;">👥 ${guests} Guests</td>
-              </tr>
-              <tr>
-                <td style="padding:4px 0; font-size:14px; color:#6b7280; vertical-align:top;"><strong>Estimated Budget:</strong></td>
-                <td style="padding:4px 0; font-size:15px; color:#16a34a; font-weight:800;">💰 ${budget}</td>
+                <td style="padding:5px 0; font-size:13px; color:#64748b;">Occasion</td>
+                <td style="padding:5px 0; font-size:14px; color:#0f172a; font-weight:600;">${eventType}</td>
               </tr>
             </table>
           </div>
           ` : ''}
 
-          <!-- CARD 4: MESSAGE / SPECIAL REQUIREMENTS -->
-          <div style="background:#faf8f5; border:1px solid #e7ded4; border-radius:8px; padding:18px 20px; margin-bottom:20px;">
-            <div style="font-size:11px; font-weight:700; color:#6b7280; text-transform:uppercase; letter-spacing:0.08em; margin-bottom:8px;">
-              📝 ${isContact ? 'Client Message' : 'Special Requirements & Notes'}
+          <!-- SECTION 3: NOTES / MESSAGE -->
+          <div style="background:#f8fafc; border:1px solid #e2e8f0; border-radius:12px; padding:18px 20px; margin-bottom:24px;">
+            <div style="font-size:12px; font-weight:700; color:#475569; text-transform:uppercase; letter-spacing:0.05em; margin-bottom:8px;">
+              ${isContact ? 'Message' : 'Special Requirements'}
             </div>
-            <div style="font-size:14px; color:#374151; line-height:1.6; white-space:pre-wrap;">
-              ${requirements}
-            </div>
+            <div style="font-size:14px; color:#334155; line-height:1.6; white-space:pre-wrap;">${requirements}</div>
           </div>
 
-          <!-- QUICK ACTION BAR -->
-          <table border="0" cellpadding="0" cellspacing="0" width="100%" style="margin-bottom:10px;">
+          <!-- ACTION BUTTONS -->
+          <table border="0" cellpadding="0" cellspacing="0" width="100%">
             <tr>
-              <td align="center" style="padding:10px 0;">
-                <a href="tel:${cleanPhone}" style="background:#4a1525; color:#ffffff; text-decoration:none; padding:12px 24px; border-radius:6px; font-weight:700; font-size:14px; display:inline-block; margin-right:8px; border:1px solid #2c0b15;">
-                  📞 Call Client Now
+              <td align="left">
+                <a href="tel:${cleanPhone}" style="background:#4f46e5; color:#ffffff; text-decoration:none; padding:11px 22px; border-radius:8px; font-weight:600; font-size:14px; display:inline-block; margin-right:10px;">
+                  Call Client
                 </a>
                 ${email !== 'Not provided' ? `
-                <a href="mailto:${email}" style="background:#ffffff; color:#4a1525; text-decoration:none; padding:12px 20px; border-radius:6px; font-weight:700; font-size:14px; display:inline-block; border:1px solid #4a1525;">
-                  ✉️ Reply to Email
+                <a href="mailto:${email}" style="background:#ffffff; color:#334155; text-decoration:none; padding:10px 20px; border-radius:8px; font-weight:600; font-size:14px; display:inline-block; border:1px solid #cbd5e1;">
+                  Send Email
                 </a>` : ''}
               </td>
             </tr>
@@ -199,17 +222,18 @@ function buildInquiryCardsHtml(data) {
 
       <!-- FOOTER -->
       <tr>
-        <td style="background:#f7f5f0; padding:16px 20px; text-align:center; border-top:1px solid #e7ded4; font-size:12px; color:#888;">
-          <div style="margin-bottom:4px; font-weight:600; color:#4a1525;">Tripura Convention Hall &amp; Open Lawn</div>
+        <td style="background:#f8fafc; padding:18px 24px; text-align:center; border-top:1px solid #e2e8f0; font-size:12px; color:#64748b;">
+          <div style="margin-bottom:4px; font-weight:700; color:#0f172a;">Tripura Convention Hall &amp; Open Lawn</div>
           <div>Angadichittampalle, Chevella Road, Telangana 501503</div>
-          <div style="margin-top:6px; color:#aaa; font-size:11px;">Automated inquiry captured from tripuraconvention.com</div>
+          <div style="margin-top:6px; color:#94a3b8; font-size:11px;">Automated inquiry captured from tripuraconvention.com</div>
         </td>
       </tr>
 
     </table>
   </div>
 </body>
-</html>`.trim();
+</html>
+`.trim();
 }
 
 export default {
